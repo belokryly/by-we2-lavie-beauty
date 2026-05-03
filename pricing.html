@@ -1,0 +1,2379 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>La Vie Beauty — Pricing &amp; Calculator · We2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  [data-theme="dark"] {
+    --bg: #0B0C0F;
+    --bg-2: #14161B;
+    --bg-3: #1B1E25;
+    --bg-elev: #1E2128;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.18);
+    --text: #F4F5F7;
+    --text-2: #A8ABB4;
+    --text-3: #6B6E76;
+    --shadow-card: 0 12px 40px -12px rgba(0,0,0,0.5);
+    --highlight: linear-gradient(135deg, #F4F5F7 0%, #BFC8D6 50%, #8A8E96 100%);
+    --accent-green: #25D85A;
+    --accent-green-bg: rgba(37, 216, 90, 0.1);
+    --accent-blue: #6496FF;
+  }
+  [data-theme="light"] {
+    --bg: #F7F7F9;
+    --bg-2: #FFFFFF;
+    --bg-3: #EEEFF2;
+    --bg-elev: #FFFFFF;
+    --border: rgba(0, 0, 0, 0.08);
+    --border-strong: rgba(0, 0, 0, 0.16);
+    --text: #0A0B0D;
+    --text-2: #525560;
+    --text-3: #8A8E96;
+    --shadow-card: 0 12px 40px -12px rgba(0,0,0,0.08);
+    --highlight: linear-gradient(135deg, #0A0B0D 0%, #525560 100%);
+    --accent-green: #1AA84A;
+    --accent-green-bg: rgba(26, 168, 74, 0.1);
+    --accent-blue: #2D6FE8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.4s, color 0.4s;
+    padding-bottom: 120px; /* space for sticky calculator */
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(circle 700px at 5% 0%, rgba(232, 233, 236, 0.05), transparent 60%),
+      radial-gradient(circle 900px at 100% 80%, rgba(191, 200, 214, 0.04), transparent 60%);
+  }
+  [data-theme="light"] body::before { opacity: 0.4; }
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; }
+
+  /* ===== Top bar ===== */
+  .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(11, 12, 15, 0.72);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border-bottom: 1px solid var(--border);
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  [data-theme="light"] .top-bar { background: rgba(247, 247, 249, 0.78); }
+  .top-bar-cross-nav {
+    display: flex;
+    gap: 0.4rem;
+  }
+  .cross-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.9rem;
+    background: var(--bg-3);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    transition: background 0.25s, border-color 0.25s, transform 0.2s;
+  }
+  .cross-nav-link:hover {
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
+    transform: translateY(-1px);
+  }
+  .cross-nav-link svg { flex-shrink: 0; opacity: 0.7; }
+  .cross-nav-link:hover svg { opacity: 1; }
+  @media (max-width: 600px) {
+    .cross-nav-link { padding: 0.4rem 0.7rem; font-size: 0.58rem; gap: 0.35rem; }
+    .cross-nav-link .lbl-long { display: none; }
+  }
+  .controls { display: flex; gap: 0.5rem; }
+  .toggle-group {
+    display: flex;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 3px;
+    position: relative;
+  }
+  .toggle-group button {
+    background: transparent;
+    border: none;
+    padding: 0.4rem 0.85rem;
+    font-family: inherit;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    cursor: pointer;
+    border-radius: 100px;
+    transition: color 0.3s;
+    z-index: 1;
+    position: relative;
+    min-width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .toggle-group button.active { color: var(--bg); }
+  .toggle-group::before {
+    content: '';
+    position: absolute;
+    top: 3px; bottom: 3px;
+    background: var(--text);
+    border-radius: 100px;
+    transition: left 0.35s, width 0.35s;
+    z-index: 0;
+  }
+  .toggle-group[data-active="0"]::before { left: 3px; width: calc(50% - 3px); }
+  .toggle-group[data-active="1"]::before { left: 50%; width: calc(50% - 3px); }
+
+  [data-lang="en"] [lang="ru"] { display: none; }
+  [data-lang="ru"] [lang="en"] { display: none; }
+
+  /* ===== Section base ===== */
+  .pricing { padding: 4rem 0 4rem; }
+  .pricing-head {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .pricing-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    margin-bottom: 1.5rem;
+  }
+  .pricing-eyebrow::before {
+    content: '$';
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--text);
+    color: var(--bg);
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+  }
+  .pricing-head h2 {
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .pricing-head p {
+    color: var(--text-2);
+    max-width: 580px;
+    margin: 0 auto;
+    font-size: 1rem;
+  }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 0 0 2rem;
+  }
+  .section-divider .num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--text-3);
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .section-divider h3 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .section-divider .line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section-intro {
+    color: var(--text-2);
+    font-size: 0.95rem;
+    max-width: 720px;
+    margin-bottom: 2rem;
+    line-height: 1.65;
+  }
+
+  /* ===== Block 1: Site (with selector) ===== */
+  .site-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 5rem;
+  }
+  @media (max-width: 820px) { .site-card { padding: 2rem 1.5rem; } }
+  .site-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle 400px at 100% 0%, rgba(232, 233, 236, 0.04), transparent 60%);
+    pointer-events: none;
+  }
+  .site-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+  @media (max-width: 820px) {
+    .site-card-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  .site-card-left .label {
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 0.8rem;
+  }
+  .site-card-left h3 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .site-card-left .desc {
+    color: var(--text-2);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin-bottom: 2rem;
+  }
+  .site-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+  .site-price .currency {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-2);
+  }
+  .site-price .amount {
+    font-size: clamp(3.5rem, 7vw, 5rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    background: var(--highlight);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .site-price-note {
+    font-size: 0.78rem;
+    color: var(--text-3);
+    letter-spacing: 0.06em;
+  }
+
+  .site-card-right h4 {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 1.2rem;
+  }
+  .includes-list { list-style: none; }
+  .includes-list li {
+    display: flex;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .includes-list li:last-child { border-bottom: none; }
+  .includes-list .check {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--text);
+    color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.72rem;
+    margin-top: 1px;
+  }
+  .includes-list .item-name {
+    font-weight: 600;
+    font-size: 0.92rem;
+    margin-bottom: 0.15rem;
+    display: block;
+  }
+  .includes-list .item-desc {
+    color: var(--text-2);
+    font-size: 0.83rem;
+    line-height: 1.5;
+  }
+
+  /* ===== Hosting / Add-on cards (selectable) ===== */
+  .opt-grid {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 5rem;
+  }
+  .opt-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .opt-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .opt-grid.cols-1 { grid-template-columns: 1fr; }
+  @media (max-width: 980px) {
+    .opt-grid.cols-3 { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 820px) {
+    .opt-grid.cols-2 { grid-template-columns: 1fr; }
+    .opt-grid.cols-3 { grid-template-columns: 1fr; }
+  }
+
+  .opt-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.8rem;
+    transition: all 0.3s;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+  }
+  .opt-card:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+  }
+  .opt-card.selected {
+    border-color: var(--text);
+    background: var(--bg-elev);
+    box-shadow: 0 0 0 3px var(--text), var(--shadow-card);
+  }
+  [data-theme="light"] .opt-card.selected {
+    box-shadow: 0 0 0 2px var(--text), var(--shadow-card);
+  }
+  .opt-card .checkbox {
+    position: absolute;
+    top: 1.4rem; right: 1.4rem;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--border-strong);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .opt-card.selected .checkbox {
+    background: var(--text);
+    border-color: var(--text);
+  }
+  .opt-card.selected .checkbox::after {
+    content: '✓';
+    color: var(--bg);
+    font-weight: 800;
+    font-size: 0.85rem;
+  }
+  .opt-card .tag {
+    display: inline-block;
+    padding: 0.25rem 0.65rem;
+    border-radius: 100px;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .opt-card .tag.included {
+    background: var(--accent-green-bg);
+    color: var(--accent-green);
+  }
+  .opt-card .tag.recommended {
+    background: var(--text);
+    color: var(--bg);
+  }
+  .opt-card .tag.alternative {
+    background: rgba(100, 150, 255, 0.1);
+    color: var(--accent-blue);
+  }
+  .opt-card .icon-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  .opt-card .icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .opt-card h4 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    padding-right: 2rem;
+  }
+  .opt-card .price-line {
+    font-size: 0.88rem;
+    color: var(--text-2);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .opt-card .price-line .strong {
+    color: var(--text);
+    font-weight: 800;
+  }
+  .opt-card .desc {
+    color: var(--text-2);
+    font-size: 0.86rem;
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+  .opt-feats {
+    list-style: none;
+    margin-top: 0.5rem;
+  }
+  .opt-feats li {
+    padding: 0.35rem 0 0.35rem 1.4rem;
+    font-size: 0.82rem;
+    color: var(--text-2);
+    position: relative;
+    line-height: 1.5;
+  }
+  .opt-feats li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.85rem;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--text);
+    opacity: 0.6;
+  }
+  .opt-feats li strong { color: var(--text); }
+
+  /* Mutually-exclusive group hint */
+  .mutex-note {
+    font-size: 0.75rem;
+    color: var(--text-3);
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+
+  /* ===== Care plans ===== */
+  .care-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  @media (max-width: 820px) { .care-grid { grid-template-columns: 1fr; } }
+
+  .care-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    transition: all 0.3s;
+    cursor: pointer;
+    user-select: none;
+  }
+  .care-card:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+  }
+  .care-card.selected {
+    border-color: var(--text);
+    box-shadow: 0 0 0 3px var(--text), var(--shadow-card);
+  }
+  [data-theme="light"] .care-card.selected {
+    box-shadow: 0 0 0 2px var(--text), var(--shadow-card);
+  }
+  .care-card .checkbox {
+    position: absolute;
+    top: 1.4rem; right: 1.4rem;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--border-strong);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .care-card.selected .checkbox {
+    background: var(--text);
+    border-color: var(--text);
+  }
+  .care-card.selected .checkbox::after {
+    content: '✓';
+    color: var(--bg);
+    font-weight: 800;
+    font-size: 0.85rem;
+  }
+  .care-card.popular::before {
+    content: 'Most popular';
+    position: absolute;
+    top: -10px; left: 1.5rem;
+    padding: 0.3rem 0.7rem;
+    background: var(--accent-green);
+    color: #0A0B0D;
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-radius: 100px;
+  }
+  [data-lang="ru"] .care-card.popular::before { content: 'Популярный'; }
+  .care-tier {
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 0.6rem;
+  }
+  .care-name {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.015em;
+    padding-right: 2.5rem;
+  }
+  .care-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .care-price-cur {
+    font-size: 1rem;
+    font-weight: 700;
+    opacity: 0.7;
+  }
+  .care-price-amt {
+    font-size: 2.6rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .care-price-period {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-3);
+  }
+  .care-feats { list-style: none; }
+  .care-feats li {
+    padding: 0.55rem 0 0.55rem 1.6rem;
+    font-size: 0.86rem;
+    color: var(--text-2);
+    position: relative;
+    line-height: 1.5;
+  }
+  .care-feats li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.85rem;
+    width: 12px; height: 6px;
+    border-left: 2px solid var(--text);
+    border-bottom: 2px solid var(--text);
+    transform: rotate(-45deg);
+    border-radius: 1px;
+  }
+  .care-feats li strong { color: var(--text); }
+
+  .care-billing-toggle {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .care-billing-toggle .label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-2);
+  }
+  .care-billing-toggle .savings {
+    margin-left: auto;
+    background: var(--accent-green-bg);
+    color: var(--accent-green);
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .billing-switch {
+    display: flex;
+    background: var(--bg-3);
+    border-radius: 100px;
+    padding: 3px;
+    position: relative;
+  }
+  .billing-switch button {
+    background: transparent;
+    border: none;
+    padding: 0.45rem 1rem;
+    font-family: inherit;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    cursor: pointer;
+    border-radius: 100px;
+    z-index: 1;
+    position: relative;
+  }
+  .billing-switch button.active { color: var(--bg); }
+  .billing-switch::before {
+    content: '';
+    position: absolute;
+    top: 3px; bottom: 3px;
+    background: var(--text);
+    border-radius: 100px;
+    transition: left 0.35s, width 0.35s;
+    z-index: 0;
+  }
+  .billing-switch[data-active="0"]::before { left: 3px; width: calc(50% - 3px); }
+  .billing-switch[data-active="1"]::before { left: 50%; width: calc(50% - 3px); }
+
+  .care-no-plan {
+    text-align: center;
+    color: var(--text-2);
+    font-size: 0.84rem;
+    padding: 1rem 1.5rem;
+    background: var(--bg-3);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    margin-bottom: 5rem;
+  }
+  .care-no-plan strong { color: var(--text); }
+
+  /* ===== Quote Calculator (sticky) ===== */
+  .quote-bar {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 60;
+    background: var(--text);
+    color: var(--bg);
+    border-radius: 16px;
+    padding: 0.9rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+    width: calc(100% - 2rem);
+    max-width: 720px;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s;
+  }
+  .quote-bar.expanded {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.5rem;
+    gap: 0;
+  }
+  .quote-bar .summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    cursor: pointer;
+    min-width: 0;
+  }
+  .quote-bar .icon-q {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.06);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  [data-theme="light"] .quote-bar .icon-q { background: rgba(255,255,255,0.1); }
+  .quote-bar .total-block { display: flex; flex-direction: column; min-width: 0; }
+  .quote-bar .total-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+  .quote-bar .total-amount {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .quote-bar .total-monthly {
+    font-size: 0.72rem;
+    opacity: 0.65;
+    margin-top: 1px;
+  }
+  .quote-bar .expand-btn {
+    background: transparent;
+    border: 1px solid currentColor;
+    color: inherit;
+    padding: 0.45rem 0.8rem;
+    border-radius: 100px;
+    font-family: inherit;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-right: 0.4rem;
+    flex-shrink: 0;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .quote-bar .expand-btn:hover { opacity: 1; }
+  .quote-bar .send-btn {
+    background: var(--bg);
+    color: var(--text);
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 100px;
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.2s;
+  }
+  .quote-bar .send-btn:hover { transform: scale(1.04); }
+
+  .quote-bar.expanded .summary { width: 100%; }
+  .quote-bar .breakdown {
+    display: none;
+    width: 100%;
+    margin-top: 1.2rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+  [data-theme="light"] .quote-bar .breakdown { border-top-color: rgba(255,255,255,0.15); }
+  .quote-bar.expanded .breakdown { display: block; }
+  .breakdown-section {
+    margin-bottom: 1.2rem;
+  }
+  .breakdown-section-title {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 0.6rem;
+  }
+  .breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.45rem 0;
+    font-size: 0.86rem;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  [data-theme="light"] .breakdown-row { border-bottom-color: rgba(255,255,255,0.1); }
+  .breakdown-row .name { font-weight: 600; opacity: 0.9; }
+  .breakdown-row .value { font-weight: 700; white-space: nowrap; }
+  .breakdown-empty {
+    text-align: center;
+    padding: 1rem;
+    opacity: 0.5;
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+  .quote-bar .actions-row {
+    display: flex;
+    gap: 0.7rem;
+    margin-top: 1.2rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+  }
+  [data-theme="light"] .quote-bar .actions-row { border-top-color: rgba(255,255,255,0.15); }
+  .quote-bar.expanded .actions-row { display: flex; }
+  .quote-bar:not(.expanded) .actions-row { display: none; }
+  .quote-bar .actions-row .send-btn { flex: 1; justify-content: center; padding: 0.95rem 1rem; font-size: 0.74rem; }
+
+  @media (max-width: 600px) {
+    .quote-bar { padding: 0.8rem 0.9rem; gap: 0.7rem; }
+    .quote-bar .total-amount { font-size: 1.2rem; }
+    .quote-bar .send-btn { padding: 0.6rem 0.9rem; font-size: 0.62rem; letter-spacing: 0.1em; }
+    .quote-bar .expand-btn { display: none; }
+    .quote-bar .icon-q { display: none; }
+  }
+
+  /* ===== Modal: contact form for sending the quote ===== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(20px);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: auto; }
+  .modal {
+    background: var(--bg-2);
+    border: 1px solid var(--border-strong);
+    border-radius: 18px;
+    max-width: 520px;
+    width: 100%;
+    padding: 2.5rem;
+    transform: scale(0.96);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal-overlay.open .modal { transform: scale(1); }
+  @media (max-width: 600px) { .modal { padding: 1.8rem 1.4rem; } }
+
+  .modal h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .modal .modal-sub {
+    color: var(--text-2);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.55;
+  }
+  .modal .form-row { margin-bottom: 1rem; }
+  .modal label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    margin-bottom: 0.4rem;
+  }
+  .modal input,
+  .modal textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.92rem;
+    border-radius: 10px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .modal input:focus,
+  .modal textarea:focus {
+    outline: none;
+    border-color: var(--text);
+    background: var(--bg-elev);
+  }
+  .modal textarea { min-height: 80px; resize: vertical; }
+  .modal .submit-row {
+    display: flex;
+    gap: 0.7rem;
+    margin-top: 1.5rem;
+  }
+  .modal .btn-primary {
+    flex: 1;
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    padding: 1rem 1.5rem;
+    border-radius: 100px;
+    font-family: inherit;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .modal .btn-primary:hover { transform: translateY(-2px); }
+  .modal .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+    padding: 1rem 1.5rem;
+    border-radius: 100px;
+    font-family: inherit;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .modal-success {
+    display: none;
+    padding: 1rem;
+    background: var(--accent-green-bg);
+    border: 1px solid var(--accent-green);
+    color: var(--accent-green);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 0.88rem;
+    margin-top: 1rem;
+    font-weight: 600;
+  }
+  .modal-success.show { display: block; }
+
+  /* ============ PHOTO SLIDER ============ */
+  .photo-widget {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 1rem;
+  }
+  .photo-widget-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.6rem;
+    flex-wrap: wrap;
+  }
+  .photo-widget .icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .photo-widget h4 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.01em;
+  }
+  .photo-widget .photo-desc {
+    font-size: 0.86rem;
+    color: var(--text-2);
+    line-height: 1.55;
+    flex: 1;
+    min-width: 220px;
+  }
+  .photo-readout {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .photo-readout .count-display {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .photo-readout .count-num {
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .photo-readout .count-label {
+    font-size: 0.78rem;
+    color: var(--text-2);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .photo-readout .photo-price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .photo-readout .photo-price small {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--text-3);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-left: 0.4rem;
+  }
+  .photo-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 100px;
+    background: var(--bg-3);
+    outline: none;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    margin: 0.5rem 0 0.3rem;
+  }
+  .photo-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--text);
+    cursor: pointer;
+    border: 4px solid var(--bg-2);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35), 0 0 0 1px var(--border-strong);
+    transition: transform 0.15s;
+  }
+  .photo-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  .photo-slider::-webkit-slider-thumb:active { transform: scale(0.95); }
+  .photo-slider::-moz-range-thumb {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--text);
+    cursor: pointer;
+    border: 4px solid var(--bg-2);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35), 0 0 0 1px var(--border-strong);
+  }
+  .photo-slider-ticks {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    padding: 0 4px;
+  }
+  .photo-slider-ticks span {
+    font-size: 0.68rem;
+    color: var(--text-3);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+
+  /* ============ MODAL: SUMMARY OF QUOTE ============ */
+  .modal-quote-summary {
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem 1.3rem;
+    margin-bottom: 1.4rem;
+    max-height: 280px;
+    overflow-y: auto;
+  }
+  .modal-quote-summary .summary-section {
+    margin-bottom: 0.9rem;
+  }
+  .modal-quote-summary .summary-section:last-child { margin-bottom: 0; }
+  .modal-quote-summary .summary-title {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 0.5rem;
+  }
+  .modal-quote-summary .summary-row {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 0.85rem;
+  }
+  .modal-quote-summary .summary-row:last-child { border-bottom: none; }
+  .modal-quote-summary .summary-row .name {
+    flex: 1;
+    color: var(--text);
+    font-weight: 600;
+  }
+  .modal-quote-summary .summary-row .value {
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .modal-quote-summary .summary-row .remove-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.7rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    padding: 0;
+  }
+  .modal-quote-summary .summary-row .remove-btn:hover {
+    border-color: #FF6B6B;
+    color: #FF6B6B;
+    transform: scale(1.1);
+  }
+  .modal-quote-summary .summary-row .remove-btn[data-locked="true"] {
+    opacity: 0.25;
+    cursor: not-allowed;
+  }
+  .modal-quote-summary .summary-row .remove-btn[data-locked="true"]:hover {
+    border-color: var(--border);
+    color: var(--text-2);
+    transform: none;
+  }
+  .modal-quote-summary .summary-totals {
+    margin-top: 0.7rem;
+    padding-top: 0.7rem;
+    border-top: 1.5px solid var(--text);
+  }
+  .modal-quote-summary .total-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    font-weight: 700;
+    font-size: 0.94rem;
+  }
+  .modal-quote-summary .total-row.recurring {
+    font-size: 0.82rem;
+    color: var(--text-2);
+    font-weight: 600;
+  }
+
+</style>
+</head>
+<body>
+
+<header class="top-bar">
+  <div class="top-bar-cross-nav">
+    <a href="guide.html" class="cross-nav-link" aria-label="Back to guide">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      <span class="lbl-long"><span lang="en">Guide</span><span lang="ru">Гайд</span></span>
+    </a>
+    <a href="index.html?from=pricing" target="_blank" class="cross-nav-link" aria-label="Open live site">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      <span class="lbl-long"><span lang="en">Live site</span><span lang="ru">Сайт</span></span>
+    </a>
+  </div>
+  <div class="controls">
+    <div class="toggle-group" data-active="0" id="langToggle">
+      <button data-lang-set="en" class="active">EN</button>
+      <button data-lang-set="ru">RU</button>
+    </div>
+    <div class="toggle-group" data-active="0" id="themeToggle">
+      <button data-theme-set="dark" class="active" aria-label="Dark theme">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button data-theme-set="light" aria-label="Light theme">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="pricing">
+  <div class="container">
+
+    <div class="pricing-head">
+      <span class="pricing-eyebrow">
+        <span lang="en">Pricing &amp; Calculator</span>
+        <span lang="ru">Стоимость и калькулятор</span>
+      </span>
+      <h2>
+        <span lang="en">Pick what you need.<br>Get an instant quote.</span>
+        <span lang="ru">Выберите что нужно.<br>Получите смету сразу.</span>
+      </h2>
+      <p>
+        <span lang="en">Tap any card to add it to your quote — it'll appear in the bar at the bottom of the screen. When you're done, send the quote to us in one click.</span>
+        <span lang="ru">Нажмите на любую карточку, чтобы добавить её в смету — она появится внизу экрана. Когда закончите — отправьте смету одним нажатием.</span>
+      </p>
+    </div>
+
+    <!-- ============ BLOCK 1: The site (always included) ============ -->
+    <div class="site-card">
+      <div class="site-card-grid">
+        <div class="site-card-left">
+          <span class="label">
+            <span lang="en">The Website · always included</span>
+            <span lang="ru">Сайт · всегда включён</span>
+          </span>
+          <h3>
+            <span lang="en">A premium one-page concept like the one above.</span>
+            <span lang="ru">Премиум-лендинг как тот, что выше.</span>
+          </h3>
+          <p class="desc">
+            <span lang="en">Custom design, mobile-first, ready to launch. One flat price covers design, build, and a guided launch — including the booking form with built-in upsell.</span>
+            <span lang="ru">Кастомный дизайн, mobile-first, готов к запуску. Одна фиксированная цена включает дизайн, сборку и сопровождённый запуск — вместе с букинг-формой со встроенной допродажей.</span>
+          </p>
+          <div class="site-price">
+            <span class="currency">$</span>
+            <span class="amount">1,000</span>
+          </div>
+          <span class="site-price-note">
+            <span lang="en">One-time · 50% upfront</span>
+            <span lang="ru">Разовая оплата · 50% предоплата</span>
+          </span>
+        </div>
+
+        <div class="site-card-right">
+          <h4>
+            <span lang="en">What's included</span>
+            <span lang="ru">Что входит</span>
+          </h4>
+          <ul class="includes-list">
+            <li>
+              <span class="check">✓</span>
+              <div>
+                <span class="item-name"><span lang="en">Custom design &amp; build</span><span lang="ru">Кастомный дизайн и сборка</span></span>
+                <span class="item-desc"><span lang="en">Cinematic landing page tailored to your brand — desktop &amp; mobile.</span><span lang="ru">Кинематографичный лендинг под ваш бренд — десктоп и мобильная версии.</span></span>
+              </div>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <div>
+                <span class="item-name"><span lang="en">Your copy, placed and polished</span><span lang="ru">Ваши тексты, размещённые и отполированные</span></span>
+                <span class="item-desc"><span lang="en">Send us your text or a brief — we put it on the site. Sample copy on this concept can be replaced 1-for-1.</span><span lang="ru">Пришлёте текст или ТЗ — разместим на сайте. Тексты концепта меняются один к одному.</span></span>
+              </div>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <div>
+                <span class="item-name"><span lang="en">Your photos, placed</span><span lang="ru">Ваши фото, размещённые</span></span>
+                <span class="item-desc"><span lang="en">You provide the images, we integrate them into each section.</span><span lang="ru">Вы предоставляете фотографии, мы встраиваем их в каждую секцию.</span></span>
+              </div>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <div>
+                <span class="item-name"><span lang="en">Basic SEO setup</span><span lang="ru">Базовое SEO</span></span>
+                <span class="item-desc"><span lang="en">Meta tags, sitemap, Google Search Console — so Google can find and rank your site.</span><span lang="ru">Мета-теги, sitemap, Google Search Console — чтобы Google видел и ранжировал ваш сайт.</span></span>
+              </div>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <div>
+                <span class="item-name"><span lang="en">3-step booking form with upsell</span><span lang="ru">3-шаговая форма записи с допродажей</span></span>
+                <span class="item-desc"><span lang="en">Service → Pair It With → Details. Submissions land in your inbox; the upsell step quietly lifts your average ticket.</span><span lang="ru">Услуга → Pair It With → Контакты. Заявки приходят на email; шаг допродажи тихо поднимает средний чек.</span></span>
+              </div>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <div>
+                <span class="item-name"><span lang="en">Light / dark themes</span><span lang="ru">Светлая и тёмная темы</span></span>
+                <span class="item-desc"><span lang="en">Day &amp; evening palette — guests browsing at night get a comfortable site, not a glowing one.</span><span lang="ru">Дневная и вечерняя палитры — гость, листающий вечером, видит комфортный сайт, а не «фонарь».</span></span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ BLOCK 2: Hosting (mutex group) ============ -->
+    <div class="section-divider">
+      <span class="num">02</span>
+      <h3>
+        <span lang="en">Where the site lives</span>
+        <span lang="ru">Где будет жить сайт</span>
+      </h3>
+      <span class="line"></span>
+    </div>
+    <p class="mutex-note">
+      <span lang="en">Pick one — these options are mutually exclusive.</span>
+      <span lang="ru">Выберите один — варианты взаимоисключающие.</span>
+    </p>
+    <div class="opt-grid cols-3" data-group="hosting" data-mutex="true">
+
+      <div class="opt-card selected" data-id="host-we2" data-price="0">
+        <span class="checkbox"></span>
+        <span class="tag included">
+          <span lang="en">Included</span>
+          <span lang="ru">Бесплатно</span>
+        </span>
+        <div class="icon-row">
+          <div class="icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h4>
+            <span lang="en">Hosted by We2</span>
+            <span lang="ru">Хостинг We2</span>
+          </h4>
+        </div>
+        <div class="price-line">
+          <span class="strong">$0</span> <span lang="en">— included with the website</span><span lang="ru">— включено в сайт</span>
+        </div>
+        <p class="desc">
+          <span lang="en">We host the new site on our infrastructure under a clean subdomain — fastest path to launch, zero technical setup on your side.</span>
+          <span lang="ru">Размещаем новый сайт у нас на поддомене — самый быстрый путь до запуска, ноль технической возни с вашей стороны.</span>
+        </p>
+        <ul class="opt-feats">
+          <li><span lang="en">Subdomain like <strong>lavie.we2.studio</strong></span><span lang="ru">Поддомен типа <strong>lavie.we2.studio</strong></span></li>
+          <li><span lang="en">Fast global CDN, free SSL</span><span lang="ru">Быстрый глобальный CDN, бесплатный SSL</span></li>
+          <li><span lang="en">Nothing for you to manage</span><span lang="ru">Вам ничем не нужно заниматься</span></li>
+        </ul>
+      </div>
+
+      <div class="opt-card" data-id="host-transfer" data-price="0">
+        <span class="checkbox"></span>
+        <span class="tag recommended">
+          <span lang="en">Recommended</span>
+          <span lang="ru">Рекомендуем</span>
+        </span>
+        <div class="icon-row">
+          <div class="icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          </div>
+          <h4>
+            <span lang="en">Transfer your existing domain</span>
+            <span lang="ru">Перенос существующего домена</span>
+          </h4>
+        </div>
+        <div class="price-line">
+          <span class="strong">$0</span> <span lang="en">— included if your domain is already with a registrar</span><span lang="ru">— бесплатно, если домен уже у регистратора</span>
+        </div>
+        <p class="desc">
+          <span lang="en">You already own <strong>beautysalonlavie.com</strong>. We point it at the new site, set up SSL, redirect old URLs, and hand it back fully under your account. No renaming, no SEO drop, no moving parts on your end.</span>
+          <span lang="ru">У вас уже есть <strong>beautysalonlavie.com</strong>. Перенаправляем его на новый сайт, настраиваем SSL, делаем редиректы со старых URL — и оставляем под вашей учёткой. Имя не меняется, SEO не теряется, с вашей стороны ничего делать не нужно.</span>
+        </p>
+        <ul class="opt-feats">
+          <li><span lang="en">Site lives at <strong>beautysalonlavie.com</strong></span><span lang="ru">Сайт живёт на <strong>beautysalonlavie.com</strong></span></li>
+          <li><span lang="en">DNS, SSL, redirects — all handled by us</span><span lang="ru">DNS, SSL, редиректы — на нас</span></li>
+          <li><span lang="en">Old SEO equity preserved</span><span lang="ru">SEO-история сохраняется</span></li>
+        </ul>
+      </div>
+
+      <div class="opt-card" data-id="host-own" data-price="150">
+        <span class="checkbox"></span>
+        <span class="tag alternative">
+          <span lang="en">If needed</span>
+          <span lang="ru">Если нужно</span>
+        </span>
+        <div class="icon-row">
+          <div class="icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h4>
+            <span lang="en">New server + full migration</span>
+            <span lang="ru">Новый сервер + полный перенос</span>
+          </h4>
+        </div>
+        <div class="price-line">
+          <span class="strong">$150</span> <span lang="en">one-time setup</span><span lang="ru">разовая настройка</span>
+        </div>
+        <p class="desc">
+          <span lang="en">If your domain isn't on a transfer-friendly registrar, or you want fully independent hosting under your own account, we set up a fresh server stack and migrate everything — DNS, mailboxes, SSL.</span>
+          <span lang="ru">Если домен не у переноса-friendly регистратора, или вы хотите полностью независимый хостинг под своей учёткой — мы поднимаем свежий стек и переносим всё: DNS, почту, SSL.</span>
+        </p>
+        <ul class="opt-feats">
+          <li><span lang="en">Independent hosting under your own account</span><span lang="ru">Независимый хостинг под вашей учёткой</span></li>
+          <li><span lang="en">All logins delivered to you</span><span lang="ru">Все логины передаются вам</span></li>
+          <li><span lang="en">One-time setup fee, no monthly</span><span lang="ru">Разовая настройка, без ежемесячных платежей</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- ============ BLOCK 3: Photo polish counter ============ -->
+    <div class="section-divider">
+      <span class="num">03</span>
+      <h3>
+        <span lang="en">Photos</span>
+        <span lang="ru">Фотографии</span>
+      </h3>
+      <span class="line"></span>
+    </div>
+    <p class="section-intro">
+      <span lang="en">For service-section banners, gallery shots, and on-page decorative images. Retouch your existing photos, or design fresh on-brand visuals when you don't have a usable original — both billed per image at the same rate.</span>
+      <span lang="ru">Для баннеров секций услуг, фото в галерее и декоративных изображений. Ретушь ваших фото — или дизайн нового визуала в стиле бренда, если у вас нет подходящего исходника. Оба варианта тарифицируются за изображение по одной ставке.</span>
+    </p>
+
+    <div class="photo-widget">
+      <div class="photo-widget-head">
+        <div class="icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="photo-desc">
+          <h4><span lang="en">Photo polish or custom visuals</span><span lang="ru">Обработка фото или кастомные визуалы</span></h4>
+          <span>
+            <span lang="en">Slide to choose how many images you'd like done — retouching of yours, or fresh visuals designed to match the site.</span>
+            <span lang="ru">Перетащите ползунок, чтобы выбрать количество изображений — ретушь ваших или новые визуалы под стиль сайта.</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="photo-readout">
+        <div class="count-display">
+          <span class="count-num" id="photoCount">0</span>
+          <span class="count-label">
+            <span lang="en"><span id="photoLabel">images</span></span>
+            <span lang="ru"><span id="photoLabelRu">шт</span></span>
+          </span>
+        </div>
+        <div class="photo-price">
+          $<span id="photoPriceTotal">0</span>
+          <small>
+            <span lang="en">$10 / image</span>
+            <span lang="ru">$10 / фото</span>
+          </small>
+        </div>
+      </div>
+
+      <input type="range" min="0" max="20" value="0" step="1" class="photo-slider" id="photoSlider" aria-label="Number of images">
+      <div class="photo-slider-ticks">
+        <span>0</span><span>5</span><span>10</span><span>15</span><span>20</span>
+      </div>
+    </div>
+    <div style="margin-bottom: 5rem;"></div>
+
+    <!-- ============ BLOCK 4: Stylist portraits — fixed cost ============ -->
+    <div class="section-divider">
+      <span class="num">04</span>
+      <h3>
+        <span lang="en">Stylist portraits — refresh &amp; retouch</span>
+        <span lang="ru">Портреты мастеров — обновление и ретушь</span>
+      </h3>
+      <span class="line"></span>
+    </div>
+    <p class="section-intro">
+      <span lang="en">A separate one-time service from the photos slider above. We take the existing portraits of all five stylists, retouch them, replace the messy backgrounds with on-brand soft tones, and unify the look across the team — so the team grid finally feels like one team, not five different days.</span>
+      <span lang="ru">Отдельная разовая услуга, не из слайдера выше. Мы берём существующие портреты всех пяти мастеров, ретушируем их, заменяем «зашумлённый» фон на мягкий брендовый, и приводим всю команду к единому виду — чтобы блок «Meet the team» наконец выглядел как одна команда, а не пять разных съёмочных дней.</span>
+    </p>
+
+    <div class="opt-grid cols-1" data-group="portraits">
+
+      <div class="opt-card" data-id="portraits-5" data-price="200">
+        <span class="checkbox"></span>
+        <span class="tag recommended">
+          <span lang="en">Highly recommended</span>
+          <span lang="ru">Очень рекомендуем</span>
+        </span>
+        <div class="icon-row">
+          <div class="icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h4>
+            <span lang="en">Portrait pack · 5 stylists</span>
+            <span lang="ru">Пакет портретов · 5 мастеров</span>
+          </h4>
+        </div>
+        <div class="price-line">
+          <span class="strong">$200</span> <span lang="en">flat · all five portraits</span><span lang="ru">фикс · все пять портретов</span>
+        </div>
+        <p class="desc">
+          <span lang="en">The single highest-impact upgrade we can make to the team section. The current site has two stylists shown as <em>"Demo image 363×500"</em> and one photo reused twice — fixing that alone changes how the salon reads.</span>
+          <span lang="ru">Самое заметное улучшение, которое мы можем сделать в блоке команды. На текущем сайте у двух мастеров стоит <em>«Demo image 363×500»</em>, а одно фото повторяется дважды — исправление этого одного блока меняет восприятие салона целиком.</span>
+        </p>
+        <ul class="opt-feats">
+          <li><span lang="en">Skin retouch — even tone, no harsh airbrush</span><span lang="ru">Ретушь кожи — ровный тон, без жёсткого аэрографа</span></li>
+          <li><span lang="en">Background replaced with on-brand soft tone (warm bone or deep botanical)</span><span lang="ru">Фон меняем на брендовый мягкий тон (warm bone или botanical)</span></li>
+          <li><span lang="en">Crop, color &amp; lighting unified across the whole team</span><span lang="ru">Кроп, цвет и свет — единые для всей команды</span></li>
+          <li><span lang="en">Two new portraits sourced if needed (Mustafa, Alex) — your existing photos used where available</span><span lang="ru">Если нужно — берём по два новых портрета (Mustafa, Alex), там где есть ваши фото — используем их</span></li>
+          <li><span lang="en">Delivered as web-ready WebP + an archive of full-resolution originals</span><span lang="ru">Отдаём web-ready WebP + архив исходников в полном разрешении</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div style="margin-bottom: 5rem;"></div>
+
+    <!-- ============ BLOCK 5: Notifications (mutex-ish, but allow combined) ============ -->
+    <div class="section-divider">
+      <span class="num">05</span>
+      <h3>
+        <span lang="en">Booking notifications</span>
+        <span lang="ru">Уведомления о заявках</span>
+      </h3>
+      <span class="line"></span>
+    </div>
+    <p class="section-intro">
+      <span lang="en">Email is already included with the booking form. Add Telegram, WhatsApp, or both — for cases when a booking comes in while the team is busy on the floor.</span>
+      <span lang="ru">Email уже включён в букинг-форму. Добавьте Telegram, WhatsApp или оба — на случаи, когда заявка приходит, пока команда занята с гостями.</span>
+    </p>
+
+    <div class="opt-grid cols-2" data-group="notify" data-mutex="true">
+
+      <div class="opt-card" data-id="notify-one" data-price="50">
+        <span class="checkbox"></span>
+        <div class="icon-row">
+          <div class="icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h4>
+            <span lang="en">Telegram or WhatsApp</span>
+            <span lang="ru">Telegram или WhatsApp</span>
+          </h4>
+        </div>
+        <div class="price-line">
+          <span class="strong">$50</span> <span lang="en">one-time</span><span lang="ru">разово</span>
+        </div>
+        <p class="desc">
+          <span lang="en">Pick one messenger — submissions arrive instantly on top of email.</span>
+          <span lang="ru">Один мессенджер на выбор — заявки приходят мгновенно в дополнение к email.</span>
+        </p>
+      </div>
+
+      <div class="opt-card" data-id="notify-both" data-price="80">
+        <span class="checkbox"></span>
+        <span class="tag recommended">
+          <span lang="en">Best value</span>
+          <span lang="ru">Выгодно</span>
+        </span>
+        <div class="icon-row">
+          <div class="icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <h4>
+            <span lang="en">Telegram &amp; WhatsApp</span>
+            <span lang="ru">Telegram и WhatsApp</span>
+          </h4>
+        </div>
+        <div class="price-line">
+          <span class="strong">$80</span> <span lang="en">one-time · save $20</span><span lang="ru">разово · −$20</span>
+        </div>
+        <p class="desc">
+          <span lang="en">Full coverage — submissions ping both messengers plus email.</span>
+          <span lang="ru">Полное покрытие — заявки идут в оба мессенджера и на email.</span>
+        </p>
+      </div>
+
+    </div>
+    <div style="margin-bottom: 5rem;"></div>
+
+    <!-- ============ BLOCK 6: Reviews (two variants, mutex) ============ -->
+    <div class="section-divider">
+      <span class="num">06</span>
+      <h3>
+        <span lang="en">Reviews on your site</span>
+        <span lang="ru">Отзывы на сайте</span>
+      </h3>
+      <span class="line"></span>
+    </div>
+    <p class="section-intro">
+      <span lang="en">You already have a 4.9 on Google — show it off. Two ways: pull live Google reviews onto the page, or run a curated review wall you control.</span>
+      <span lang="ru">У вас уже 4.9 на Google — пусть это работает на сайт. Два варианта: подтягивать живые Google-отзывы прямо на страницу, либо отдельная стена отзывов под вашим контролем.</span>
+    </p>
+
+    <div class="opt-grid cols-2" data-group="reviews" data-mutex="true">
+
+      <div class="opt-card" data-id="reviews-google" data-price="100">
+        <span class="checkbox"></span>
+        <span class="tag alternative">
+          <span lang="en">Easiest</span>
+          <span lang="ru">Проще всего</span>
+        </span>
+        <div class="icon-row">
+          <div class="icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="12 6 14 11 19 11 15 14 17 19 12 16 7 19 9 14 5 11 10 11 12 6"/></svg>
+          </div>
+          <h4>
+            <span lang="en">Google Reviews integration</span>
+            <span lang="ru">Интеграция Google-отзывов</span>
+          </h4>
+        </div>
+        <div class="price-line">
+          <span class="strong">$100</span> <span lang="en">one-time · no monthly fee</span><span lang="ru">разово · без ежемесячной платы</span>
+        </div>
+        <p class="desc">
+          <span lang="en">We pull reviews from your Google business listing and display them on the site automatically. Google handles the moderation.</span>
+          <span lang="ru">Подтягиваем отзывы из вашего Google-бизнеса и показываем на сайте автоматически. Модерацию делает Google.</span>
+        </p>
+        <ul class="opt-feats">
+          <li><span lang="en">Live sync — new reviews appear automatically</span><span lang="ru">Живая синхронизация — новые отзывы появляются автоматически</span></li>
+          <li><span lang="en">Boosts your local SEO</span><span lang="ru">Усиливает локальное SEO</span></li>
+          <li><span lang="en">Zero ongoing work for you</span><span lang="ru">Никакой работы с вашей стороны</span></li>
+        </ul>
+      </div>
+
+      <div class="opt-card" data-id="reviews-custom" data-price="400" data-monthly="5">
+        <span class="checkbox"></span>
+        <span class="tag recommended">
+          <span lang="en">Full control</span>
+          <span lang="ru">Полный контроль</span>
+        </span>
+        <div class="icon-row">
+          <div class="icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <h4>
+            <span lang="en">Custom reviews block + moderation</span>
+            <span lang="ru">Собственный блок отзывов + модерация</span>
+          </h4>
+        </div>
+        <div class="price-line">
+          <span class="strong">$400</span> <span lang="en">setup · $5/mo</span><span lang="ru">настройка · $5/мес</span>
+        </div>
+        <p class="desc">
+          <span lang="en">Guests submit reviews through a form on your site. You approve, reject, or reply through your own admin panel — full control before anything goes live.</span>
+          <span lang="ru">Гости оставляют отзывы через форму на сайте. Вы одобряете, отклоняете или отвечаете через свою админку — полный контроль перед публикацией.</span>
+        </p>
+        <ul class="opt-feats">
+          <li><span lang="en">Approve / reject every review</span><span lang="ru">Одобряете или отклоняете каждый отзыв</span></li>
+          <li><span lang="en">Reply from the brand voice</span><span lang="ru">Отвечаете от лица бренда</span></li>
+          <li><span lang="en">Likes &amp; star ratings</span><span lang="ru">Лайки и звёздные оценки</span></li>
+          <li><span lang="en">Email/Telegram alert on new submission</span><span lang="ru">Email/Telegram-уведомление о новом отзыве</span></li>
+        </ul>
+      </div>
+
+    </div>
+    <div style="margin-bottom: 5rem;"></div>
+
+    <!-- ============ BLOCK 7: Admin panel ============ -->
+    <div class="section-divider">
+      <span class="num">07</span>
+      <h3>
+        <span lang="en">Custom admin panel</span>
+        <span lang="ru">Кастомная админка</span>
+      </h3>
+      <span class="line"></span>
+    </div>
+    <p class="section-intro">
+      <span lang="en">Run the site yourself — without ever touching code. Edit services, prices and descriptions; manage incoming bookings; mark old vs new prices to show a discount badge. Everything you'd otherwise need a developer for.</span>
+      <span lang="ru">Управляйте сайтом сами — без кода. Редактируйте услуги, цены и описания; управляйте входящими заявками; ставьте старые/новые цены, чтобы автоматически показать скидку. Всё, ради чего обычно зовут разработчика.</span>
+    </p>
+
+    <div class="opt-grid cols-1" data-group="admin">
+
+      <div class="opt-card" data-id="admin-panel" data-price="1000">
+        <span class="checkbox"></span>
+        <div class="icon-row">
+          <div class="icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <h4>
+            <span lang="en">Services &amp; bookings admin panel</span>
+            <span lang="ru">Админка услуг и записей</span>
+          </h4>
+        </div>
+        <div class="price-line">
+          <span class="strong">$1,000</span> <span lang="en">one-time · video walkthrough included</span><span lang="ru">разово · видеоинструкция включена</span>
+        </div>
+        <p class="desc">
+          <span lang="en">A clean dashboard built for you — log in, edit, save, done. Includes a recorded video walkthrough you can rewatch any time. No scheduled calls, no Zoom.</span>
+          <span lang="ru">Чистая админка под вас — зашли, отредактировали, сохранили. Включает записанную видеоинструкцию, можно пересматривать в любое время. Без созвонов, без Zoom.</span>
+        </p>
+        <ul class="opt-feats">
+          <li><span lang="en"><strong>Services editor</strong> — name, price, description, photo, order</span><span lang="ru"><strong>Редактор услуг</strong> — название, цена, описание, фото, порядок</span></li>
+          <li><span lang="en"><strong>Old price + new price</strong> fields — site auto-renders the discount %</span><span lang="ru">Поля <strong>старая цена + новая цена</strong> — сайт сам рассчитывает % скидки</span></li>
+          <li><span lang="en"><strong>Bookings inbox</strong> — every request lands here with status (new · confirmed · done · cancelled), with notes per guest</span><span lang="ru"><strong>Входящие записи</strong> — каждый запрос здесь, со статусом (новая · подтверждена · выполнена · отменена) и заметками по гостю</span></li>
+          <li><span lang="en">Drag &amp; drop reordering, add or remove items in seconds</span><span lang="ru">Перетаскивание для порядка, добавлять и удалять позиции за секунды</span></li>
+          <li><span lang="en">Booking archive — search by name, phone, service, date</span><span lang="ru">Архив записей — поиск по имени, телефону, услуге, дате</span></li>
+          <li><span lang="en">Video walkthrough — watch anytime, no need to schedule</span><span lang="ru">Видеоинструкция — смотрите когда удобно, без созвонов</span></li>
+        </ul>
+      </div>
+
+    </div>
+    <div style="margin-bottom: 5rem;"></div>
+
+    <!-- ============ BLOCK 8: Visitor analytics ============ -->
+    <div class="section-divider">
+      <span class="num">08</span>
+      <h3>
+        <span lang="en">Visitor behavior insights</span>
+        <span lang="ru">Поведенческая аналитика</span>
+      </h3>
+      <span class="line"></span>
+    </div>
+    <p class="section-intro">
+      <span lang="en">See how real guests browse the site — which services they linger on, where they hesitate in the booking flow, which photos pull them in. The kind of feedback that tells you whether to push Bridal harder, or maybe lift Color to the top of the grid.</span>
+      <span lang="ru">Видите, как настоящие гости смотрят сайт — на каких услугах задерживаются, где застывают в букинге, какие фото их цепляют. Та самая обратная связь, которая подсказывает: продвигать ли Bridal сильнее или поднять Color наверх сетки.</span>
+    </p>
+
+    <div class="opt-grid cols-1" data-group="analytics">
+
+      <div class="opt-card" data-id="analytics" data-price="80">
+        <span class="checkbox"></span>
+        <div class="icon-row">
+          <div class="icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
+          </div>
+          <h4>
+            <span lang="en">Session replay &amp; heatmaps</span>
+            <span lang="ru">Запись сессий и тепловые карты</span>
+          </h4>
+        </div>
+        <div class="price-line">
+          <span class="strong">$80</span> <span lang="en">setup · free for unlimited sessions</span><span lang="ru">настройка · сами сессии бесплатны и неограничены</span>
+        </div>
+        <p class="desc">
+          <span lang="en">We connect a privacy-friendly analytics tool to your site. You get a dashboard where you can watch real visitor sessions, see heatmaps of clicks &amp; scrolls, and track where users drop off — all in real time.</span>
+          <span lang="ru">Подключаем к сайту инструмент аналитики с уважением к приватности. У вас появляется дашборд, где можно смотреть записи реальных гостей, видеть тепловые карты кликов и скроллов, отслеживать на чём уходят пользователи — в реальном времени.</span>
+        </p>
+        <ul class="opt-feats">
+          <li><span lang="en">Watch <strong>session recordings</strong> — see exactly what visitors do</span><span lang="ru">Смотрите <strong>записи сессий</strong> — что именно делают гости</span></li>
+          <li><span lang="en"><strong>Heatmaps</strong> show what gets clicked, what gets ignored</span><span lang="ru"><strong>Тепловые карты</strong> показывают что кликают, а что игнорируют</span></li>
+          <li><span lang="en">Spot what isn't working &amp; fix it</span><span lang="ru">Видите что не работает — и исправляете</span></li>
+          <li><span lang="en">No monthly fee — the tool is free, you only pay setup</span><span lang="ru">Без ежемесячной платы — инструмент бесплатный, оплачиваете только настройку</span></li>
+        </ul>
+      </div>
+
+    </div>
+    <div style="margin-bottom: 5rem;"></div>
+
+    <!-- ============ BLOCK 9: Care plans ============ -->
+    <div class="section-divider">
+      <span class="num">09</span>
+      <h3>
+        <span lang="en">Care plans — ongoing support</span>
+        <span lang="ru">Care plan — ежемесячная поддержка</span>
+      </h3>
+      <span class="line"></span>
+    </div>
+    <p class="section-intro">
+      <span lang="en">In our experience, most salons want updates every month — new prices for the season, holiday banners, a fresh portrait when a stylist updates her look, the spring color promo on the homepage. Care plans cover those without per-task billing. Cancel anytime.</span>
+      <span lang="ru">По нашему опыту, салонам почти всегда нужны правки каждый месяц — сезонные цены, праздничные баннеры, свежий портрет когда мастер сменил образ, весенняя промо-акция на главной. Care plan покрывает это без оплаты за каждую правку. Отменить можно в любой момент.</span>
+    </p>
+
+    <div class="care-billing-toggle">
+      <span class="label">
+        <span lang="en">Billing:</span>
+        <span lang="ru">Оплата:</span>
+      </span>
+      <div class="billing-switch" data-active="0" id="billingSwitch">
+        <button data-billing="monthly" class="active">
+          <span lang="en">Monthly</span>
+          <span lang="ru">Помесячно</span>
+        </button>
+        <button data-billing="annual">
+          <span lang="en">Annual</span>
+          <span lang="ru">На год</span>
+        </button>
+      </div>
+      <span class="savings">
+        <span lang="en">Annual saves 20%</span>
+        <span lang="ru">−20% на годовой</span>
+      </span>
+    </div>
+
+    <div class="care-grid" data-group="care" data-mutex="true">
+
+      <div class="care-card" data-id="care-basic" data-price-monthly="99" data-price-annual="950">
+        <span class="checkbox"></span>
+        <span class="care-tier">
+          <span lang="en">Basic</span>
+          <span lang="ru">Базовый</span>
+        </span>
+        <div class="care-name">
+          <span lang="en">Care · Basic</span>
+          <span lang="ru">Care · Basic</span>
+        </div>
+        <div class="care-price">
+          <span class="care-price-cur">$</span>
+          <span class="care-price-amt" data-monthly="99" data-annual="79">99</span>
+          <span class="care-price-period">/<span lang="en">month</span><span lang="ru">мес</span></span>
+        </div>
+        <ul class="care-feats">
+          <li><span lang="en">Up to <strong>1 hour</strong> of edits per month</span><span lang="ru">До <strong>1 часа</strong> правок в месяц</span></li>
+          <li><span lang="en">Text, prices, hours, photo swaps</span><span lang="ru">Тексты, цены, часы, замена фото</span></li>
+          <li><span lang="en">Hosting &amp; uptime monitoring</span><span lang="ru">Хостинг и мониторинг uptime</span></li>
+          <li><span lang="en">Monthly backup</span><span lang="ru">Ежемесячный backup</span></li>
+          <li><span lang="en">Email support · 48h response</span><span lang="ru">Email-поддержка · ответ за 48ч</span></li>
+        </ul>
+      </div>
+
+      <div class="care-card popular" data-id="care-standard" data-price-monthly="199" data-price-annual="1910">
+        <span class="checkbox"></span>
+        <span class="care-tier">
+          <span lang="en">Standard</span>
+          <span lang="ru">Стандарт</span>
+        </span>
+        <div class="care-name">
+          <span lang="en">Care · Standard</span>
+          <span lang="ru">Care · Standard</span>
+        </div>
+        <div class="care-price">
+          <span class="care-price-cur">$</span>
+          <span class="care-price-amt" data-monthly="199" data-annual="159">199</span>
+          <span class="care-price-period">/<span lang="en">month</span><span lang="ru">мес</span></span>
+        </div>
+        <ul class="care-feats">
+          <li><span lang="en">Everything in Basic</span><span lang="ru">Всё из Basic</span></li>
+          <li><span lang="en">Up to <strong>3 hours</strong> of edits per month</span><span lang="ru">До <strong>3 часов</strong> правок в месяц</span></li>
+          <li><span lang="en">Seasonal banners &amp; minor design tweaks</span><span lang="ru">Сезонные баннеры и мелкие дизайн-правки</span></li>
+          <li><span lang="en">Priority support · 24h response</span><span lang="ru">Приоритетная поддержка · ответ за 24ч</span></li>
+          <li><span lang="en">Quarterly analytics report</span><span lang="ru">Аналитика раз в квартал</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="care-no-plan">
+      <span lang="en">No plan? One-off edits at <strong>$75/hour</strong> · 1-hour minimum.</span>
+      <span lang="ru">Без плана: разовые правки <strong>$75/час</strong> · минимум 1 час.</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ STICKY QUOTE BAR ============ -->
+<div class="quote-bar" id="quoteBar">
+  <div class="summary" id="quoteSummary">
+    <div class="icon-q">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/><polyline points="9 11 12 14 15 11"/><line x1="12" y1="14" x2="12" y2="3"/></svg>
+    </div>
+    <div class="total-block">
+      <span class="total-label">
+        <span lang="en">Your quote</span>
+        <span lang="ru">Ваша смета</span>
+      </span>
+      <span class="total-amount" id="totalOneTime">$1,000</span>
+      <span class="total-monthly" id="totalMonthly"></span>
+    </div>
+  </div>
+  <button class="expand-btn" id="expandBtn">
+    <span lang="en">Details</span>
+    <span lang="ru">Детали</span>
+  </button>
+  <button class="send-btn" id="sendBtnTop">
+    <span lang="en">Send quote</span>
+    <span lang="ru">Отправить</span>
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+  </button>
+  <div class="breakdown" id="breakdown"></div>
+  <div class="actions-row">
+    <button class="send-btn" id="sendBtnBottom">
+      <span lang="en">Send this quote</span>
+      <span lang="ru">Отправить смету</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ============ MODAL ============ -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3>
+      <span lang="en">Send your quote to us</span>
+      <span lang="ru">Отправьте смету нам</span>
+    </h3>
+    <p class="modal-sub">
+      <span lang="en">Review your selections below — remove anything you don't need with the × button. Leave your contact and we'll respond within 24 hours.</span>
+      <span lang="ru">Проверьте свои опции ниже — лишнее можно убрать кнопкой ×. Оставьте контакт, ответим в течение 24 часов.</span>
+    </p>
+
+    <div class="modal-quote-summary" id="modalQuoteSummary">
+      <!-- filled dynamically by JS -->
+    </div>
+
+    <form id="quoteForm">
+      <div class="form-row">
+        <label for="qName"><span lang="en">Your name</span><span lang="ru">Ваше имя</span></label>
+        <input type="text" id="qName" name="name" required>
+      </div>
+      <div class="form-row">
+        <label for="qContact"><span lang="en">Email or phone</span><span lang="ru">Email или телефон</span></label>
+        <input type="text" id="qContact" name="contact" required>
+      </div>
+      <div class="form-row">
+        <label for="qMessage"><span lang="en">Anything to add (optional)</span><span lang="ru">Что добавить (по желанию)</span></label>
+        <textarea id="qMessage" name="message"></textarea>
+      </div>
+      <div class="submit-row">
+        <button type="button" class="btn-secondary" id="modalCancel">
+          <span lang="en">Cancel</span>
+          <span lang="ru">Отмена</span>
+        </button>
+        <button type="submit" class="btn-primary">
+          <span lang="en">Send quote</span>
+          <span lang="ru">Отправить</span>
+        </button>
+      </div>
+      <div class="modal-success" id="modalSuccess">
+        <span lang="en">✓ Quote sent. We'll get back to you within 24 hours.</span>
+        <span lang="ru">✓ Смета отправлена. Ответим в течение 24 часов.</span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  /* ============================================================
+     LANGUAGE & THEME
+  ============================================================ */
+  const langToggle = document.getElementById('langToggle');
+  langToggle.querySelectorAll('button').forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.langSet;
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+      langToggle.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      langToggle.dataset.active = i;
+      updateQuote(); // re-render breakdown labels
+    });
+  });
+
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle.querySelectorAll('button').forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      const theme = btn.dataset.themeSet;
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      themeToggle.dataset.active = i;
+    });
+  });
+
+  /* ============================================================
+     CALCULATOR STATE
+  ============================================================ */
+  const state = {
+    siteIncluded: { id: 'site', price: 1000, fixed: true },
+    selections: { hosting: 'host-we2' }, // mutex groups: { groupName: cardId }
+    photoCount: 0,
+    billingAnnual: false,
+  };
+
+  function getLang() { return document.documentElement.getAttribute('data-lang'); }
+
+  function getCardLabel(card) {
+    const lang = getLang();
+    const h4 = card.querySelector('h4, .care-name');
+    if (!h4) return card.dataset.id;
+    const span = h4.querySelector(`[lang="${lang}"]`);
+    return span ? span.textContent.trim() : h4.textContent.trim();
+  }
+
+  /* ===== Mutex selection ===== */
+  document.querySelectorAll('.opt-card, .care-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const group = card.parentElement.dataset.group;
+      const mutex = card.parentElement.dataset.mutex === 'true';
+
+      if (mutex) {
+        // If already selected, deselect (unless it's hosting which is required)
+        if (card.classList.contains('selected') && group !== 'hosting') {
+          card.classList.remove('selected');
+          delete state.selections[group];
+        } else {
+          // Deselect all in group, select this one
+          card.parentElement.querySelectorAll('.opt-card, .care-card').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          state.selections[group] = card.dataset.id;
+        }
+      } else {
+        // Toggle mode (e.g., admin, analytics — single optional cards)
+        if (card.classList.contains('selected')) {
+          card.classList.remove('selected');
+          delete state.selections[group];
+        } else {
+          card.classList.add('selected');
+          state.selections[group] = card.dataset.id;
+        }
+      }
+      updateQuote();
+    });
+  });
+
+  /* ===== Photo slider ===== */
+  const photoSlider = document.getElementById('photoSlider');
+  const photoCountEl = document.getElementById('photoCount');
+  const photoPriceEl = document.getElementById('photoPriceTotal');
+  const photoLabelEl = document.getElementById('photoLabel');
+  const photoLabelRuEl = document.getElementById('photoLabelRu');
+
+  function updatePhotoUI() {
+    photoCountEl.textContent = state.photoCount;
+    photoPriceEl.textContent = (state.photoCount * 10).toLocaleString('en-US');
+    // English plural
+    photoLabelEl.textContent = state.photoCount === 1 ? 'image' : 'images';
+    // Russian plural — 1 фото / 2-4 фото / 5+ фото (всё одинаково по форме множественного "фото")
+    photoLabelRuEl.textContent = 'шт';
+  }
+  photoSlider.addEventListener('input', () => {
+    state.photoCount = parseInt(photoSlider.value);
+    updatePhotoUI();
+    updateQuote();
+  });
+
+  /* ===== Care billing toggle ===== */
+  const billingSwitch = document.getElementById('billingSwitch');
+  billingSwitch.querySelectorAll('button').forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      state.billingAnnual = btn.dataset.billing === 'annual';
+      billingSwitch.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      billingSwitch.dataset.active = i;
+      // Update visible price on care cards
+      document.querySelectorAll('.care-price-amt').forEach(el => {
+        el.textContent = state.billingAnnual ? el.dataset.annual : el.dataset.monthly;
+      });
+      updateQuote();
+    });
+  });
+
+  /* ============================================================
+     QUOTE COMPUTATION
+  ============================================================ */
+  function computeQuote() {
+    const items = { oneTime: [], monthly: [] };
+    let oneTimeTotal = 0;
+    let monthlyTotal = 0;
+
+    // 1. Site (always — locked, can't remove)
+    items.oneTime.push({
+      label: getLang() === 'ru' ? 'Сайт (Premium one-page)' : 'Website (Premium one-page)',
+      value: 1000,
+      locked: true,
+    });
+    oneTimeTotal += 1000;
+
+    // 2. Selected mutex/optional cards
+    Object.entries(state.selections).forEach(([group, id]) => {
+      if (group === 'care') return; // care handled separately
+      const card = document.querySelector(`[data-id="${id}"]`);
+      if (!card) return;
+      const price = parseFloat(card.dataset.price || 0);
+      const monthly = parseFloat(card.dataset.monthly || 0);
+      if (price > 0) {
+        items.oneTime.push({
+          label: getCardLabel(card),
+          value: price,
+          removeKey: 'group:' + group,
+          locked: false,
+        });
+        oneTimeTotal += price;
+      }
+      if (monthly > 0) {
+        items.monthly.push({
+          label: getCardLabel(card) + (getLang() === 'ru' ? ' (хостинг данных)' : ' (data hosting)'),
+          value: monthly,
+          removeKey: 'group:' + group,
+          locked: false,
+        });
+        monthlyTotal += monthly;
+      }
+    });
+
+    // 3. Photo count
+    if (state.photoCount > 0) {
+      const total = state.photoCount * 10;
+      items.oneTime.push({
+        label: (getLang() === 'ru' ? `Обработка фото · ${state.photoCount} шт` : `Photo polish · ${state.photoCount} ${state.photoCount === 1 ? 'image' : 'images'}`),
+        value: total,
+        removeKey: 'photos',
+        locked: false,
+      });
+      oneTimeTotal += total;
+    }
+
+    // 4. Care plan
+    if (state.selections.care) {
+      const card = document.querySelector(`[data-id="${state.selections.care}"]`);
+      if (card) {
+        const price = state.billingAnnual ? parseFloat(card.dataset.priceAnnual) : parseFloat(card.dataset.priceMonthly);
+        const period = state.billingAnnual ? (getLang() === 'ru' ? '/год' : '/year') : (getLang() === 'ru' ? '/мес' : '/mo');
+        items.monthly.push({
+          label: getCardLabel(card),
+          value: price,
+          period,
+          removeKey: 'group:care',
+          locked: false,
+        });
+        // Don't add to monthlyTotal as a single number — it's a recurring; we show care separately
+      }
+    }
+
+    return { items, oneTimeTotal, monthlyTotal };
+  }
+
+  function fmt(n) {
+    return '$' + n.toLocaleString('en-US');
+  }
+
+  function updateQuote() {
+    const { items, oneTimeTotal, monthlyTotal } = computeQuote();
+    const lang = getLang();
+
+    // Top summary
+    document.getElementById('totalOneTime').textContent = fmt(oneTimeTotal);
+
+    // Monthly subtitle: combine care + monthly fees
+    const monthlyParts = [];
+    items.monthly.forEach(it => {
+      if (it.period) {
+        monthlyParts.push(fmt(it.value) + it.period);
+      }
+    });
+    if (monthlyTotal > 0) {
+      monthlyParts.push(fmt(monthlyTotal) + (lang === 'ru' ? '/мес' : '/mo'));
+    }
+    const monthlyEl = document.getElementById('totalMonthly');
+    if (monthlyParts.length) {
+      monthlyEl.textContent = '+ ' + monthlyParts.join(' · ');
+      monthlyEl.style.display = 'block';
+    } else {
+      monthlyEl.style.display = 'none';
+    }
+
+    // Breakdown
+    const bd = document.getElementById('breakdown');
+    let html = '';
+
+    if (items.oneTime.length) {
+      html += `<div class="breakdown-section">
+        <div class="breakdown-section-title">${lang === 'ru' ? 'Разовые платежи' : 'One-time'}</div>`;
+      items.oneTime.forEach(it => {
+        html += `<div class="breakdown-row">
+          <span class="name">${it.label}</span>
+          <span class="value">${fmt(it.value)}</span>
+        </div>`;
+      });
+      html += `<div class="breakdown-row" style="font-weight:800; opacity:1; padding-top: 0.7rem; margin-top: 0.4rem; border-top: 1px solid currentColor;">
+        <span class="name">${lang === 'ru' ? 'Итого разово' : 'Total one-time'}</span>
+        <span class="value">${fmt(oneTimeTotal)}</span>
+      </div>`;
+      html += `</div>`;
+    }
+
+    if (items.monthly.length) {
+      html += `<div class="breakdown-section">
+        <div class="breakdown-section-title">${lang === 'ru' ? 'Регулярные платежи' : 'Recurring'}</div>`;
+      items.monthly.forEach(it => {
+        const periodLabel = it.period || (lang === 'ru' ? '/мес' : '/mo');
+        html += `<div class="breakdown-row">
+          <span class="name">${it.label}</span>
+          <span class="value">${fmt(it.value)}${periodLabel}</span>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    bd.innerHTML = html;
+  }
+
+  /* ===== Render summary inside modal (with removable rows) ===== */
+  function renderModalSummary() {
+    const { items, oneTimeTotal, monthlyTotal } = computeQuote();
+    const lang = getLang();
+    const container = document.getElementById('modalQuoteSummary');
+
+    let html = '';
+
+    // One-time
+    if (items.oneTime.length) {
+      html += `<div class="summary-section">
+        <div class="summary-title">${lang === 'ru' ? 'Разовые платежи' : 'One-time'}</div>`;
+      items.oneTime.forEach(it => {
+        const locked = it.locked ? 'true' : 'false';
+        html += `<div class="summary-row">
+          <button type="button" class="remove-btn" data-locked="${locked}" data-remove="${it.removeKey || ''}" aria-label="Remove">×</button>
+          <span class="name">${it.label}</span>
+          <span class="value">$${it.value.toLocaleString()}</span>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    // Recurring
+    if (items.monthly.length) {
+      html += `<div class="summary-section">
+        <div class="summary-title">${lang === 'ru' ? 'Регулярные платежи' : 'Recurring'}</div>`;
+      items.monthly.forEach(it => {
+        const period = it.period || (lang === 'ru' ? '/мес' : '/mo');
+        html += `<div class="summary-row">
+          <button type="button" class="remove-btn" data-locked="${it.locked ? 'true' : 'false'}" data-remove="${it.removeKey || ''}" aria-label="Remove">×</button>
+          <span class="name">${it.label}</span>
+          <span class="value">$${it.value}${period}</span>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    // Totals
+    html += `<div class="summary-totals">
+      <div class="total-row">
+        <span>${lang === 'ru' ? 'Итого разово' : 'Total one-time'}</span>
+        <span>$${oneTimeTotal.toLocaleString()}</span>
+      </div>`;
+    if (items.monthly.length) {
+      const monthlyParts = items.monthly.map(it => `$${it.value}${it.period || (lang === 'ru' ? '/мес' : '/mo')}`).join(' + ');
+      html += `<div class="total-row recurring">
+        <span>${lang === 'ru' ? 'Регулярно' : 'Recurring'}</span>
+        <span>${monthlyParts}</span>
+      </div>`;
+    }
+    html += `</div>`;
+
+    container.innerHTML = html;
+
+    // Wire up remove buttons
+    container.querySelectorAll('.remove-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.locked === 'true') return;
+        const key = btn.dataset.remove;
+        if (!key) return;
+        removeItem(key);
+        renderModalSummary();
+      });
+    });
+  }
+
+  /* ===== Remove a quote line item by key ===== */
+  function removeItem(key) {
+    if (key === 'photos') {
+      state.photoCount = 0;
+      photoSlider.value = 0;
+      updatePhotoUI();
+    } else if (key.startsWith('group:')) {
+      // remove a mutex/optional selection
+      const group = key.substring(6);
+      // For hosting we can't remove (it's required) — but we'll fall back to default
+      if (group === 'hosting') {
+        // Reset to default free hosting
+        document.querySelectorAll('[data-group="hosting"] .opt-card').forEach(c => c.classList.remove('selected'));
+        const defaultCard = document.querySelector('[data-id="host-we2"]');
+        if (defaultCard) defaultCard.classList.add('selected');
+        state.selections.hosting = 'host-we2';
+      } else {
+        // Deselect that group entirely
+        document.querySelectorAll(`[data-group="${group}"] .opt-card, [data-group="${group}"] .care-card`).forEach(c => c.classList.remove('selected'));
+        delete state.selections[group];
+      }
+    }
+    updateQuote();
+  }
+  const quoteBar = document.getElementById('quoteBar');
+  document.getElementById('expandBtn').addEventListener('click', () => {
+    quoteBar.classList.toggle('expanded');
+  });
+  document.getElementById('quoteSummary').addEventListener('click', () => {
+    quoteBar.classList.toggle('expanded');
+  });
+
+  /* ============================================================
+     MODAL & SEND
+  ============================================================ */
+  const modal = document.getElementById('modal');
+  function openModal() {
+    renderModalSummary();
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
+  document.getElementById('sendBtnTop').addEventListener('click', openModal);
+  document.getElementById('sendBtnBottom').addEventListener('click', openModal);
+  document.getElementById('modalCancel').addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+  /* ===== Form submit — sends to Telegram bot ===== */
+  /*  HOW TO HOOK UP REAL TELEGRAM:
+      1. Talk to @BotFather in Telegram, run /newbot, get a bot token.
+      2. Talk to your bot once (any message), then visit:
+         https://api.telegram.org/bot<YOUR_TOKEN>/getUpdates
+         to see your chat_id.
+      3. Replace TG_BOT_TOKEN and TG_CHAT_ID below with real values.
+      Until then — this preview just shows a fake success state.
+  */
+  const TG_BOT_TOKEN = '8325119822:AAG3o98A8jjiRV0fXSI9ZsHiroHK3kx_mHE';
+  const TG_CHAT_ID = '5432379925';
+
+  document.getElementById('quoteForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('qName').value;
+    const contact = document.getElementById('qContact').value;
+    const message = document.getElementById('qMessage').value;
+    const { items, oneTimeTotal, monthlyTotal } = computeQuote();
+
+    // Build a clean text message for Telegram
+    let text = `🛎 *New quote — La Vie Beauty*\n\n`;
+    text += `*Name:* ${name}\n`;
+    text += `*Contact:* ${contact}\n`;
+    if (message) text += `*Message:* ${message}\n`;
+    text += `\n*One-time:*\n`;
+    items.oneTime.forEach(it => { text += `• ${it.label} — $${it.value.toLocaleString()}\n`; });
+    text += `\n*Total one-time: $${oneTimeTotal.toLocaleString()}*\n`;
+    if (items.monthly.length) {
+      text += `\n*Recurring:*\n`;
+      items.monthly.forEach(it => { text += `• ${it.label} — $${it.value}${it.period || '/mo'}\n`; });
+    }
+
+    if (TG_BOT_TOKEN && TG_CHAT_ID) {
+      try {
+        await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: TG_CHAT_ID,
+            text,
+            parse_mode: 'Markdown',
+          }),
+        });
+      } catch (err) {
+        console.error('Telegram send failed:', err);
+      }
+    } else {
+      console.log('Quote (would be sent to Telegram):\n', text);
+    }
+
+    document.getElementById('modalSuccess').classList.add('show');
+    setTimeout(() => {
+      closeModal();
+      document.getElementById('modalSuccess').classList.remove('show');
+      e.target.reset();
+    }, 2200);
+  });
+
+  /* ===== Init ===== */
+  updatePhotoUI();
+  updateQuote();
+</script>
+</body>
+</html>

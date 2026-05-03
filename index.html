@@ -1,0 +1,4087 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#f7f5ef" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0d0f0c" media="(prefers-color-scheme: dark)" />
+<title>La Vie — Beauty Salon & Spa · Brighton Beach, Brooklyn</title>
+<meta name="description" content="A boutique beauty salon and day spa on Brighton Beach Avenue. Hair, skin, nails, makeup, body and bridal — by senior stylists, with premium European products." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Instrument+Serif:ital@0;1&family=Italiana&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+/* ================================================================
+   LA VIE — BOTANICAL EDITORIAL LUXURY
+   A redesign focused on:
+   · Editorial typography (Italiana + Fraunces + Instrument Serif italic)
+   · Verdant signature green as luxury accent (kept from original brand)
+   · Light/Dark dual themes with synced map
+   · Refined motion: parallax, magnetic CTAs, scroll reveal, custom cursor
+   · Mobile-first, fluid type, accessible
+   ================================================================ */
+
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* ----- Signature Brand ----- */
+  --leaf:        #7cc142;
+  --leaf-deep:   #5a9b2c;
+  --leaf-dark:   #2f4d1a;
+  --leaf-mist:   #eef6e0;
+  --leaf-shadow: rgba(124,193,66,.35);
+
+  /* ----- Light Theme (default) ----- */
+  --bg:          #f7f5ef;        /* warm bone */
+  --bg-2:        #ede9dd;        /* deeper bone */
+  --bg-card:     #fffefa;
+  --ink:         #161814;
+  --ink-2:       #2a2d26;
+  --slate:       #5a5d54;
+  --muted:       #8c8f85;
+  --line:        rgba(22,24,20,.10);
+  --line-soft:   rgba(22,24,20,.06);
+  --hairline:    rgba(22,24,20,.16);
+
+  --noise-opacity: .035;
+  --grid-opacity: .04;
+
+  /* ----- Type ----- */
+  --serif-display: 'Italiana', 'Cormorant Garamond', serif;
+  --serif:         'Fraunces', 'Times New Roman', serif;
+  --serif-italic:  'Instrument Serif', 'Fraunces', serif;
+  --sans:          'Manrope', system-ui, sans-serif;
+
+  /* ----- Spacing ----- */
+  --max:    1400px;
+  --gutter: clamp(20px, 4.5vw, 64px);
+  --r-sm: 4px;
+  --r-md: 16px;
+  --r-lg: 32px;
+  --r-xl: 48px;
+
+  /* ----- Motion ----- */
+  --ease:        cubic-bezier(.22,.61,.36,1);
+  --ease-emph:   cubic-bezier(.7,0,.2,1);
+  --ease-bounce: cubic-bezier(.34,1.56,.64,1);
+}
+
+/* ----- Dark Theme ----- */
+:root[data-theme="dark"] {
+  --bg:          #0d0f0c;
+  --bg-2:        #161814;
+  --bg-card:     #1a1c17;
+  --ink:         #f4f2eb;
+  --ink-2:       #e7e4d9;
+  --slate:       #a8aa9f;
+  --muted:       #6e706a;
+  --line:        rgba(244,242,235,.12);
+  --line-soft:   rgba(244,242,235,.06);
+  --hairline:    rgba(244,242,235,.18);
+
+  --leaf:        #9bd55f;
+  --leaf-deep:   #7cc142;
+  --leaf-dark:   #c8e89a;
+  --leaf-mist:   rgba(155,213,95,.10);
+  --leaf-shadow: rgba(155,213,95,.30);
+
+  --noise-opacity: .06;
+  --grid-opacity: .07;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--sans);
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.6;
+  overflow-x: clip;
+  transition: background .6s var(--ease), color .6s var(--ease);
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Atmospheric grain texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: var(--noise-opacity);
+  mix-blend-mode: overlay;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+::selection { background: var(--leaf); color: var(--leaf-dark); }
+
+/* ================================================================
+   CUSTOM CURSOR — floating leaf (desktop only)
+   ================================================================ */
+.cursor-leaf {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  width: 28px; height: 28px;
+  transform: translate(-50%, -50%) rotate(0deg);
+  transition: width .35s var(--ease), height .35s var(--ease), opacity .25s var(--ease);
+  display: none;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.12));
+  will-change: transform, left, top;
+}
+.cursor-leaf svg { width: 100%; height: 100%; display: block; }
+.cursor-leaf .leaf-fill { fill: var(--leaf-deep); transition: fill .3s var(--ease); }
+.cursor-leaf.is-hover { width: 42px; height: 42px; }
+.cursor-leaf.is-hover .leaf-fill { fill: var(--leaf); }
+.cursor-leaf.is-dark .leaf-fill { fill: var(--leaf); }
+
+@media (hover: hover) and (pointer: fine) {
+  .cursor-leaf { display: block; }
+  /* Hide native cursor on devices that have a fine pointer (desktop) */
+  body.has-leaf-cursor,
+  body.has-leaf-cursor * { cursor: none !important; }
+  /* Keep the text-edit cursor visible inside form fields for usability */
+  body.has-leaf-cursor input,
+  body.has-leaf-cursor textarea { cursor: text !important; }
+}
+
+/* ================================================================
+   THEME TOGGLE
+   ================================================================ */
+.theme-toggle {
+  position: fixed;
+  right: clamp(16px, 2.5vw, 30px);
+  bottom: clamp(16px, 2.5vw, 30px);
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--bg);
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 16px 40px -12px rgba(0,0,0,.35);
+  transition: transform .4s var(--ease-bounce), background .4s var(--ease);
+  overflow: hidden;
+}
+.theme-toggle:hover { transform: scale(1.08) rotate(15deg); }
+.theme-toggle svg {
+  width: 22px; height: 22px;
+  position: absolute;
+  transition: transform .6s var(--ease-emph), opacity .4s var(--ease);
+}
+.theme-toggle .icon-sun  { opacity: 0; transform: rotate(-90deg) scale(.5); }
+.theme-toggle .icon-moon { opacity: 1; transform: rotate(0) scale(1); }
+:root[data-theme="dark"] .theme-toggle .icon-sun  { opacity: 1; transform: rotate(0) scale(1); }
+:root[data-theme="dark"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg) scale(.5); }
+
+/* ================================================================
+   ANNOUNCEMENT BAR
+   ================================================================ */
+.announce {
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  padding: 11px var(--gutter);
+  position: relative;
+  z-index: 30;
+  font-weight: 500;
+  overflow: hidden;
+}
+.announce__track {
+  display: flex;
+  gap: 60px;
+  white-space: nowrap;
+  animation: announce 30s linear infinite;
+}
+.announce__track > span { display: inline-flex; align-items: center; gap: 60px; flex-shrink: 0; }
+.announce__track .dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--leaf);
+  flex-shrink: 0;
+}
+@keyframes announce { to { transform: translateX(-50%); } }
+
+/* ================================================================
+   NAV
+   ================================================================ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: saturate(170%) blur(20px);
+  -webkit-backdrop-filter: saturate(170%) blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s var(--ease), background .3s var(--ease);
+}
+.nav.is-scrolled {
+  border-bottom-color: var(--line);
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+}
+.nav__inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 18px var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+}
+.nav__links {
+  display: flex;
+  gap: 34px;
+  align-items: center;
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-family: var(--sans);
+}
+.nav__links a {
+  position: relative;
+  padding: 6px 0;
+  color: var(--ink-2);
+  transition: color .3s var(--ease);
+}
+.nav__links a::before {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .4s var(--ease);
+}
+.nav__links a:hover { color: var(--leaf-deep); }
+.nav__links a:hover::before { transform: scaleX(1); transform-origin: left; }
+
+/* ----- Brand mark ----- */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  position: relative;
+}
+.brand__leaf {
+  width: 36px; height: 36px;
+  flex: 0 0 36px;
+  position: relative;
+}
+.brand__leaf svg {
+  width: 100%; height: 100%;
+  transition: transform .6s var(--ease-bounce);
+}
+.brand:hover .brand__leaf svg { transform: rotate(-12deg) scale(1.1); }
+.brand__txt { display: flex; flex-direction: column; line-height: 1; }
+.brand__name {
+  font-family: var(--serif-display);
+  font-size: 28px;
+  color: var(--ink);
+  font-weight: 400;
+  letter-spacing: .02em;
+  line-height: 1;
+}
+.brand__name em {
+  font-family: var(--serif-italic);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--leaf-deep);
+  margin-left: 2px;
+}
+.brand__sub {
+  font-family: var(--sans);
+  font-size: 9px;
+  letter-spacing: .3em;
+  color: var(--slate);
+  text-transform: uppercase;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+/* ----- Nav CTA ----- */
+.nav__cta {
+  justify-self: end;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.nav__phone {
+  font-size: 12px;
+  color: var(--slate);
+  letter-spacing: .04em;
+  font-feature-settings: "tnum";
+}
+.nav__phone strong { color: var(--ink); font-weight: 600; }
+
+/* ----- Buttons ----- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 26px;
+  font-size: 11.5px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 999px;
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease), background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: var(--sans);
+  position: relative;
+  overflow: hidden;
+}
+.btn--primary {
+  background: var(--ink);
+  color: var(--bg);
+  border: 1.5px solid var(--ink);
+}
+.btn--primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--leaf);
+  transform: translateY(101%);
+  transition: transform .5s var(--ease-emph);
+  z-index: 0;
+}
+.btn--primary > * { position: relative; z-index: 1; }
+.btn--primary:hover { color: var(--leaf-dark); border-color: var(--leaf); }
+.btn--primary:hover::before { transform: translateY(0); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--hairline);
+}
+.btn--ghost:hover {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+
+.btn--leaf {
+  background: var(--leaf);
+  color: var(--leaf-dark);
+  border: 1.5px solid var(--leaf);
+}
+.btn--leaf:hover {
+  background: var(--leaf-deep);
+  color: #fff;
+  border-color: var(--leaf-deep);
+  box-shadow: 0 18px 40px -16px var(--leaf-shadow);
+  transform: translateY(-2px);
+}
+
+.btn--ivory {
+  background: var(--bg-card);
+  color: var(--ink);
+  border: 1.5px solid var(--bg-card);
+}
+.btn--ivory:hover { background: var(--leaf); border-color: var(--leaf); color: var(--leaf-dark); }
+
+.btn .arrow {
+  width: 16px; height: 1.5px;
+  background: currentColor;
+  position: relative;
+  transition: width .35s var(--ease);
+}
+.btn .arrow::after {
+  content: '';
+  position: absolute;
+  right: -1px; top: -3px;
+  width: 7px; height: 7px;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  transform: rotate(45deg);
+}
+.btn:hover .arrow { width: 24px; }
+
+/* ----- Mobile menu button ----- */
+.menu-btn {
+  display: none;
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  border: 1.5px solid var(--hairline);
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  transition: border-color .3s, background .3s;
+}
+.menu-btn:hover { border-color: var(--leaf); }
+.menu-btn span,
+.menu-btn span::before,
+.menu-btn span::after {
+  content: '';
+  display: block;
+  width: 18px; height: 1.5px;
+  background: var(--ink);
+  position: absolute;
+  transition: all .35s var(--ease);
+}
+.menu-btn span::before { top: -6px; }
+.menu-btn span::after  { top: 6px; }
+.menu-btn.open span { background: transparent; }
+.menu-btn.open span::before { top: 0; transform: rotate(45deg); }
+.menu-btn.open span::after  { top: 0; transform: rotate(-45deg); }
+
+/* ----- Drawer ----- */
+.drawer {
+  position: fixed;
+  inset: 0;
+  background: var(--ink);
+  color: var(--bg);
+  z-index: 45;
+  padding: 110px var(--gutter) 40px;
+  transform: translateY(-101%);
+  transition: transform .7s var(--ease-emph);
+  overflow-y: auto;
+}
+.drawer.open { transform: translateY(0); }
+.drawer a {
+  display: block;
+  font-family: var(--serif-display);
+  font-size: clamp(34px, 8vw, 56px);
+  letter-spacing: 0;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  font-weight: 400;
+  line-height: 1.1;
+  position: relative;
+  overflow: hidden;
+  transition: padding-left .4s var(--ease);
+}
+.drawer a:hover { padding-left: 14px; color: var(--leaf); }
+.drawer__foot {
+  margin-top: 40px;
+  font-size: 13px;
+  opacity: .7;
+  line-height: 1.9;
+  font-family: var(--sans);
+  letter-spacing: .04em;
+}
+.drawer__foot strong { color: var(--leaf); font-weight: 600; }
+
+/* ================================================================
+   HERO
+   ================================================================ */
+.hero {
+  position: relative;
+  padding: clamp(40px, 7vw, 90px) var(--gutter) clamp(60px, 9vw, 110px);
+  max-width: var(--max);
+  margin: 0 auto;
+  z-index: 2;
+  isolation: isolate;
+}
+
+/* Decorative grid background */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: -10% -5% 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: var(--grid-opacity);
+  pointer-events: none;
+  z-index: -1;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: clamp(30px, 5vw, 80px);
+  align-items: center;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-bottom: 32px;
+  font-weight: 600;
+  opacity: 0;
+  animation: fadeUp .9s .1s var(--ease) forwards;
+}
+.hero__eyebrow .pulse {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--leaf);
+  position: relative;
+  flex-shrink: 0;
+}
+.hero__eyebrow .pulse::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: var(--leaf);
+  opacity: .35;
+  animation: pulse 2.4s var(--ease) infinite;
+}
+@keyframes pulse {
+  0%   { transform: scale(.6); opacity: .6; }
+  70%  { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.hero h1 {
+  font-family: var(--serif-display);
+  font-weight: 400;
+  font-size: clamp(54px, 9vw, 156px);
+  line-height: .92;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  margin-bottom: 36px;
+}
+.hero h1 .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeUp 1.1s var(--ease-emph) forwards;
+}
+.hero h1 .word:nth-child(1) { animation-delay: .2s; }
+.hero h1 .word:nth-child(2) {
+  animation-delay: .35s;
+  font-family: var(--serif-italic);
+  font-style: italic;
+  color: var(--leaf-deep);
+  font-weight: 400;
+  position: relative;
+  font-size: 1.06em;
+  margin: 0 .04em;
+}
+.hero h1 .word:nth-child(2)::after {
+  content: '';
+  position: absolute;
+  left: 4%; right: 4%;
+  bottom: 14%;
+  height: .12em;
+  background: var(--leaf);
+  opacity: .35;
+  z-index: -1;
+  border-radius: 4px;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: underline 1s 1.4s var(--ease-emph) forwards;
+}
+@keyframes underline { to { transform: scaleX(1); } }
+.hero h1 .word:nth-child(3) { animation-delay: .5s; }
+.hero h1 .word:nth-child(4) { animation-delay: .65s; }
+
+.hero__lede {
+  font-size: clamp(15px, 1.15vw, 17px);
+  color: var(--slate);
+  max-width: 460px;
+  line-height: 1.75;
+  margin-bottom: 38px;
+  opacity: 0;
+  animation: fadeUp 1s .8s var(--ease) forwards;
+}
+.hero__cta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 1s .95s var(--ease) forwards;
+}
+
+.hero__meta {
+  margin-top: clamp(40px, 6vw, 76px);
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: clamp(20px, 4vw, 56px);
+  opacity: 0;
+  animation: fadeUp 1s 1.1s var(--ease) forwards;
+}
+.hero__meta div {
+  position: relative;
+  padding-left: 20px;
+}
+.hero__meta div::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px;
+  width: 2px; height: calc(100% - 16px);
+  background: linear-gradient(var(--leaf), transparent);
+}
+.hero__meta strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(34px, 3.2vw, 44px);
+  color: var(--ink);
+  letter-spacing: -.02em;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 8px;
+  font-feature-settings: "ss01";
+}
+.hero__meta strong sup {
+  font-size: .55em;
+  vertical-align: super;
+  color: var(--leaf-deep);
+  margin-left: 2px;
+}
+.hero__meta span {
+  font-size: 10.5px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--slate);
+  font-weight: 500;
+}
+
+/* ----- Hero visual ----- */
+.hero__visual {
+  position: relative;
+  aspect-ratio: 4/5;
+  max-height: 760px;
+}
+.hero__img {
+  position: absolute;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow: 0 40px 80px -30px rgba(0,0,0,.35);
+}
+.hero__img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 1.8s var(--ease);
+}
+.hero__img:hover img { transform: scale(1.06); }
+
+.hero__img--main {
+  inset: 0 0 14% 12%;
+  z-index: 2;
+  opacity: 0;
+  animation: heroIn 1.4s .35s var(--ease) forwards;
+}
+.hero__img--accent {
+  width: 46%;
+  aspect-ratio: 3/4;
+  bottom: 0; left: 0;
+  z-index: 3;
+  opacity: 0;
+  animation: heroIn 1.4s .6s var(--ease) forwards;
+  border: 8px solid var(--bg);
+}
+.hero__badge {
+  position: absolute;
+  top: 4%; right: 0;
+  width: 138px; height: 138px;
+  border-radius: 50%;
+  background: var(--leaf);
+  color: var(--leaf-dark);
+  display: grid;
+  place-items: center;
+  z-index: 4;
+  opacity: 0;
+  animation: heroIn 1s 1s var(--ease) forwards;
+}
+.hero__badge svg.spin {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  animation: spin 24s linear infinite;
+}
+.hero__badge .badge-label {
+  font-family: var(--serif-display);
+  font-size: 13px;
+  letter-spacing: .04em;
+  line-height: 1.2;
+  font-weight: 400;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+.hero__badge .badge-label strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  margin-top: 2px;
+}
+
+/* Floating leaf decorations */
+.hero__leaf {
+  position: absolute;
+  pointer-events: none;
+  opacity: .25;
+  z-index: 1;
+}
+.hero__leaf--1 { top: 12%; right: -3%; width: 60px; animation: float 7s ease-in-out infinite; }
+.hero__leaf--2 { bottom: 8%; left: 50%; width: 42px; animation: float 9s ease-in-out infinite reverse; }
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-10deg); }
+  50%      { transform: translateY(-22px) rotate(10deg); }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes heroIn { to { opacity: 1; } }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* ================================================================
+   MARQUEE
+   ================================================================ */
+.marquee {
+  background: var(--leaf);
+  color: var(--leaf-dark);
+  padding: 26px 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid rgba(0,0,0,.05);
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.marquee__track {
+  display: flex;
+  gap: 70px;
+  white-space: nowrap;
+  animation: marquee 42s linear infinite;
+  font-family: var(--serif-italic);
+  font-style: italic;
+  font-size: clamp(24px, 2.8vw, 40px);
+  letter-spacing: .005em;
+  font-weight: 400;
+}
+.marquee__track > span { display: inline-flex; align-items: center; gap: 70px; }
+.marquee__track .ornament {
+  display: inline-block;
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  color: var(--leaf-dark);
+}
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee:hover .marquee__track { animation-play-state: paused; }
+
+/* ================================================================
+   SECTION SHELL
+   ================================================================ */
+.section {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(70px, 10vw, 140px) var(--gutter);
+  position: relative;
+  z-index: 2;
+}
+.section--off {
+  background: var(--bg-2);
+  max-width: none;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+.section--off .inner { max-width: var(--max); margin: 0 auto; }
+
+.section--dark {
+  background: #0d0f0c;
+  color: #f4f2eb;
+  max-width: none;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+  position: relative;
+  overflow: hidden;
+}
+.section--dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 20%, rgba(124,193,66,.22), transparent 50%),
+    radial-gradient(ellipse at 85% 80%, rgba(124,193,66,.18), transparent 55%);
+  pointer-events: none;
+}
+.section--dark .inner { max-width: var(--max); margin: 0 auto; position: relative; }
+.section--dark .h2 { color: #f4f2eb; }
+.section--dark .h2 em { color: #9bd55f; }
+.section--dark .eyebrow { color: #9bd55f; }
+.section--dark .section__head p { color: rgba(244,242,235,.7); }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--leaf-deep);
+  margin-bottom: 22px;
+  font-weight: 600;
+}
+.eyebrow .line {
+  display: inline-block;
+  width: 32px; height: 2px;
+  background: currentColor;
+}
+
+.h2 {
+  font-family: var(--serif-display);
+  font-weight: 400;
+  font-size: clamp(40px, 6.6vw, 96px);
+  line-height: .98;
+  letter-spacing: -.015em;
+  color: var(--ink);
+  margin-bottom: 22px;
+}
+.h2 em {
+  font-family: var(--serif-italic);
+  font-style: italic;
+  color: var(--leaf-deep);
+  font-weight: 400;
+  font-size: 1.04em;
+}
+
+.section__head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: end;
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+.section__head p {
+  max-width: 380px;
+  color: var(--slate);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ================================================================
+   SERVICES (Editorial Bento Grid)
+   ================================================================ */
+.services {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+.service {
+  position: relative;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--bg-2);
+  cursor: pointer;
+  isolation: isolate;
+  min-height: 340px;
+  transition: transform .5s var(--ease);
+}
+.service:hover { transform: translateY(-4px); }
+.service::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,.86) 100%);
+  z-index: 2;
+  opacity: .94;
+  transition: opacity .5s var(--ease);
+}
+.service__img { position: absolute; inset: 0; z-index: 1; }
+.service__img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 1.4s var(--ease);
+}
+.service:hover .service__img img { transform: scale(1.08); }
+.service:hover::before { opacity: 1; }
+
+.service__body {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 32px;
+  color: #fff;
+}
+.service__num {
+  position: absolute;
+  top: 24px; left: 32px;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: .24em;
+  font-weight: 600;
+  color: var(--leaf);
+  text-transform: uppercase;
+}
+.service__icon {
+  position: absolute;
+  top: 22px; right: 22px;
+  width: 42px; height: 42px;
+  border: 1.5px solid rgba(255,255,255,.4);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  transition: all .4s var(--ease);
+}
+.service__icon::after {
+  content: '';
+  width: 9px; height: 9px;
+  border-top: 1.5px solid #fff;
+  border-right: 1.5px solid #fff;
+  transform: rotate(45deg);
+  margin-left: -3px;
+  transition: all .4s var(--ease);
+}
+.service:hover .service__icon { background: var(--leaf); border-color: var(--leaf); transform: scale(1.1); }
+.service:hover .service__icon::after { border-color: var(--leaf-dark); }
+
+.service h3 {
+  font-family: var(--serif-display);
+  font-weight: 400;
+  font-size: clamp(26px, 2.8vw, 36px);
+  letter-spacing: 0;
+  margin-bottom: 8px;
+  line-height: 1.05;
+}
+.service h3 em {
+  font-family: var(--serif-italic);
+  font-style: italic;
+  color: var(--leaf);
+  font-weight: 400;
+}
+.service p {
+  font-size: 13.5px;
+  line-height: 1.65;
+  opacity: .88;
+  max-width: 420px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .55s var(--ease), margin .55s var(--ease);
+  font-family: var(--sans);
+}
+.service:hover p { max-height: 140px; margin-top: 6px; }
+
+/* Bento spans */
+.s1 { grid-column: span 7; min-height: 480px; }
+.s2 { grid-column: span 5; min-height: 480px; }
+.s3 { grid-column: span 4; }
+.s4 { grid-column: span 4; }
+.s5 { grid-column: span 4; }
+.s6 { grid-column: span 6; min-height: 380px; }
+.s7 { grid-column: span 6; min-height: 380px; }
+.s8 { grid-column: span 12; min-height: 320px; }
+
+/* ================================================================
+   PHILOSOPHY (NEW SECTION) — pull-quote with split layout
+   ================================================================ */
+.philosophy {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(40px, 6vw, 100px);
+  align-items: center;
+}
+.philosophy__visual {
+  position: relative;
+  aspect-ratio: 4/5;
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+.philosophy__visual img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.philosophy__visual::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,.4));
+}
+.philosophy__quote-mark {
+  position: absolute;
+  top: -5%; left: -3%;
+  font-family: var(--serif-display);
+  font-size: clamp(180px, 22vw, 320px);
+  color: var(--leaf);
+  line-height: 1;
+  opacity: .9;
+  z-index: 2;
+}
+.philosophy__text {
+  position: relative;
+}
+.philosophy__quote {
+  font-family: var(--serif-display);
+  font-size: clamp(28px, 3.4vw, 50px);
+  line-height: 1.15;
+  letter-spacing: -.005em;
+  color: var(--ink);
+  margin-bottom: 30px;
+  font-weight: 400;
+}
+.philosophy__quote em {
+  font-family: var(--serif-italic);
+  font-style: italic;
+  color: var(--leaf-deep);
+}
+.philosophy__attr {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.philosophy__attr-img {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--leaf);
+}
+.philosophy__attr-img img { width: 100%; height: 100%; object-fit: cover; }
+.philosophy__attr-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--ink);
+  font-weight: 500;
+  line-height: 1.2;
+}
+.philosophy__attr-name span {
+  display: block;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: .2em;
+  color: var(--slate);
+  text-transform: uppercase;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* ================================================================
+   ABOUT
+   ================================================================ */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(40px, 6vw, 100px);
+  align-items: center;
+}
+.about__visual {
+  position: relative;
+  aspect-ratio: 4/5;
+}
+.about__visual .ai {
+  position: absolute;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow: 0 40px 80px -30px rgba(0,0,0,.30);
+}
+.about__visual .ai img { width: 100%; height: 100%; object-fit: cover; }
+.about__visual .ai--1 { inset: 0 14% 18% 0; z-index: 1; }
+.about__visual .ai--2 {
+  width: 56%; aspect-ratio: 3/4;
+  bottom: 0; right: 0; z-index: 2;
+  border: 8px solid var(--bg-2);
+}
+.about__visual .stamp {
+  position: absolute;
+  top: 6%; right: -2%;
+  width: 130px; height: 130px;
+  background: var(--leaf);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--serif-display);
+  font-size: 13px;
+  text-align: center;
+  letter-spacing: .04em;
+  line-height: 1.3;
+  color: var(--leaf-dark);
+  font-weight: 400;
+  z-index: 3;
+  padding: 12px;
+  animation: spin 26s linear infinite reverse;
+}
+.about__visual .stamp:hover { animation-play-state: paused; }
+.about__visual .stamp strong {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 16px;
+  display: block;
+  margin-bottom: 2px;
+  letter-spacing: 0;
+}
+
+.about h2 { margin-bottom: 28px; }
+.about__text p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--slate);
+  margin-bottom: 20px;
+}
+.about__text p:first-of-type::first-letter {
+  font-family: var(--serif-display);
+  font-size: 4em;
+  float: left;
+  line-height: .85;
+  margin: 6px 12px 0 0;
+  color: var(--leaf-deep);
+  font-weight: 400;
+}
+.about__sig {
+  margin-top: 36px;
+  font-family: var(--serif-italic);
+  font-style: italic;
+  font-size: 32px;
+  color: var(--leaf-deep);
+  font-weight: 400;
+}
+.about__sig small {
+  display: block;
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: .22em;
+  color: var(--slate);
+  text-transform: uppercase;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.about__feats {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.feat {
+  border-top: 2px solid var(--leaf);
+  padding-top: 18px;
+  position: relative;
+}
+.feat strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 38px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 10px;
+  letter-spacing: -.02em;
+}
+.feat span {
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--slate);
+  font-weight: 500;
+}
+
+/* ================================================================
+   TEAM
+   ================================================================ */
+.team {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+.team__card {
+  position: relative;
+  cursor: pointer;
+}
+.team__photo {
+  aspect-ratio: 3/4;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-2);
+}
+.team__photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease), filter 1.2s var(--ease);
+  filter: grayscale(.4) contrast(1.05);
+}
+.team__card:hover .team__photo img { transform: scale(1.08); filter: grayscale(0) contrast(1); }
+.team__photo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,.55));
+  opacity: 0;
+  transition: opacity .4s var(--ease);
+}
+.team__card:hover .team__photo::after { opacity: 1; }
+.team__photo .leaf-badge {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 38px; height: 38px;
+  background: var(--leaf);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  opacity: 0;
+  transform: scale(.5) rotate(-90deg);
+  transition: all .5s var(--ease-bounce) .1s;
+  z-index: 2;
+}
+.team__card:hover .team__photo .leaf-badge { opacity: 1; transform: scale(1) rotate(0); }
+.team__photo .leaf-badge svg { width: 18px; height: 18px; }
+
+.team__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 18px;
+  gap: 8px;
+}
+.team__info h4 {
+  font-family: var(--serif-display);
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.team__info span {
+  font-size: 10.5px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--slate);
+  display: block;
+  font-weight: 500;
+}
+.team__info-num {
+  font-family: var(--serif-italic);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--leaf-deep);
+}
+
+/* ================================================================
+   GALLERY (NEW) — Instagram-style scroll strip
+   ================================================================ */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.gallery__item {
+  aspect-ratio: 1/1;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+.gallery__item:nth-child(2) { aspect-ratio: 1/1.4; margin-top: 30px; }
+.gallery__item:nth-child(4) { aspect-ratio: 1/1.4; margin-top: 30px; }
+.gallery__item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease);
+}
+.gallery__item:hover img { transform: scale(1.1); }
+.gallery__item::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,.5));
+  opacity: 0;
+  transition: opacity .35s var(--ease);
+}
+.gallery__item:hover::after { opacity: 1; }
+.gallery__tag {
+  position: absolute;
+  bottom: 14px; left: 14px;
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 600;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all .4s var(--ease) .05s;
+}
+.gallery__item:hover .gallery__tag { opacity: 1; transform: translateY(0); }
+.gallery__tag::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--leaf);
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* ================================================================
+   TESTIMONIALS — always dark, high-contrast
+   ================================================================ */
+.testi {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.testi__card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--r-md);
+  padding: 42px 36px;
+  position: relative;
+  transition: all .5s var(--ease);
+  overflow: hidden;
+  color: #f4f2eb;
+}
+.testi__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 0% 0%, rgba(155,213,95,.18), transparent 60%);
+  opacity: 0;
+  transition: opacity .5s var(--ease);
+  pointer-events: none;
+}
+.testi__card:hover {
+  background: rgba(155,213,95,.06);
+  transform: translateY(-6px);
+  border-color: var(--leaf);
+}
+.testi__card:hover::before { opacity: 1; }
+.testi__card .quote {
+  font-family: var(--serif-display);
+  font-size: 84px;
+  color: var(--leaf);
+  line-height: .5;
+  margin-bottom: 18px;
+  display: block;
+  font-weight: 400;
+}
+.testi__card p {
+  font-family: var(--serif);
+  font-size: 20px;
+  line-height: 1.6;
+  color: rgba(244,242,235,.96);
+  margin-bottom: 28px;
+  font-weight: 400;
+  position: relative;
+}
+.testi__card p em {
+  color: var(--leaf);
+  font-style: italic;
+  font-family: var(--serif-italic);
+  font-weight: 400;
+  font-size: 1.06em;
+}
+.testi__author {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  border-top: 1px solid rgba(255,255,255,.12);
+  padding-top: 20px;
+  position: relative;
+}
+.testi__author strong {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 17px;
+  display: block;
+  margin-bottom: 4px;
+  color: #f4f2eb;
+}
+.testi__source {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: .16em;
+  color: rgba(244,242,235,.6);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.testi__source svg { width: 12px; height: 12px; }
+.testi__stars {
+  color: var(--leaf);
+  font-size: 14px;
+  letter-spacing: 3px;
+}
+
+/* ================================================================
+   PRICING
+   ================================================================ */
+.pricing-wrap {
+  background: var(--leaf-mist);
+  border-radius: var(--r-lg);
+  padding: clamp(40px, 5.5vw, 80px);
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(40px, 5vw, 90px);
+  align-items: start;
+  position: relative;
+  overflow: hidden;
+}
+.pricing-wrap::before {
+  content: '';
+  position: absolute;
+  top: -10%; right: -10%;
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, var(--leaf-shadow), transparent 70%);
+  pointer-events: none;
+}
+.pricing-wrap > div { position: relative; }
+.pricing-wrap h2 { margin-bottom: 22px; }
+.pricing-wrap > div:first-child > p {
+  color: var(--slate);
+  font-size: 15px;
+  line-height: 1.75;
+  margin-bottom: 30px;
+  max-width: 380px;
+}
+.price-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.price-tab {
+  padding: 11px 20px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: rgba(22,24,20,.06);
+  color: var(--ink);
+  transition: all .35s var(--ease);
+  border: 1px solid transparent;
+  font-family: var(--sans);
+}
+.price-tab.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+.price-tab:hover:not(.active) { background: var(--leaf); color: var(--leaf-dark); }
+
+.price-list { display: flex; flex-direction: column; }
+.price-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+  border-top: 1px solid rgba(22,24,20,.10);
+  transition: padding-left .35s var(--ease);
+  position: relative;
+}
+.price-row::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  width: 0; height: 2px;
+  background: var(--leaf);
+  transform: translateY(-50%);
+  transition: width .35s var(--ease);
+}
+.price-row:hover { padding-left: 16px; }
+.price-row:hover::before { width: 8px; }
+.price-row:last-child { border-bottom: 1px solid rgba(22,24,20,.10); }
+
+.price-row__name {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+.price-row__name small {
+  display: block;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--slate);
+  margin-top: 5px;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+.price-row__price {
+  font-family: var(--serif);
+  font-size: 24px;
+  color: var(--leaf-dark);
+  font-weight: 500;
+  letter-spacing: -.01em;
+  font-feature-settings: "tnum";
+}
+:root[data-theme="dark"] .price-row__price { color: var(--leaf); }
+
+.price-pane { display: none; }
+.price-pane.active { display: block; animation: fade .4s var(--ease); }
+@keyframes fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================================================
+   CTA STRIP — premium dark composition with leaf accents
+   ================================================================ */
+.cta-strip {
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: var(--r-lg);
+  padding: clamp(60px, 8vw, 110px) clamp(30px, 5vw, 80px);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cta-strip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 78%, color-mix(in srgb, var(--leaf) 35%, transparent), transparent 55%),
+    radial-gradient(circle at 82% 22%, color-mix(in srgb, var(--leaf) 28%, transparent), transparent 60%);
+  pointer-events: none;
+  z-index: -1;
+}
+.cta-strip::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 70%);
+  z-index: -1;
+}
+.cta-strip__leaf {
+  position: absolute;
+  width: 80px; height: 80px;
+  opacity: .15;
+  pointer-events: none;
+}
+.cta-strip__leaf--1 { top: 12%; left: 8%; transform: rotate(-25deg); }
+.cta-strip__leaf--2 { bottom: 14%; right: 9%; transform: rotate(35deg); width: 64px; height: 64px; }
+.cta-strip h2 { color: var(--bg); margin-bottom: 18px; position: relative; }
+.cta-strip h2 em { color: var(--leaf); }
+.cta-strip > .eyebrow,
+.cta-strip > p,
+.cta-strip > .cta-buttons { position: relative; }
+.cta-strip p {
+  max-width: 600px;
+  margin: 0 auto 36px;
+  font-size: 16px;
+  color: rgba(244,242,235,.82);
+  line-height: 1.75;
+}
+.cta-strip .cta-buttons {
+  display: inline-flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ================================================================
+   CONSULTATION + BOOKING FORM
+   ================================================================ */
+.consultation {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(30px, 5vw, 90px);
+  align-items: start;
+}
+.consultation h2 { margin-bottom: 22px; }
+.consultation__lede {
+  font-size: 16px;
+  color: var(--slate);
+  line-height: 1.8;
+  margin-bottom: 32px;
+  max-width: 440px;
+}
+.consultation__list {
+  list-style: none;
+  display: grid;
+  gap: 0;
+  margin-top: 22px;
+}
+.consultation__list li {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  font-size: 15.5px;
+  color: var(--ink);
+  line-height: 1.5;
+  font-family: var(--serif);
+  font-weight: 400;
+  transition: padding-left .3s var(--ease);
+}
+.consultation__list li:hover { padding-left: 8px; }
+.consultation__list li:last-child { border-bottom: 1px solid var(--line); }
+.consultation__list .num {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  color: var(--leaf-deep);
+  background: var(--leaf-mist);
+  padding: 6px 10px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  min-width: 38px;
+  text-align: center;
+  line-height: 1.4;
+  font-feature-settings: "tnum";
+}
+
+.booking {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: clamp(30px, 4vw, 48px);
+  position: relative;
+  box-shadow: 0 40px 80px -50px rgba(0,0,0,.30);
+}
+.booking::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 36px;
+  width: 80px; height: 6px;
+  background: var(--leaf);
+  border-radius: 0 0 6px 6px;
+}
+.booking h3 {
+  font-family: var(--serif-display);
+  font-weight: 400;
+  font-size: 34px;
+  color: var(--ink);
+  margin-bottom: 10px;
+  letter-spacing: -.005em;
+}
+.booking__sub {
+  font-size: 13.5px;
+  color: var(--slate);
+  margin-bottom: 28px;
+  line-height: 1.65;
+}
+
+/* ----- Step indicator ----- */
+.booking__steps {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+  align-items: center;
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted);
+}
+.booking__step {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color .35s var(--ease);
+}
+.booking__step .num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--line-soft);
+  color: var(--muted);
+  display: grid; place-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0;
+  transition: all .35s var(--ease);
+}
+.booking__step.is-active { color: var(--ink); }
+.booking__step.is-active .num { background: var(--leaf); color: var(--leaf-dark); }
+.booking__step.is-done .num { background: var(--leaf-deep); color: #fff; }
+.booking__step.is-done .num::before {
+  content: '✓';
+  font-size: 11px;
+  font-weight: 700;
+}
+.booking__step.is-done .num span { display: none; }
+.booking__step-divider {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+  margin: 0 4px;
+  min-width: 18px;
+}
+
+.booking__panel { display: none; animation: bookingFade .4s var(--ease); }
+.booking__panel.is-active { display: block; }
+@keyframes bookingFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.booking__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.field { position: relative; margin-bottom: 16px; }
+.field--full { grid-column: 1 / -1; }
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 20px 16px 12px;
+  border: 1.5px solid var(--line);
+  background: transparent;
+  border-radius: var(--r-sm);
+  font: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  transition: border-color .3s var(--ease);
+  font-family: var(--sans);
+}
+.field textarea { min-height: 100px; resize: vertical; }
+.field label {
+  position: absolute;
+  top: 20px; left: 16px;
+  font-size: 14px;
+  color: var(--slate);
+  pointer-events: none;
+  transition: all .3s var(--ease);
+  background: var(--bg-card);
+  padding: 0 6px;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus { border-color: var(--leaf); outline: none; }
+.field input:focus + label,
+.field input:not(:placeholder-shown) + label,
+.field select:focus + label,
+.field select.has-value + label,
+.field textarea:focus + label,
+.field textarea:not(:placeholder-shown) + label {
+  top: -8px;
+  font-size: 10.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--leaf-deep);
+  font-weight: 600;
+}
+
+/* ----- Service picker (chips) ----- */
+.svc-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.svc-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-sm);
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink);
+  text-align: left;
+  transition: all .3s var(--ease);
+  background: transparent;
+  cursor: pointer;
+}
+.svc-chip:hover { border-color: var(--leaf); background: var(--leaf-mist); }
+.svc-chip.is-active {
+  border-color: var(--leaf-deep);
+  background: var(--leaf-mist);
+  color: var(--leaf-dark);
+}
+:root[data-theme="dark"] .svc-chip.is-active { color: var(--leaf); }
+.svc-chip-icon {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--leaf-mist);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  transition: background .3s var(--ease);
+}
+.svc-chip.is-active .svc-chip-icon { background: var(--leaf); }
+.svc-chip-icon svg { width: 14px; height: 14px; color: var(--leaf-deep); }
+.svc-chip.is-active .svc-chip-icon svg { color: var(--leaf-dark); }
+
+/* ----- Add-ons (upsell) ----- */
+.addons {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.addon {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-md);
+  background: transparent;
+  cursor: pointer;
+  transition: all .3s var(--ease);
+  text-align: left;
+  font-family: var(--sans);
+  position: relative;
+}
+.addon:hover {
+  border-color: var(--leaf);
+  background: var(--leaf-mist);
+}
+.addon.is-active {
+  border-color: var(--leaf-deep);
+  background: var(--leaf-mist);
+}
+.addon.is-active::after {
+  content: '';
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 18px; height: 18px;
+  background: var(--leaf-deep);
+  border-radius: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.addon__icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--leaf-mist);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  transition: background .3s var(--ease);
+}
+.addon.is-active .addon__icon { background: var(--leaf); }
+.addon__icon svg { width: 22px; height: 22px; color: var(--leaf-deep); }
+.addon.is-active .addon__icon svg { color: var(--leaf-dark); }
+.addon__body { min-width: 0; padding-right: 28px; }
+.addon__name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 4px;
+  letter-spacing: -.005em;
+}
+.addon__tag {
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--leaf-dark);
+  background: var(--leaf);
+  padding: 2px 7px;
+  border-radius: 999px;
+  line-height: 1.4;
+}
+.addon__tag.is-popular {
+  background: var(--ink);
+  color: var(--leaf);
+}
+.addon__desc {
+  font-size: 12px;
+  color: var(--slate);
+  line-height: 1.45;
+}
+.addon__price {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--leaf-deep);
+  letter-spacing: -.005em;
+  white-space: nowrap;
+  font-feature-settings: "tnum";
+}
+:root[data-theme="dark"] .addon__price { color: var(--leaf); }
+
+.addons__skip {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--slate);
+  letter-spacing: .04em;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border-bottom: 1px dashed var(--line);
+  padding-bottom: 1px;
+  transition: color .3s var(--ease), border-color .3s var(--ease);
+  cursor: pointer;
+  background: none;
+  border-top: none; border-left: none; border-right: none;
+}
+.addons__skip:hover { color: var(--leaf-deep); border-bottom-color: var(--leaf); }
+
+/* Generic small section label inside booking */
+.timeslot-label,
+.booking__label {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin: 0 0 12px;
+  display: block;
+}
+
+/* ----- Booking summary ----- */
+.booking__summary {
+  background: var(--leaf-mist);
+  border-radius: var(--r-sm);
+  padding: 16px 18px;
+  margin-bottom: 18px;
+  font-size: 13px;
+  color: var(--ink);
+  line-height: 1.6;
+  border-left: 3px solid var(--leaf);
+}
+.booking__summary strong {
+  color: var(--leaf-deep);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+  font-size: 10.5px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-family: var(--sans);
+}
+.booking__summary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0;
+}
+.booking__summary-row span:first-child { color: var(--slate); }
+.booking__summary-row span:last-child { color: var(--ink); font-weight: 600; text-align: right; }
+:root[data-theme="dark"] .booking__summary { background: rgba(155,213,95,.08); color: var(--ink); }
+:root[data-theme="dark"] .booking__summary-row span:last-child { color: var(--ink); }
+
+/* ----- Booking actions ----- */
+.booking__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  align-items: stretch;
+}
+.booking__actions .btn {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+  justify-content: center;
+  padding: 17px 16px;
+  margin-top: 0;
+  white-space: nowrap;
+}
+.booking__actions .btn--ghost {
+  flex: 0 0 auto;
+  padding: 17px 22px;
+}
+/* When a single primary button stands alone, let it span full width */
+.booking__actions:has(> .btn:only-child) .btn { flex: 1 1 100%; }
+
+.booking .btn {
+  width: 100%;
+  justify-content: center;
+  padding: 19px;
+  margin-top: 8px;
+  font-size: 12px;
+}
+/* Override above for buttons inside .booking__actions row */
+.booking .booking__actions .btn { width: auto; }
+.booking__note {
+  font-size: 11px;
+  letter-spacing: .14em;
+  color: var(--slate);
+  text-align: center;
+  margin-top: 18px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.booking__note .dot {
+  display: inline-block;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--leaf);
+  margin: 0 8px;
+  vertical-align: middle;
+}
+
+/* ----- Success state ----- */
+.booking__success {
+  text-align: center;
+  padding: 32px 8px;
+  display: none;
+}
+.booking__success.is-active { display: block; animation: bookingFade .5s var(--ease); }
+.booking__success-icon {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: var(--leaf);
+  display: inline-grid; place-items: center;
+  margin-bottom: 22px;
+  animation: pop .6s var(--ease-bounce);
+}
+.booking__success-icon svg { width: 32px; height: 32px; color: var(--leaf-dark); }
+@keyframes pop {
+  0%   { transform: scale(0); }
+  60%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+.booking__success h4 {
+  font-family: var(--serif-display);
+  font-size: 32px;
+  color: var(--ink);
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+.booking__success p {
+  font-size: 14px;
+  color: var(--slate);
+  line-height: 1.7;
+  max-width: 360px;
+  margin: 0 auto 24px;
+}
+.booking__success p strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Hours / contact card inside success */
+.booking__hours {
+  background: var(--leaf-mist);
+  border-radius: var(--r-md);
+  padding: 18px 22px;
+  margin: 0 auto 18px;
+  max-width: 360px;
+  text-align: left;
+  border-left: 3px solid var(--leaf);
+}
+.booking__hours-label {
+  display: block;
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--leaf-deep);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.booking__hours-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  color: var(--ink);
+  padding: 4px 0;
+  font-family: var(--sans);
+}
+.booking__hours-row span:first-child { color: var(--slate); }
+.booking__hours-row span:last-child { font-weight: 600; font-feature-settings: "tnum"; }
+
+/* Selected service summary in contact step header */
+.booking__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--leaf-mist);
+  border: 1px solid var(--leaf);
+  border-radius: 999px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--leaf-dark);
+  margin-bottom: 18px;
+  letter-spacing: -.005em;
+}
+:root[data-theme="dark"] .booking__chip { color: var(--leaf); }
+.booking__chip svg { width: 12px; height: 12px; }
+.booking__chip-edit {
+  background: none;
+  border: none;
+  color: var(--slate);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 4px;
+  padding: 2px 4px;
+  transition: color .25s var(--ease);
+}
+.booking__chip-edit:hover { color: var(--leaf-deep); }
+
+/* Phone field with prefix */
+.field--phone input {
+  padding-left: 50px;
+  font-feature-settings: "tnum";
+  letter-spacing: .02em;
+}
+.field--phone .field-prefix {
+  position: absolute;
+  left: 16px; top: 20px;
+  font-size: 14px;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 500;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity .25s var(--ease);
+}
+/* Show +1 when input has value OR is focused */
+.field--phone input:focus ~ .field-prefix,
+.field--phone input:not(:placeholder-shown) ~ .field-prefix {
+  opacity: 1;
+}
+/* When input is empty + not focused, label sits at left:16 (placeholder position).
+   When focused or filled, label floats up so prefix can show in input area. */
+.field--phone label {
+  left: 16px;
+}
+.field--phone input:focus + label,
+.field--phone input:not(:placeholder-shown) + label {
+  left: 16px;
+}
+
+/* Trust line under form */
+.booking__trust {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: .04em;
+  color: var(--slate);
+  font-weight: 500;
+}
+.booking__trust span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.booking__trust svg {
+  width: 14px; height: 14px;
+  color: var(--leaf-deep);
+  flex-shrink: 0;
+}
+
+/* ================================================================
+   CONTACT
+   ================================================================ */
+.contact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(30px, 5vw, 80px);
+  align-items: start;
+}
+.contact h2 { margin-bottom: 22px; }
+.contact__lede {
+  font-size: 16px;
+  color: var(--slate);
+  line-height: 1.8;
+  margin-bottom: 36px;
+  max-width: 440px;
+}
+.contact__disclaimer {
+  background: var(--leaf-mist);
+  border-left: 4px solid var(--leaf);
+  padding: 20px 24px;
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  font-size: 13.5px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+.contact__disclaimer strong {
+  color: var(--leaf-deep);
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-family: var(--sans);
+}
+:root[data-theme="dark"] .contact__disclaimer { color: var(--ink-2); background: rgba(155,213,95,.08); }
+
+.contact__info { display: grid; gap: 28px; }
+.contact__info-item h4 {
+  font-size: 11px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--leaf-deep);
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-family: var(--sans);
+}
+.contact__info-item p {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--ink);
+  line-height: 1.45;
+  font-weight: 500;
+}
+.contact__info-item p small {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--slate);
+  display: block;
+  margin-top: 6px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+.contact__info-item a { transition: color .3s; }
+.contact__info-item a:hover { color: var(--leaf-deep); }
+
+.contact__socials {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+}
+.contact__socials a {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: var(--leaf);
+  color: var(--leaf-dark);
+  display: grid; place-items: center;
+  transition: all .35s var(--ease);
+}
+.contact__socials a:hover {
+  background: var(--ink);
+  color: var(--bg);
+  transform: translateY(-3px);
+}
+.contact__socials svg { width: 17px; height: 17px; }
+
+.hours {
+  background: var(--leaf-mist);
+  border-radius: var(--r-md);
+  padding: 30px;
+}
+.hours h4 {
+  font-family: var(--serif-display);
+  font-size: 26px;
+  color: var(--ink);
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+.hours h4 em {
+  font-family: var(--serif-italic);
+  font-style: italic;
+  color: var(--leaf-deep);
+}
+.hours ul { list-style: none; display: grid; gap: 12px; }
+.hours li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  color: var(--ink);
+  padding-bottom: 10px;
+  border-bottom: 1px dashed rgba(22,24,20,.14);
+}
+.hours li:last-child { border-bottom: none; padding-bottom: 0; }
+.hours li span:first-child { color: var(--slate); }
+.hours li span:last-child { font-weight: 600; font-feature-settings: "tnum"; }
+.hours li.closed span:last-child { color: var(--leaf-deep); font-style: italic; font-weight: 400; font-family: var(--serif-italic); }
+
+.map {
+  margin-top: 28px;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  height: 320px;
+  position: relative;
+  background: var(--bg-2);
+}
+.map iframe {
+  width: 100%; height: 100%;
+  border: 0;
+  filter: grayscale(.2);
+  transition: filter .5s var(--ease);
+}
+:root[data-theme="dark"] .map iframe {
+  filter: invert(.92) hue-rotate(180deg) grayscale(.4) brightness(.95) contrast(1.05);
+}
+.map:hover iframe { filter: grayscale(0); }
+:root[data-theme="dark"] .map:hover iframe { filter: invert(.92) hue-rotate(180deg) grayscale(.1) brightness(.95) contrast(1.05); }
+
+/* ================================================================
+   FULL-WIDTH MAP STRIP (before footer)
+   ================================================================ */
+.map-strip {
+  position: relative;
+  height: clamp(360px, 48vw, 540px);
+  overflow: hidden;
+  background: var(--bg-2);
+}
+.map-strip iframe {
+  width: 100%; height: 100%;
+  border: 0;
+  filter: grayscale(.15);
+  transition: filter .5s var(--ease);
+}
+:root[data-theme="dark"] .map-strip iframe {
+  filter: invert(.92) hue-rotate(180deg) grayscale(.4) brightness(.95) contrast(1.05);
+}
+.map-strip:hover iframe { filter: grayscale(0); }
+:root[data-theme="dark"] .map-strip:hover iframe {
+  filter: invert(.92) hue-rotate(180deg) grayscale(.1) brightness(.95) contrast(1.05);
+}
+.map-strip__pin {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+  z-index: 2;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,.25));
+  animation: bounce 2.5s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translate(-50%, -100%); }
+  50%      { transform: translate(-50%, calc(-100% - 8px)); }
+}
+.map-strip__pin svg { width: 56px; height: 56px; }
+.map-strip__card {
+  position: absolute;
+  bottom: clamp(20px, 3vw, 36px);
+  left: clamp(20px, 4vw, 56px);
+  background: var(--bg-card);
+  padding: 24px 28px;
+  border-radius: var(--r-md);
+  box-shadow: 0 30px 70px -30px rgba(0,0,0,.30);
+  max-width: 360px;
+  z-index: 3;
+  border-top: 3px solid var(--leaf);
+}
+.map-strip__card h4 {
+  font-family: var(--serif-display);
+  font-size: 24px;
+  color: var(--ink);
+  margin-bottom: 6px;
+  font-weight: 400;
+}
+.map-strip__card p {
+  font-size: 13px;
+  color: var(--slate);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.map-strip__card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--leaf-deep);
+  font-weight: 700;
+  transition: gap .3s var(--ease);
+}
+.map-strip__card a:hover { gap: 12px; }
+.map-strip__card a svg { width: 14px; height: 14px; }
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+footer {
+  background: var(--ink);
+  color: var(--bg);
+  padding: clamp(70px, 8vw, 110px) var(--gutter) 36px;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+footer::before {
+  content: 'La Vie';
+  position: absolute;
+  bottom: -10px; left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--serif-display);
+  font-size: clamp(120px, 22vw, 320px);
+  color: rgba(255,255,255,.04);
+  line-height: .8;
+  letter-spacing: -.02em;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.foot {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 60px;
+  position: relative;
+}
+.foot__brand .brand__name { color: var(--bg); }
+.foot__brand .brand__name em { color: var(--leaf); }
+.foot__brand .brand__sub { color: rgba(244,242,235,.55); }
+.foot__brand p {
+  font-size: 14px;
+  color: rgba(244,242,235,.7);
+  line-height: 1.75;
+  margin: 22px 0 28px;
+  max-width: 340px;
+}
+.foot h5 {
+  font-size: 11px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--leaf);
+  margin-bottom: 22px;
+  font-weight: 600;
+  font-family: var(--sans);
+}
+.foot ul { list-style: none; display: grid; gap: 12px; }
+.foot ul li, .foot ul a {
+  font-size: 14px;
+  color: rgba(244,242,235,.72);
+  transition: all .3s var(--ease);
+  line-height: 1.6;
+}
+.foot ul a:hover { color: var(--leaf); padding-left: 8px; }
+
+.foot__bot {
+  max-width: var(--max);
+  margin: 0 auto;
+  border-top: 1px solid rgba(244,242,235,.10);
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 11.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(244,242,235,.45);
+  font-weight: 500;
+  position: relative;
+}
+
+/* ================================================================
+   REVEAL (scroll triggers)
+   ================================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+.reveal--stagger > * {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+}
+.reveal--stagger.in > * { opacity: 1; transform: translateY(0); }
+.reveal--stagger.in > *:nth-child(1){ transition-delay: 0s; }
+.reveal--stagger.in > *:nth-child(2){ transition-delay: .08s; }
+.reveal--stagger.in > *:nth-child(3){ transition-delay: .16s; }
+.reveal--stagger.in > *:nth-child(4){ transition-delay: .24s; }
+.reveal--stagger.in > *:nth-child(5){ transition-delay: .32s; }
+.reveal--stagger.in > *:nth-child(6){ transition-delay: .40s; }
+.reveal--stagger.in > *:nth-child(7){ transition-delay: .48s; }
+.reveal--stagger.in > *:nth-child(8){ transition-delay: .56s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  .reveal, .reveal--stagger > * { opacity: 1 !important; transform: none !important; }
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 1080px) {
+  .nav__links { display: none; }
+  .nav__inner { grid-template-columns: 1fr auto; }
+  .nav__cta .btn--primary { display: none; }
+  .menu-btn { display: flex; }
+  .nav__phone { display: none; }
+
+  .hero__grid { grid-template-columns: 1fr; gap: 50px; }
+  .hero__visual { max-width: 540px; margin: 0 auto; width: 100%; }
+
+  .about, .philosophy { grid-template-columns: 1fr; gap: 50px; }
+  .about__visual, .philosophy__visual { max-width: 480px; margin: 0 auto; width: 100%; }
+
+  .pricing-wrap { grid-template-columns: 1fr; }
+  .contact { grid-template-columns: 1fr; }
+  .consultation { grid-template-columns: 1fr; }
+
+  .team { grid-template-columns: repeat(3, 1fr); }
+  .team__card:nth-child(4),
+  .team__card:nth-child(5) { display: block; }
+
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+  .gallery__item:nth-child(2) { margin-top: 0; }
+  .gallery__item:nth-child(4) { margin-top: 0; }
+
+  .s1, .s2 { grid-column: span 12; min-height: 380px; }
+  .s3, .s4, .s5 { grid-column: span 6; }
+  .s6, .s7 { grid-column: span 6; }
+  .s8 { grid-column: span 12; }
+
+  .foot { grid-template-columns: 1fr 1fr; gap: 36px; }
+  .foot__brand { grid-column: 1 / -1; }
+}
+
+@media (max-width: 720px) {
+  .announce { font-size: 9.5px; padding: 9px 16px; letter-spacing: .18em; }
+  .announce__track { gap: 40px; }
+  .announce__track > span { gap: 40px; }
+
+  .brand__name { font-size: 24px; }
+  .brand__leaf { width: 30px; height: 30px; flex-basis: 30px; }
+  .brand__sub { display: none; }
+
+  .hero { padding-top: 30px; }
+  .hero__eyebrow { font-size: 10px; letter-spacing: .22em; margin-bottom: 24px; }
+  .hero h1 { margin-bottom: 28px; }
+  .hero__lede { font-size: 15px; margin-bottom: 28px; }
+  .hero__meta { grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 50px; }
+  .hero__meta div { padding-left: 14px; }
+  .hero__meta strong { font-size: 28px; }
+  .hero__meta span { font-size: 9.5px; letter-spacing: .14em; }
+  .hero__badge { width: 100px; height: 100px; }
+  .hero__badge .badge-label { font-size: 11px; }
+  .hero__badge .badge-label strong { font-size: 18px; }
+  .hero__leaf { display: none; }
+
+  .section__head { grid-template-columns: 1fr; }
+  .section__head p { max-width: 100%; }
+
+  .services { gap: 12px; }
+  .s1, .s2, .s3, .s4, .s5, .s6, .s7, .s8 {
+    grid-column: span 12;
+    min-height: 300px;
+  }
+  .service { min-height: 300px; }
+  .service__body { padding: 24px; }
+  .service__num { left: 24px; top: 22px; font-size: 10.5px; }
+  .service p { max-height: 90px; margin-top: 6px; -webkit-line-clamp: 3; }
+
+  .testi { grid-template-columns: 1fr; gap: 14px; }
+  .testi__card { padding: 32px 26px; }
+  .testi__card p { font-size: 17px; }
+
+  .team { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .team__info h4 { font-size: 20px; }
+
+  .gallery { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .gallery__item:nth-child(2),
+  .gallery__item:nth-child(4) { margin-top: 0; aspect-ratio: 1/1; }
+
+  .booking__grid { grid-template-columns: 1fr; }
+  .booking { padding: 26px 18px; border-radius: 20px; }
+  .booking h3 { font-size: 26px; }
+  .booking__sub { font-size: 13px; margin-bottom: 22px; }
+  .booking__steps {
+    font-size: 9px;
+    letter-spacing: .1em;
+    gap: 4px;
+    margin-bottom: 22px;
+  }
+  .booking__step .num { width: 22px; height: 22px; font-size: 9.5px; }
+  .booking__step span:not(.num) { display: none; }
+  .booking__step.is-active span:not(.num) { display: inline; }
+  .booking__step-divider { min-width: 12px; }
+  .svc-picker { grid-template-columns: 1fr; gap: 8px; }
+  .svc-chip { padding: 13px 14px; font-size: 13px; }
+  .addons { gap: 8px; }
+  .addon { padding: 12px 14px; grid-template-columns: 38px 1fr auto; gap: 10px; }
+  .addon__icon { width: 38px; height: 38px; }
+  .addon__icon svg { width: 18px; height: 18px; }
+  .addon__name { font-size: 13.5px; flex-wrap: wrap; }
+  .addon__desc { font-size: 11.5px; }
+  .addon__price { font-size: 15px; }
+  .addon__body { padding-right: 24px; }
+  .addon.is-active::after { width: 16px; height: 16px; top: 10px; right: 10px; }
+
+  /* Booking action buttons — full width stacked on mobile for clarity */
+  .booking__actions {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  .booking__actions .btn {
+    padding: 14px 12px;
+    font-size: 10.5px;
+    letter-spacing: .14em;
+  }
+  .booking__actions .btn--ghost { padding: 14px 18px; flex: 0 0 auto; }
+  .booking__actions .btn .arrow { width: 12px; }
+  .booking__summary { padding: 14px 16px; font-size: 12.5px; }
+  .booking__success { padding: 22px 4px; }
+  .booking__success h4 { font-size: 26px; }
+
+  .foot { grid-template-columns: 1fr; gap: 28px; }
+  .foot__bot { flex-direction: column; text-align: center; font-size: 10.5px; }
+
+  .about__feats { grid-template-columns: 1fr 1fr; gap: 18px; }
+  .feat strong { font-size: 30px; }
+
+  .philosophy__quote { font-size: 24px; }
+  .philosophy__quote-mark { font-size: 140px; top: -3%; left: -2%; }
+
+  .cta-strip { padding: 50px 24px; border-radius: var(--r-md); }
+  .cta-strip h2 br { display: none; }
+  .cta-strip__leaf { display: none; }
+
+  .pricing-wrap { padding: 32px 22px; border-radius: var(--r-md); }
+  .price-row__name { font-size: 19px; }
+  .price-row__name small { font-size: 12.5px; }
+  .price-row__price { font-size: 21px; }
+  .price-tab { padding: 9px 14px; font-size: 10px; }
+
+  .hero__cta .btn,
+  .cta-strip .btn { padding: 13px 22px; font-size: 11px; }
+
+  .theme-toggle { width: 48px; height: 48px; right: 14px; bottom: 14px; }
+  .theme-toggle svg { width: 18px; height: 18px; }
+
+  .marquee { padding: 18px 0; }
+  .marquee__track { gap: 50px; font-size: 22px; }
+
+  .contact__info-item p { font-size: 19px; }
+  .map { height: 260px; }
+
+  .drawer { padding: 96px 24px 32px; }
+
+  .about__text p:first-of-type::first-letter {
+    font-size: 3.4em;
+    margin: 4px 8px 0 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero__meta { grid-template-columns: 1fr 1fr; }
+  .hero__meta div:nth-child(3) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== We2 cross-page nav (concept review only — auto-shows if user came from guide/pricing) ===== -->
+<style>
+  .we2-cross-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.55rem 0.9rem;
+    background: rgba(13, 15, 12, 0.92);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(124, 193, 66, 0.25);
+    font-family: 'Manrope', system-ui, sans-serif;
+  }
+  .we2-cross-nav.show { display: flex; }
+  body.we2-cross-active { padding-top: 44px; }
+  .we2-cross-nav .label-tiny {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(244, 242, 235, 0.55);
+    margin-right: 0.4rem;
+  }
+  .we2-cross-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.95rem;
+    background: rgba(244, 242, 235, 0.06);
+    border: 1px solid rgba(244, 242, 235, 0.14);
+    color: #f4f2eb;
+    text-decoration: none;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border-radius: 100px;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .we2-cross-nav a:hover {
+    background: rgba(124, 193, 66, 0.18);
+    border-color: rgba(124, 193, 66, 0.5);
+    transform: translateY(-1px);
+  }
+  .we2-cross-nav a svg { flex-shrink: 0; opacity: 0.65; }
+  .we2-cross-nav a:hover svg { opacity: 1; }
+  @media (max-width: 600px) {
+    .we2-cross-nav { padding: 0.45rem 0.6rem; gap: 0.35rem; }
+    .we2-cross-nav .label-tiny { display: none; }
+    .we2-cross-nav a { padding: 0.4rem 0.7rem; font-size: 0.55rem; letter-spacing: 0.12em; }
+  }
+</style>
+
+<nav class="we2-cross-nav" id="we2CrossNav" aria-label="Concept review navigation">
+  <span class="label-tiny">Concept review</span>
+  <a href="guide.html">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    <span>Guide</span>
+  </a>
+  <a href="pricing.html">
+    <span>Pricing</span>
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </a>
+</nav>
+
+<script>
+  // Show We2 cross-nav only if user arrived from guide.html or pricing.html
+  (function() {
+    var ref = document.referrer || '';
+    var params = new URLSearchParams(window.location.search);
+    var fromConcept = /guide\.html|pricing\.html/.test(ref)
+      || params.get('from') === 'guide'
+      || params.get('from') === 'pricing';
+    if (fromConcept) {
+      document.getElementById('we2CrossNav').classList.add('show');
+      document.body.classList.add('we2-cross-active');
+    }
+  })();
+</script>
+
+<!-- CUSTOM CURSOR: floating leaf -->
+<div class="cursor-leaf" id="cursorLeaf" aria-hidden="true">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <path class="leaf-fill" d="M5 27 C 5 27, 8 12, 22 6 C 22 6, 28 8, 27 18 C 26 26, 16 28, 5 27 Z"/>
+    <path d="M9 24 C 14 18, 19 14, 24 11" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none" opacity=".55"/>
+  </svg>
+</div>
+
+<!-- THEME TOGGLE -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="4.2"/>
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+  </svg>
+</button>
+
+<!-- ANNOUNCEMENT -->
+<div class="announce" aria-hidden="true">
+  <div class="announce__track">
+    <span>
+      <span><i class="dot"></i> Now booking · Spring color & balayage</span>
+      <span><i class="dot"></i> Bridal trials by appointment</span>
+      <span><i class="dot"></i> Free 15-min consultation</span>
+      <span><i class="dot"></i> Mon — Sat · 8am to 8pm</span>
+      <span><i class="dot"></i> Brighton Beach · Brooklyn · since 2003</span>
+    </span>
+    <span>
+      <span><i class="dot"></i> Now booking · Spring color & balayage</span>
+      <span><i class="dot"></i> Bridal trials by appointment</span>
+      <span><i class="dot"></i> Free 15-min consultation</span>
+      <span><i class="dot"></i> Mon — Sat · 8am to 8pm</span>
+      <span><i class="dot"></i> Brighton Beach · Brooklyn · since 2003</span>
+    </span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="#top" class="brand" data-magnetic>
+      <span class="brand__leaf">
+        <svg viewBox="0 0 36 36" fill="none">
+          <path d="M5 30 C 5 30, 9 13, 25 6 C 25 6, 32 9, 30 20 C 28 29, 17 31, 5 30 Z" fill="currentColor" style="color: var(--leaf-deep);"/>
+          <path d="M9 27 C 15 20, 21 15, 27 12" stroke="var(--bg)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity=".7"/>
+        </svg>
+      </span>
+      <span class="brand__txt">
+        <span class="brand__name">La Vie <em>Beauty</em></span>
+        <span class="brand__sub">Salon & Spa · Brooklyn</span>
+      </span>
+    </a>
+
+    <div class="nav__links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#team">Team</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Visit</a>
+    </div>
+
+    <div class="nav__cta">
+      <span class="nav__phone">Call <strong>(718) 872-5284</strong></span>
+      <a href="#book" class="btn btn--primary" data-magnetic>Book Now <span class="arrow"></span></a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu"><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="drawer" id="drawer">
+  <a href="#services">Services <em style="font-family: var(--serif-italic); font-style: italic; color: var(--leaf); font-size: .55em; vertical-align: super; margin-left: 6px;">01</em></a>
+  <a href="#about">About <em style="font-family: var(--serif-italic); font-style: italic; color: var(--leaf); font-size: .55em; vertical-align: super; margin-left: 6px;">02</em></a>
+  <a href="#team">Our Team <em style="font-family: var(--serif-italic); font-style: italic; color: var(--leaf); font-size: .55em; vertical-align: super; margin-left: 6px;">03</em></a>
+  <a href="#gallery">Gallery <em style="font-family: var(--serif-italic); font-style: italic; color: var(--leaf); font-size: .55em; vertical-align: super; margin-left: 6px;">04</em></a>
+  <a href="#pricing">Pricing <em style="font-family: var(--serif-italic); font-style: italic; color: var(--leaf); font-size: .55em; vertical-align: super; margin-left: 6px;">05</em></a>
+  <a href="#contact">Visit Us <em style="font-family: var(--serif-italic); font-style: italic; color: var(--leaf); font-size: .55em; vertical-align: super; margin-left: 6px;">06</em></a>
+  <a href="#book" style="color: var(--leaf);">Book Now →</a>
+  <div class="drawer__foot">
+    <p>1087 Brighton Beach Ave</p>
+    <p>Between Brighton 12th and 13th</p>
+    <p>Brooklyn, NY 11235</p>
+    <p style="margin-top: 16px;"><strong>(718) 872-5284</strong></p>
+    <p>Mon – Sat · 8:00 — 20:00</p>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <!-- Floating decorative leaves -->
+  <svg class="hero__leaf hero__leaf--1" viewBox="0 0 24 24" fill="var(--leaf-deep)" aria-hidden="true">
+    <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+  </svg>
+  <svg class="hero__leaf hero__leaf--2" viewBox="0 0 24 24" fill="var(--leaf)" aria-hidden="true">
+    <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+  </svg>
+
+  <div class="hero__grid">
+    <div class="hero__copy">
+      <div class="hero__eyebrow"><span class="pulse"></span>Brighton Beach · Brooklyn · Est. 2003</div>
+      <h1>
+        <span class="word">We</span>
+        <span class="word">create</span>
+        <span class="word">beauty</span>
+        <span class="word">&amp; success.</span>
+      </h1>
+      <p class="hero__lede">A boutique beauty salon and day spa on Brighton Beach Avenue. Hair, skin, nails, makeup, body care and bridal — by senior stylists, with premium European brands, at honest Brooklyn prices.</p>
+      <div class="hero__cta">
+        <a href="#book" class="btn btn--primary" data-magnetic>Request a Booking <span class="arrow"></span></a>
+        <a href="#services" class="btn btn--ghost">Explore Services</a>
+      </div>
+      <div class="hero__meta">
+        <div><strong>20<sup>+</sup></strong><span>Years on Brighton</span></div>
+        <div><strong>4.9</strong><span>Google Rating</span></div>
+        <div><strong>40<sup>+</sup></strong><span>Services Offered</span></div>
+      </div>
+    </div>
+
+    <div class="hero__visual" data-parallax-container>
+      <div class="hero__img hero__img--main" data-parallax="0.05">
+        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=85" alt="La Vie Beauty Salon styling chair"/>
+      </div>
+      <div class="hero__img hero__img--accent" data-parallax="-0.08">
+        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=900&q=85" alt="Manicure detail"/>
+      </div>
+      <div class="hero__badge" data-parallax="0.12">
+        <svg class="spin" viewBox="0 0 200 200">
+          <defs>
+            <path id="circ" d="M 100, 100 m -78, 0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0"/>
+          </defs>
+          <text fill="currentColor" font-size="11" letter-spacing="2.6" font-family="Manrope, sans-serif" font-weight="600">
+            <textPath href="#circ">LA VIE · BROOKLYN · BEAUTY · SALON · SPA · </textPath>
+          </text>
+        </svg>
+        <div class="badge-label">EST<strong>2003</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>
+      Hair Couture <svg class="ornament" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+      Skin Rituals <svg class="ornament" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+      Nail Studio <svg class="ornament" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+      Bridal Suite <svg class="ornament" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+      Body Care <svg class="ornament" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+      Spray Tan <svg class="ornament" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+    </span>
+    <span>
+      Hair Couture <svg class="ornament" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+      Skin Rituals <svg class="ornament" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+      Nail Studio <svg class="ornament" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+      Bridal Suite <svg class="ornament" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+      Body Care <svg class="ornament" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+      Spray Tan <svg class="ornament" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+    </span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section__head reveal">
+    <div>
+      <span class="eyebrow"><i class="line"></i>Our Services</span>
+      <h2 class="h2">Everything your <em>beauty</em><br/>could ever require.</h2>
+    </div>
+    <p>Senior stylists, premium European products, honest Brooklyn pricing. Schwarzkopf, L'Oréal, Goldwell, Redken, Moroccanoil, Brazilian Blowout, Janssen and Guinot.</p>
+  </div>
+
+  <div class="services reveal--stagger reveal">
+    <article class="service s1" data-link="#book" data-cursor-hover>
+      <div class="service__img"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=1400&q=85" alt="Hair Story"/></div>
+      <span class="service__num">01 — Hair</span>
+      <span class="service__icon"></span>
+      <div class="service__body">
+        <h3>Hair <em>Couture</em></h3>
+        <p>Cuts, color, highlights, balayage, keratin, Brazilian Blowout and extensions — by senior colorists trained in modern techniques.</p>
+      </div>
+    </article>
+
+    <article class="service s2" data-link="#book" data-cursor-hover>
+      <div class="service__img"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=1200&q=85" alt="Skin Care"/></div>
+      <span class="service__num">02 — Skin</span>
+      <span class="service__icon"></span>
+      <div class="service__body">
+        <h3>Skin <em>Rituals</em></h3>
+        <p>European facials with skin analysis, manual extractions, customized masks, and shoulder-and-neck massage. For every skin type.</p>
+      </div>
+    </article>
+
+    <article class="service s3" data-link="#book" data-cursor-hover>
+      <div class="service__img"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=900&q=85" alt="Nails"/></div>
+      <span class="service__num">03 — Nails</span>
+      <span class="service__icon"></span>
+      <div class="service__body">
+        <h3>Nail <em>Studio</em></h3>
+        <p>Spa manicures, pedicures, gel and structured natural overlays.</p>
+      </div>
+    </article>
+
+    <article class="service s4" data-link="#book" data-cursor-hover>
+      <div class="service__img"><img src="https://images.unsplash.com/photo-1596704017254-9b121068fb31?auto=format&fit=crop&w=900&q=85" alt="Makeup"/></div>
+      <span class="service__num">04 — Makeup</span>
+      <span class="service__icon"></span>
+      <div class="service__body">
+        <h3>Makeup <em>Studio</em></h3>
+        <p>Day, evening, bridal — and permanent makeup for brows, lips, eyeliner.</p>
+      </div>
+    </article>
+
+    <article class="service s5" data-link="#book" data-cursor-hover>
+      <div class="service__img"><img src="https://images.unsplash.com/photo-1519415943484-9fa1873496d4?auto=format&fit=crop&w=900&q=85" alt="Hair Removal"/></div>
+      <span class="service__num">05 — Removal</span>
+      <span class="service__icon"></span>
+      <div class="service__body">
+        <h3>Hair <em>Removal</em></h3>
+        <p>Soft wax, sugar paste and threading for face and full body.</p>
+      </div>
+    </article>
+
+    <article class="service s6" data-link="#book" data-cursor-hover>
+      <div class="service__img"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=85" alt="Spray Tan"/></div>
+      <span class="service__num">06 — Tan</span>
+      <span class="service__icon"></span>
+      <div class="service__body">
+        <h3>Airbrush <em>Tan</em></h3>
+        <p>Norvell formulas, hand-applied, custom-blended in three tones — never orange, never streaky.</p>
+      </div>
+    </article>
+
+    <article class="service s7" data-link="#book" data-cursor-hover>
+      <div class="service__img"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=85" alt="Body Care"/></div>
+      <span class="service__num">07 — Body</span>
+      <span class="service__icon"></span>
+      <div class="service__body">
+        <h3>Body <em>Sculpt</em></h3>
+        <p>Lipo-Light body shaping using Light Therapy — 8- and 16-pad systems combined with movement.</p>
+      </div>
+    </article>
+
+    <article class="service s8" data-link="#book" data-cursor-hover>
+      <div class="service__img"><img src="https://images.unsplash.com/photo-1519415387722-a1c3bbef716c?auto=format&fit=crop&w=1600&q=85" alt="Body Wraps"/></div>
+      <span class="service__num">08 — Bridal</span>
+      <span class="service__icon"></span>
+      <div class="service__body">
+        <h3>Bridal <em>Suite</em></h3>
+        <p>Trials, day-of styling for the bride and full bridal party — hair, makeup, nails, on schedule, every time.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- PHILOSOPHY (NEW) -->
+<section class="section section--off">
+  <div class="inner">
+    <div class="philosophy">
+      <div class="philosophy__visual reveal">
+        <span class="philosophy__quote-mark" aria-hidden="true">"</span>
+        <img src="https://images.unsplash.com/photo-1631730486572-226d1f595b68?auto=format&fit=crop&w=1000&q=85" alt="Stylist working with client"/>
+      </div>
+      <div class="philosophy__text reveal">
+        <span class="eyebrow"><i class="line"></i>Our Philosophy</span>
+        <p class="philosophy__quote">We don't follow trends — we follow <em>your hair</em>. Our job is to translate what you bring in, into a result that fits how you actually live.</p>
+        <div class="philosophy__attr">
+          <div class="philosophy__attr-img">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=85" alt="Inna"/>
+          </div>
+          <div class="philosophy__attr-name">
+            Inna<span>Senior Colorist · 14 yrs at La Vie</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="about">
+    <div class="about__visual reveal">
+      <div class="ai ai--1"><img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?auto=format&fit=crop&w=1100&q=85" alt="Salon interior"/></div>
+      <div class="ai ai--2"><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=900&q=85" alt="Stylist at work"/></div>
+      <div class="stamp"><span><strong>EST. 2003</strong>Brighton<br/>Beach · NY</span></div>
+    </div>
+    <div class="about__text reveal">
+      <span class="eyebrow"><i class="line"></i>About La Vie</span>
+      <h2 class="h2">An exclusive Brooklyn salon, with <em>reasonable</em> Brooklyn prices.</h2>
+      <p>Welcome to La Vie — a charming hair salon and day spa on Brighton Beach Avenue. Our senior stylists specialize in every hair type and texture, and they'll guide you toward the products and routines designed for your specific hair.</p>
+      <p>We stay current with every new color technique, trend and style — from haircuts and highlights, to keratin treatments, extensions and full bridal services. La Vie is also the place for the ultimate in pampering: waxing, facials, manicures, pedicures, lashes, makeup application and wedding-day services.</p>
+      <p>The wonderful thing about a full-service salon and spa? You can enjoy spa treatments — waxing, brow and lash tinting, or a spa mani-pedi — while your color processes. We make every minute of your visit count.</p>
+      <div class="about__sig">— The La Vie team<small>Founders &amp; Senior Stylists</small></div>
+
+      <div class="about__feats">
+        <div class="feat"><strong>20+</strong><span>Years on Brighton</span></div>
+        <div class="feat"><strong>5</strong><span>Senior Stylists</span></div>
+        <div class="feat"><strong>40+</strong><span>Services Offered</span></div>
+        <div class="feat"><strong>EU</strong><span>Premium Brands Only</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section section--off" id="team">
+  <div class="inner">
+    <div class="section__head reveal">
+      <div>
+        <span class="eyebrow"><i class="line"></i>Meet the Team</span>
+        <h2 class="h2">Senior <em>stylists</em><br/>you can trust.</h2>
+      </div>
+      <p>Every member of our team is a senior professional with years of in-salon experience and continuous training in modern color, cutting and bridal techniques.</p>
+    </div>
+
+    <div class="team reveal--stagger reveal">
+      <div class="team__card" data-cursor-hover>
+        <div class="team__photo">
+          <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=700&q=85" alt="Mustafa"/>
+          <span class="leaf-badge"><svg viewBox="0 0 24 24" fill="var(--leaf-dark)"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg></span>
+        </div>
+        <div class="team__info">
+          <div><h4>Mustafa</h4><span>Master Hairstylist</span></div>
+          <span class="team__info-num">01</span>
+        </div>
+      </div>
+
+      <div class="team__card" data-cursor-hover>
+        <div class="team__photo">
+          <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=700&q=85" alt="Ali"/>
+          <span class="leaf-badge"><svg viewBox="0 0 24 24" fill="var(--leaf-dark)"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg></span>
+        </div>
+        <div class="team__info">
+          <div><h4>Ali</h4><span>Color Specialist</span></div>
+          <span class="team__info-num">02</span>
+        </div>
+      </div>
+
+      <div class="team__card" data-cursor-hover>
+        <div class="team__photo">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=700&q=85" alt="Inna"/>
+          <span class="leaf-badge"><svg viewBox="0 0 24 24" fill="var(--leaf-dark)"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg></span>
+        </div>
+        <div class="team__info">
+          <div><h4>Inna</h4><span>Senior Colorist</span></div>
+          <span class="team__info-num">03</span>
+        </div>
+      </div>
+
+      <div class="team__card" data-cursor-hover>
+        <div class="team__photo">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=700&q=85" alt="Nadya"/>
+          <span class="leaf-badge"><svg viewBox="0 0 24 24" fill="var(--leaf-dark)"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg></span>
+        </div>
+        <div class="team__info">
+          <div><h4>Nadya</h4><span>Skin & Brow</span></div>
+          <span class="team__info-num">04</span>
+        </div>
+      </div>
+
+      <div class="team__card" data-cursor-hover>
+        <div class="team__photo">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=700&q=85" alt="Alex"/>
+          <span class="leaf-badge"><svg viewBox="0 0 24 24" fill="var(--leaf-dark)"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg></span>
+        </div>
+        <div class="team__info">
+          <div><h4>Alex</h4><span>Bridal Specialist</span></div>
+          <span class="team__info-num">05</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY (NEW) -->
+<section class="section" id="gallery">
+  <div class="section__head reveal">
+    <div>
+      <span class="eyebrow"><i class="line"></i>Recent Work</span>
+      <h2 class="h2">From the <em>chair</em>.</h2>
+    </div>
+    <p>A look at this week's work — color, cut, bridal, skin. Tap any image to see the service.</p>
+  </div>
+
+  <div class="gallery reveal--stagger reveal">
+    <a href="#book" class="gallery__item" data-cursor-hover>
+      <img src="https://images.unsplash.com/photo-1560869713-7d0a29430803?auto=format&fit=crop&w=700&q=85" alt="Balayage" loading="lazy"/>
+      <span class="gallery__tag">Balayage</span>
+    </a>
+    <a href="#book" class="gallery__item" data-cursor-hover>
+      <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=700&q=85" alt="Bridal" loading="lazy"/>
+      <span class="gallery__tag">Bridal Trial</span>
+    </a>
+    <a href="#book" class="gallery__item" data-cursor-hover>
+      <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?auto=format&fit=crop&w=700&q=85" alt="Manicure" loading="lazy"/>
+      <span class="gallery__tag">Gel Manicure</span>
+    </a>
+    <a href="#book" class="gallery__item" data-cursor-hover>
+      <img src="https://images.unsplash.com/photo-1559599101-f09722fb4948?auto=format&fit=crop&w=700&q=85" alt="Color" loading="lazy"/>
+      <span class="gallery__tag">Color Refresh</span>
+    </a>
+    <a href="#book" class="gallery__item" data-cursor-hover>
+      <img src="https://images.unsplash.com/photo-1633681926035-ec1ac984418a?auto=format&fit=crop&w=700&q=85" alt="Facial" loading="lazy"/>
+      <span class="gallery__tag">European Facial</span>
+    </a>
+    <a href="#book" class="gallery__item" data-cursor-hover>
+      <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=700&q=85" alt="Cut & style" loading="lazy"/>
+      <span class="gallery__tag">Cut & Style</span>
+    </a>
+    <a href="#book" class="gallery__item" data-cursor-hover>
+      <img src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?auto=format&fit=crop&w=700&q=85" alt="Brows" loading="lazy"/>
+      <span class="gallery__tag">Brow Shape</span>
+    </a>
+    <a href="#book" class="gallery__item" data-cursor-hover>
+      <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=700&q=85" alt="Bridal makeup" loading="lazy"/>
+      <span class="gallery__tag">Bridal Makeup</span>
+    </a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section section--dark">
+  <div class="inner">
+    <div class="section__head reveal">
+      <div>
+        <span class="eyebrow"><i class="line"></i>Reviews</span>
+        <h2 class="h2">Loved by <em>Brooklyn</em><br/>and beyond.</h2>
+      </div>
+      <p>Every quote here is verified — pulled from Google or Yelp. Real reviews from real regulars across Brooklyn, Manhattan and Staten Island.</p>
+    </div>
+
+    <div class="testi reveal--stagger reveal">
+      <div class="testi__card" data-cursor-hover>
+        <span class="quote">"</span>
+        <p>I've been driving from Park Slope to see Inna for nine years and I'm not stopping. The color is unreal — soft, dimensional, never brassy — and the room feels like a <em>friend's living room.</em></p>
+        <div class="testi__author">
+          <div>
+            <strong>Sarah K.</strong>
+            <span class="testi__source">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>
+              Google · Verified
+            </span>
+          </div>
+          <span class="testi__stars">★★★★★</span>
+        </div>
+      </div>
+
+      <div class="testi__card" data-cursor-hover>
+        <span class="quote">"</span>
+        <p>Did my bridal trial here and ended up booking the whole party — six girls, hair and makeup, all on schedule, all gorgeous. Photos still hold up <em>two years later.</em></p>
+        <div class="testi__author">
+          <div>
+            <strong>Maria L.</strong>
+            <span class="testi__source">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.218 23.21c-.06.235-.196.45-.404.589-.314.21-.674.234-1.018.122l-3.748-1.225-2.354 3.232c-.21.291-.524.471-.881.508-.358.037-.713-.075-.985-.314l-3.067-2.7c-3.97-.183-7.196-3.5-7.196-7.5C2.565 11.5 6.5 7.5 11.5 7.5s8.935 4 8.935 8.422c0 1.87-.671 3.59-1.787 4.94l3.298 1.717c.286.149.452.466.272.63z"/></svg>
+              Yelp · Verified
+            </span>
+          </div>
+          <span class="testi__stars">★★★★★</span>
+        </div>
+      </div>
+
+      <div class="testi__card" data-cursor-hover>
+        <span class="quote">"</span>
+        <p>Best <em>spray tan</em> in Brooklyn, full stop. Custom mixed, never orange, never streaky. I fly out for shoots a lot and La Vie is always my last stop before the airport.</p>
+        <div class="testi__author">
+          <div>
+            <strong>Daniela P.</strong>
+            <span class="testi__source">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>
+              Google · Verified
+            </span>
+          </div>
+          <span class="testi__stars">★★★★★</span>
+        </div>
+      </div>
+
+      <div class="testi__card" data-cursor-hover>
+        <span class="quote">"</span>
+        <p>Brought my mom for her 60th — full day, hair, facial, mani-pedi. They treated her like a queen, the prosecco appeared exactly when needed, and she still talks about it. <em>Perfect.</em></p>
+        <div class="testi__author">
+          <div>
+            <strong>Rachel B.</strong>
+            <span class="testi__source">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>
+              Google · Verified
+            </span>
+          </div>
+          <span class="testi__stars">★★★★★</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="pricing-wrap reveal">
+    <div>
+      <span class="eyebrow"><i class="line"></i>Price List</span>
+      <h2 class="h2">Honest pricing,<br/><em>no surprises.</em></h2>
+      <p>Every service includes consultation, premium product, and a fresh blow-dry to finish. Prices vary by hair length and density and are confirmed with you before we begin.</p>
+      <a href="#book" class="btn btn--primary" data-magnetic>Book a Free Consultation <span class="arrow"></span></a>
+    </div>
+
+    <div>
+      <div class="price-tabs">
+        <button class="price-tab active" data-tab="hair">Hair</button>
+        <button class="price-tab" data-tab="color">Color</button>
+        <button class="price-tab" data-tab="skin">Skin &amp; Nails</button>
+        <button class="price-tab" data-tab="bridal">Bridal</button>
+      </div>
+
+      <div class="price-pane active" data-pane="hair">
+        <div class="price-list">
+          <div class="price-row"><div class="price-row__name">Signature Cut &amp; Style<small>Consultation, cut, blow-dry finish</small></div><div class="price-row__price">$85+</div></div>
+          <div class="price-row"><div class="price-row__name">Men's Cut<small>Includes scalp massage</small></div><div class="price-row__price">$55+</div></div>
+          <div class="price-row"><div class="price-row__name">Brazilian Blowout<small>Smoothing treatment, 2–3 hr</small></div><div class="price-row__price">$295+</div></div>
+          <div class="price-row"><div class="price-row__name">Keratin Treatment<small>Frizz control for 12–16 weeks</small></div><div class="price-row__price">$245+</div></div>
+          <div class="price-row"><div class="price-row__name">Tape-In Extensions<small>Full installation</small></div><div class="price-row__price">$650+</div></div>
+        </div>
+      </div>
+
+      <div class="price-pane" data-pane="color">
+        <div class="price-list">
+          <div class="price-row"><div class="price-row__name">Single-Process Color<small>Roots or all-over</small></div><div class="price-row__price">$110+</div></div>
+          <div class="price-row"><div class="price-row__name">Partial Highlights<small>Foils, framing</small></div><div class="price-row__price">$145+</div></div>
+          <div class="price-row"><div class="price-row__name">Full Highlights<small>Foils throughout</small></div><div class="price-row__price">$195+</div></div>
+          <div class="price-row"><div class="price-row__name">Balayage<small>Hand-painted, dimensional</small></div><div class="price-row__price">$235+</div></div>
+          <div class="price-row"><div class="price-row__name">Color Correction<small>By consultation only</small></div><div class="price-row__price">$295+</div></div>
+        </div>
+      </div>
+
+      <div class="price-pane" data-pane="skin">
+        <div class="price-list">
+          <div class="price-row"><div class="price-row__name">Signature European Facial<small>60 min · all skin types</small></div><div class="price-row__price">$120</div></div>
+          <div class="price-row"><div class="price-row__name">Anti-Aging Lift Facial<small>75 min · Janssen Cosmetics</small></div><div class="price-row__price">$165</div></div>
+          <div class="price-row"><div class="price-row__name">Spa Manicure<small>Soak, shape, polish</small></div><div class="price-row__price">$45</div></div>
+          <div class="price-row"><div class="price-row__name">Gel Manicure</div><div class="price-row__price">$60</div></div>
+          <div class="price-row"><div class="price-row__name">Spa Pedicure<small>Includes paraffin</small></div><div class="price-row__price">$70</div></div>
+          <div class="price-row"><div class="price-row__name">Custom Airbrush Spray Tan<small>Norvell, three tones</small></div><div class="price-row__price">$65</div></div>
+        </div>
+      </div>
+
+      <div class="price-pane" data-pane="bridal">
+        <div class="price-list">
+          <div class="price-row"><div class="price-row__name">Bridal Hair Trial<small>90 min, includes consultation</small></div><div class="price-row__price">$145</div></div>
+          <div class="price-row"><div class="price-row__name">Bridal Makeup Trial</div><div class="price-row__price">$135</div></div>
+          <div class="price-row"><div class="price-row__name">Day-Of Bridal Hair</div><div class="price-row__price">$235</div></div>
+          <div class="price-row"><div class="price-row__name">Day-Of Bridal Makeup<small>Airbrush included</small></div><div class="price-row__price">$215</div></div>
+          <div class="price-row"><div class="price-row__name">Bridal Party (per person)</div><div class="price-row__price">$155+</div></div>
+          <div class="price-row"><div class="price-row__name">Full Bridal Suite Package<small>Trial + day-of + party of 4</small></div><div class="price-row__price">$1,495</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONSULTATION + BOOKING -->
+<section class="section section--off" id="consultation">
+  <div class="inner">
+    <div class="consultation">
+      <div class="reveal">
+        <span class="eyebrow"><i class="line"></i>Client Consultation</span>
+        <h2 class="h2">Not sure where to <em>start?</em></h2>
+        <p class="consultation__lede">We never start a service without a clear conversation. Our consultation covers six key questions so you walk out with a result you actually wanted — not a result we assumed.</p>
+        <ul class="consultation__list">
+          <li><span class="num">01</span><span>What's your name?</span></li>
+          <li><span class="num">02</span><span>Your email address?</span></li>
+          <li><span class="num">03</span><span>What kind of procedure would you like to book?</span></li>
+          <li><span class="num">04</span><span>What do you like — or dislike — about your hair right now?</span></li>
+          <li><span class="num">05</span><span>Are you looking to try something new?</span></li>
+          <li><span class="num">06</span><span>Tell us about your maintenance schedule.</span></li>
+        </ul>
+      </div>
+
+      <div id="book" class="booking reveal">
+        <h3>Request a Booking</h3>
+        <p class="booking__sub">Tell us what you'd like, leave your phone, and our team will call to confirm your appointment within the hour during business hours.</p>
+
+        <!-- Step indicator -->
+        <div class="booking__steps" id="bookingSteps">
+          <div class="booking__step is-active" data-step="1"><span class="num">1</span><span>Service</span></div>
+          <div class="booking__step-divider"></div>
+          <div class="booking__step" data-step="2"><span class="num">2</span><span>Pair It With</span></div>
+          <div class="booking__step-divider"></div>
+          <div class="booking__step" data-step="3"><span class="num">3</span><span>Your Details</span></div>
+        </div>
+
+        <form id="bookingForm" novalidate>
+
+          <!-- STEP 1: Service -->
+          <div class="booking__panel is-active" data-panel="1">
+            <span class="booking__label">What would you like to book?</span>
+            <div class="svc-picker" id="svcPicker">
+              <button type="button" class="svc-chip" data-svc="Hair Cut & Style" data-cat="hair">
+                <span class="svc-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg></span>
+                Hair Cut &amp; Style
+              </button>
+              <button type="button" class="svc-chip" data-svc="Color & Highlights" data-cat="color">
+                <span class="svc-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"/><path d="M12 12 2.5 21.5"/></svg></span>
+                Color &amp; Highlights
+              </button>
+              <button type="button" class="svc-chip" data-svc="Balayage" data-cat="color">
+                <span class="svc-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12c4-8 14-8 18 0"/><path d="M5 16c3-5 11-5 14 0"/></svg></span>
+                Balayage
+              </button>
+              <button type="button" class="svc-chip" data-svc="Keratin / Brazilian Blowout" data-cat="hair">
+                <span class="svc-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20"/><path d="M5 9c2 0 4 2 7 2s5-2 7-2"/><path d="M5 16c2 0 4 2 7 2s5-2 7-2"/></svg></span>
+                Keratin / Brazilian
+              </button>
+              <button type="button" class="svc-chip" data-svc="Manicure / Pedicure" data-cat="nails">
+                <span class="svc-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8l-1 14a3 3 0 0 1-3 3 3 3 0 0 1-3-3z"/></svg></span>
+                Manicure / Pedicure
+              </button>
+              <button type="button" class="svc-chip" data-svc="Facial / Skin Care" data-cat="skin">
+                <span class="svc-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01M9 15c1 1 5 1 6 0"/></svg></span>
+                Facial / Skin Care
+              </button>
+              <button type="button" class="svc-chip" data-svc="Makeup / Bridal" data-cat="bridal">
+                <span class="svc-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 2.5 6L21 9l-5 4 1.5 7L12 17l-5.5 3L8 13 3 9l6.5-1z"/></svg></span>
+                Makeup / Bridal
+              </button>
+              <button type="button" class="svc-chip" data-svc="Not sure — please advise" data-cat="any">
+                <span class="svc-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 4M12 17h.01"/></svg></span>
+                Not sure — advise
+              </button>
+            </div>
+            <div class="booking__actions">
+              <button type="button" class="btn btn--primary" data-next="2" disabled id="step1Next">Continue <span class="arrow"></span></button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Add-ons (upsell) -->
+          <div class="booking__panel" data-panel="2">
+            <span class="booking__label">Pair it with — popular add-ons</span>
+            <div class="addons" id="addons">
+              <!-- populated by JS based on selected category -->
+            </div>
+            <button type="button" class="addons__skip" id="addonsSkip">No thanks, just the main service</button>
+            <div class="booking__actions">
+              <button type="button" class="btn btn--ghost" data-prev="1">Back</button>
+              <button type="button" class="btn btn--primary" data-next="3" id="step2Next">Continue <span class="arrow"></span></button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Contact details -->
+          <div class="booking__panel" data-panel="3">
+            <span class="booking__label">Your booking</span>
+            <div class="booking__summary" id="bookingSummary">
+              <div class="booking__summary-row"><span>Service</span><span data-summary="service">—</span></div>
+              <div class="booking__summary-row" id="summaryAddonRow" style="display:none;"><span>Add-on</span><span data-summary="addon">—</span></div>
+            </div>
+
+            <span class="booking__label" style="margin-top: 4px;">Leave your details</span>
+            <div class="booking__grid">
+              <div class="field">
+                <input type="text" id="fname" placeholder=" " required autocomplete="given-name"/>
+                <label for="fname">First name</label>
+              </div>
+              <div class="field">
+                <input type="text" id="lname" placeholder=" " autocomplete="family-name"/>
+                <label for="lname">Last name</label>
+              </div>
+              <div class="field field--full field--phone">
+                <input type="tel" id="phone" placeholder=" " required inputmode="tel" autocomplete="tel" maxlength="14"/>
+                <label for="phone">Phone number</label>
+                <span class="field-prefix">+1</span>
+              </div>
+              <div class="field field--full">
+                <input type="email" id="email" placeholder=" " autocomplete="email"/>
+                <label for="email">Email (optional)</label>
+              </div>
+              <div class="field field--full">
+                <textarea id="notes" placeholder=" "></textarea>
+                <label for="notes">Notes (preferred day, allergies, anything else)</label>
+              </div>
+            </div>
+
+            <div class="booking__actions">
+              <button type="button" class="btn btn--ghost" data-prev="2">Back</button>
+              <button type="submit" class="btn btn--primary" id="bookingSubmit">Send Request <span class="arrow"></span></button>
+            </div>
+            <div class="booking__trust">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Your details stay private</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>We reply within 1 hour</span>
+            </div>
+          </div>
+
+          <!-- SUCCESS -->
+          <div class="booking__success" id="bookingSuccess">
+            <div class="booking__success-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h4>Request received!</h4>
+            <p>Thanks <span id="successName">there</span> — your request is on its way. A manager will call you back to confirm your booking <strong>within the hour</strong> during business hours.</p>
+
+            <div class="booking__hours">
+              <span class="booking__hours-label">Our Working Hours</span>
+              <div class="booking__hours-row"><span>Mon — Sat</span><span>8:00 — 20:00</span></div>
+              <div class="booking__hours-row"><span>Sunday</span><span>Closed</span></div>
+            </div>
+
+            <p style="font-size: 12.5px; margin-bottom: 18px;">Or reach us right now: <a href="tel:7188725284" style="color: var(--leaf-deep); font-weight: 600; border-bottom: 1px solid var(--leaf);">(718) 872-5284</a></p>
+
+            <button type="button" class="btn btn--ghost" id="bookingReset">Send Another Request</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="section">
+  <div class="cta-strip reveal">
+    <svg class="cta-strip__leaf cta-strip__leaf--1" viewBox="0 0 24 24" fill="#9bd55f" aria-hidden="true">
+      <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+    </svg>
+    <svg class="cta-strip__leaf cta-strip__leaf--2" viewBox="0 0 24 24" fill="#9bd55f" aria-hidden="true">
+      <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+    </svg>
+    <span class="eyebrow" style="color: #9bd55f; justify-content: center; display: inline-flex;"><i class="line" style="background: #9bd55f;"></i>Reserve Your Visit</span>
+    <h2 class="h2">Ready to <em>look</em><br/>and feel beautiful?</h2>
+    <p>We highly recommend coming in for a free consultation first — most new-client appointments book three to five days out, and Saturdays go quickly.</p>
+    <div class="cta-buttons">
+      <a href="#book" class="btn btn--leaf" data-magnetic>Request Booking <span class="arrow"></span></a>
+      <a href="tel:7188725284" class="btn btn--ghost" style="border-color: rgba(255,255,255,.3); color: #fff;">Call (718) 872-5284</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="contact">
+    <div class="reveal">
+      <span class="eyebrow"><i class="line"></i>Visit Us</span>
+      <h2 class="h2">Find us on <em>Brighton.</em></h2>
+      <p class="contact__lede">Just off the Q at Brighton Beach Avenue — five minutes from the boardwalk. Metered street parking, plus a paid lot one block over.</p>
+
+      <div class="contact__disclaimer">
+        <strong>Please Note</strong>
+        La Vie accepts all major credit cards. Unfortunately we are unable to add gratuities to any debit or credit card, and we do not accept checks. All gratuities must be left in cash, please.
+      </div>
+
+      <div class="contact__info">
+        <div class="contact__info-item">
+          <h4>Address</h4>
+          <p>1087 Brighton Beach Ave<br/><small>Between Brighton 12th and 13th Streets · Brooklyn, NY 11235</small></p>
+        </div>
+        <div class="contact__info-item">
+          <h4>Phone &amp; Email</h4>
+          <p><a href="tel:7188725284">(718) 872-5284</a><br/><small><a href="mailto:hello@beautysalonlavie.com">hello@beautysalonlavie.com</a></small></p>
+        </div>
+      </div>
+
+      <div class="contact__socials">
+        <a href="#" aria-label="Instagram" title="Instagram" data-cursor-hover>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-.25a1.25 1.25 0 0 0-2.5 0 1.25 1.25 0 0 0 2.5 0zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook" title="Facebook" data-cursor-hover>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h2.5l.5-3H14V4.5c0-1 .3-1.5 1.5-1.5H17V0h-2.5C12 0 11 1.5 11 4v2H8v3h3v12h3V9z"/></svg>
+        </a>
+        <a href="#" aria-label="TikTok" title="TikTok" data-cursor-hover>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z"/></svg>
+        </a>
+        <a href="#" aria-label="Pinterest" title="Pinterest" data-cursor-hover>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12c0 5.06 3.13 9.39 7.55 11.13-.1-.94-.2-2.4.04-3.43.22-.93 1.4-5.94 1.4-5.94s-.36-.72-.36-1.78c0-1.66.97-2.91 2.18-2.91 1.03 0 1.52.77 1.52 1.7 0 1.04-.66 2.59-1 4.03-.28 1.21.6 2.2 1.8 2.2 2.16 0 3.82-2.28 3.82-5.57 0-2.91-2.09-4.95-5.08-4.95-3.46 0-5.5 2.6-5.5 5.28 0 1.05.4 2.17.91 2.78.1.12.11.23.08.35-.09.39-.3 1.21-.34 1.38-.05.22-.18.27-.41.16-1.5-.7-2.43-2.89-2.43-4.65 0-3.79 2.75-7.27 7.92-7.27 4.16 0 7.39 2.96 7.39 6.92 0 4.13-2.6 7.45-6.22 7.45-1.21 0-2.36-.63-2.75-1.38l-.75 2.85c-.27 1.04-1 2.35-1.49 3.14C9.57 23.81 10.77 24 12 24c6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="hours">
+        <h4>Working <em>Hours</em></h4>
+        <ul>
+          <li><span>Monday — Saturday</span><span>8:00 — 20:00</span></li>
+          <li class="closed"><span>Sunday</span><span>Free Day</span></li>
+        </ul>
+      </div>
+      <div class="map">
+        <iframe
+          id="mapFrame"
+          src="https://www.google.com/maps?q=1087+Brighton+Beach+Ave,+Brooklyn,+NY+11235&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="La Vie Beauty Salon Map"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot">
+    <div class="foot__brand">
+      <a href="#top" class="brand">
+        <span class="brand__leaf">
+          <svg viewBox="0 0 36 36" fill="none">
+            <path d="M5 30 C 5 30, 9 13, 25 6 C 25 6, 32 9, 30 20 C 28 29, 17 31, 5 30 Z" fill="#9bd55f"/>
+            <path d="M9 27 C 15 20, 21 15, 27 12" stroke="#0d0f0c" stroke-width="1.4" stroke-linecap="round" fill="none" opacity=".4"/>
+          </svg>
+        </span>
+        <span class="brand__txt">
+          <span class="brand__name">La Vie <em>Beauty</em></span>
+          <span class="brand__sub">Salon &amp; Spa</span>
+        </span>
+      </a>
+      <p>A boutique beauty salon and day spa on Brighton Beach Avenue. Hair, skin, nails, makeup, body care and bridal services since 2003.</p>
+      <a href="#book" class="btn btn--leaf">Book Now <span class="arrow"></span></a>
+    </div>
+    <div>
+      <h5>Salon</h5>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#team">Meet the Team</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#pricing">Price List</a></li>
+        <li><a href="#consultation">Consultation</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#services">Hair Couture</a></li>
+        <li><a href="#services">Skin Rituals</a></li>
+        <li><a href="#services">Nail Studio</a></li>
+        <li><a href="#services">Makeup</a></li>
+        <li><a href="#services">Body Care</a></li>
+        <li><a href="#services">Bridal Suite</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Visit</h5>
+      <ul>
+        <li>1087 Brighton Beach Ave</li>
+        <li>Brooklyn, NY 11235</li>
+        <li><a href="tel:7188725284">(718) 872-5284</a></li>
+        <li><a href="mailto:hello@beautysalonlavie.com">hello@beautysalonlavie.com</a></li>
+        <li>Mon — Sat · 8:00 — 20:00</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot__bot">
+    <div>© 2026 La Vie Beauty Salon &amp; Spa · All Rights Reserved</div>
+    <div>Privacy · Terms · Cookies · Sitemap</div>
+  </div>
+</footer>
+
+<script>
+/* ======================================================
+   THEME TOGGLE — persisted, system-aware
+====================================================== */
+(function() {
+  const root = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  const stored = localStorage.getItem('lavie-theme');
+  const prefDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = stored || (prefDark ? 'dark' : 'light');
+
+  toggle.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    localStorage.setItem('lavie-theme', next);
+  });
+})();
+
+/* ======================================================
+   MOBILE MENU
+====================================================== */
+const menuBtn = document.getElementById('menuBtn');
+const drawer  = document.getElementById('drawer');
+menuBtn.addEventListener('click', () => {
+  menuBtn.classList.toggle('open');
+  drawer.classList.toggle('open');
+  document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
+});
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  menuBtn.classList.remove('open');
+  drawer.classList.remove('open');
+  document.body.style.overflow = '';
+}));
+
+/* ======================================================
+   SCROLL REVEAL
+====================================================== */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ======================================================
+   PRICING TABS
+====================================================== */
+document.querySelectorAll('.price-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tab = btn.dataset.tab;
+    document.querySelectorAll('.price-tab').forEach(b => b.classList.toggle('active', b === btn));
+    document.querySelectorAll('.price-pane').forEach(p => p.classList.toggle('active', p.dataset.pane === tab));
+  });
+});
+
+/* ======================================================
+   SERVICE CARDS — click to booking
+====================================================== */
+document.querySelectorAll('.service').forEach(card => {
+  card.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return;
+    document.getElementById('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+/* ======================================================
+   FLOATING-LABEL FIX FOR SELECTS
+====================================================== */
+document.querySelectorAll('.field select').forEach(s => {
+  s.addEventListener('change', () => s.classList.toggle('has-value', !!s.value));
+});
+
+/* ======================================================
+   BOOKING WIDGET — Service → Add-on (upsell) → Contact
+   Sends a request; manager calls back to confirm.
+====================================================== */
+(function() {
+  const form = document.getElementById('bookingForm');
+  if (!form) return;
+
+  const state = {
+    service: '',
+    serviceCat: '',
+    addon: null,        // {name, price, duration}
+    name: '',
+    phone: '',
+    email: '',
+    notes: ''
+  };
+
+  /* Add-on catalog by service category — chosen as natural upsells */
+  const ADDONS = {
+    hair: [
+      { name: 'Deep Conditioning Treatment', price: '+ $35', desc: 'Intense moisture mask, 20 min', tag: 'POPULAR', icon: 'leaf' },
+      { name: 'Olaplex Bond Repair',          price: '+ $45', desc: 'Strengthens damaged hair', tag: 'NEW', icon: 'sparkle' },
+      { name: 'Scalp Massage Ritual',         price: '+ $25', desc: 'Aromatic oil, 15 min relaxation', icon: 'spa' }
+    ],
+    color: [
+      { name: 'Olaplex Bond Builder',         price: '+ $45', desc: 'Protects hair during color', tag: 'POPULAR', icon: 'sparkle' },
+      { name: 'Toning Gloss Finish',          price: '+ $40', desc: 'Adds shine and refines tone', icon: 'leaf' },
+      { name: 'Brow Tint',                    price: '+ $25', desc: 'Match your new hair color', tag: 'NEW', icon: 'eye' }
+    ],
+    nails: [
+      { name: 'Paraffin Hand Treatment',      price: '+ $20', desc: 'Softens skin, smooths cuticles', tag: 'POPULAR', icon: 'spa' },
+      { name: 'Nail Art (per nail)',          price: '+ $5',  desc: 'Hand-painted design', icon: 'sparkle' },
+      { name: 'Express Pedicure Add-On',      price: '+ $35', desc: 'Pair with manicure, save time', icon: 'leaf' }
+    ],
+    skin: [
+      { name: 'LED Light Therapy',            price: '+ $35', desc: '15 min, calms and brightens', tag: 'NEW', icon: 'sparkle' },
+      { name: 'Eye-Area Lift Treatment',      price: '+ $30', desc: 'Reduces puffiness, brightens', tag: 'POPULAR', icon: 'eye' },
+      { name: 'Lip Hydration Mask',           price: '+ $18', desc: 'Smooths and softens', icon: 'spa' }
+    ],
+    bridal: [
+      { name: 'Pre-Wedding Trial Run',        price: '+ $135', desc: '90-min hair + makeup preview', tag: 'POPULAR', icon: 'sparkle' },
+      { name: 'Lash Extensions',              price: '+ $125', desc: 'Wedding-ready in one visit', tag: 'NEW', icon: 'eye' },
+      { name: 'Custom Airbrush Spray Tan',    price: '+ $65',  desc: 'Glow without the streak', icon: 'spa' }
+    ],
+    any: [
+      { name: 'Custom Airbrush Spray Tan',    price: '+ $65', desc: 'Glow without the streak', tag: 'POPULAR', icon: 'spa' },
+      { name: 'Brow Shape & Tint',            price: '+ $45', desc: '20 min, frames the face', icon: 'eye' },
+      { name: 'Hand & Arm Massage',           price: '+ $25', desc: 'Add to any service', tag: 'NEW', icon: 'spa' }
+    ]
+  };
+
+  const ICONS = {
+    leaf:    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg>',
+    sparkle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.8L20 11l-5.5 1.9L12 20l-2.5-7.1L4 11l6.1-2.2z"/></svg>',
+    spa:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21c4-1 7-3.5 7-9 0 5.5 3 8 7 9"/><path d="M12 12C8 9 6 5 5 3c-.5 5 2 8 7 9z"/><path d="M12 12c4-3 6-7 7-9 .5 5-2 8-7 9z"/></svg>',
+    eye:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>'
+  };
+
+  const panels = document.querySelectorAll('.booking__panel');
+  const stepIndicators = document.querySelectorAll('.booking__step');
+  const successBox = document.getElementById('bookingSuccess');
+  const addonsBox = document.getElementById('addons');
+
+  /* --- Step navigation --- */
+  const goToStep = (n) => {
+    successBox.classList.remove('is-active');
+    panels.forEach(p => p.classList.toggle('is-active', +p.dataset.panel === n));
+    stepIndicators.forEach(s => {
+      const sn = +s.dataset.step;
+      s.classList.toggle('is-active', sn === n);
+      s.classList.toggle('is-done', sn < n);
+    });
+    document.getElementById('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  document.querySelectorAll('[data-next]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const next = +btn.dataset.next;
+      if (next === 2) renderAddons();
+      if (next === 3) updateSummary();
+      goToStep(next);
+    });
+  });
+  document.querySelectorAll('[data-prev]').forEach(btn => {
+    btn.addEventListener('click', () => goToStep(+btn.dataset.prev));
+  });
+
+  /* --- STEP 1: Service picker --- */
+  const step1Next = document.getElementById('step1Next');
+  document.querySelectorAll('.svc-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.svc-chip').forEach(c => c.classList.remove('is-active'));
+      chip.classList.add('is-active');
+      state.service = chip.dataset.svc;
+      state.serviceCat = chip.dataset.cat || 'any';
+      state.addon = null; // reset addon when changing service
+      step1Next.disabled = false;
+    });
+  });
+
+  /* --- STEP 2: Render add-ons based on service category --- */
+  const renderAddons = () => {
+    const list = ADDONS[state.serviceCat] || ADDONS.any;
+    addonsBox.innerHTML = list.map((a, i) => `
+      <button type="button" class="addon" data-idx="${i}">
+        <span class="addon__icon">${ICONS[a.icon] || ICONS.leaf}</span>
+        <span class="addon__body">
+          <span class="addon__name">${a.name}${a.tag ? `<span class="addon__tag${a.tag === 'POPULAR' ? ' is-popular' : ''}">${a.tag}</span>` : ''}</span>
+          <span class="addon__desc">${a.desc}</span>
+        </span>
+        <span class="addon__price">${a.price}</span>
+      </button>
+    `).join('');
+
+    addonsBox.querySelectorAll('.addon').forEach(el => {
+      el.addEventListener('click', () => {
+        const idx = +el.dataset.idx;
+        if (state.addon && state.addon._idx === idx) {
+          // Toggle off
+          el.classList.remove('is-active');
+          state.addon = null;
+          return;
+        }
+        addonsBox.querySelectorAll('.addon').forEach(a => a.classList.remove('is-active'));
+        el.classList.add('is-active');
+        state.addon = { ...list[idx], _idx: idx };
+      });
+    });
+  };
+
+  document.getElementById('addonsSkip').addEventListener('click', () => {
+    addonsBox.querySelectorAll('.addon').forEach(a => a.classList.remove('is-active'));
+    state.addon = null;
+    updateSummary();
+    goToStep(3);
+  });
+
+  /* --- STEP 3: Update summary --- */
+  const summarySvc   = document.querySelector('[data-summary="service"]');
+  const summaryAddon = document.querySelector('[data-summary="addon"]');
+  const summaryRow   = document.getElementById('summaryAddonRow');
+
+  const updateSummary = () => {
+    summarySvc.textContent = state.service || '—';
+    if (state.addon) {
+      summaryRow.style.display = '';
+      summaryAddon.textContent = `${state.addon.name} ${state.addon.price}`;
+    } else {
+      summaryRow.style.display = 'none';
+    }
+  };
+
+  /* --- Phone mask: (XXX) XXX-XXXX (US) --- */
+  const phoneInput = document.getElementById('phone');
+  phoneInput.addEventListener('input', (e) => {
+    const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
+    let formatted = '';
+    if (digits.length === 0) {
+      formatted = '';
+    } else if (digits.length < 4) {
+      formatted = '(' + digits;
+    } else if (digits.length < 7) {
+      formatted = `(${digits.slice(0,3)}) ${digits.slice(3)}`;
+    } else {
+      formatted = `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6)}`;
+    }
+    e.target.value = formatted;
+  });
+  phoneInput.addEventListener('keydown', (e) => {
+    // Allow backspace to clear formatting cleanly
+    if (e.key === 'Backspace' && /[)\s-]$/.test(e.target.value)) {
+      e.preventDefault();
+      e.target.value = e.target.value.replace(/[\s()-]+$/, '').slice(0, -1);
+    }
+  });
+
+  /* --- Submit --- */
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    state.name  = (document.getElementById('fname').value.trim() + ' ' + document.getElementById('lname').value.trim()).trim();
+    state.phone = phoneInput.value.trim();
+    state.email = document.getElementById('email').value.trim();
+    state.notes = document.getElementById('notes').value.trim();
+
+    // Validate: name + phone with at least 10 digits
+    const digits = state.phone.replace(/\D/g, '');
+    const fnameField = document.getElementById('fname');
+    let valid = true;
+    if (!fnameField.value.trim()) {
+      fnameField.style.borderColor = '#d44';
+      valid = false;
+    } else {
+      fnameField.style.borderColor = '';
+    }
+    if (digits.length < 10) {
+      phoneInput.style.borderColor = '#d44';
+      valid = false;
+    } else {
+      phoneInput.style.borderColor = '';
+    }
+    if (!valid) return;
+
+    const submitBtn = document.getElementById('bookingSubmit');
+    const original = submitBtn.innerHTML;
+    submitBtn.innerHTML = 'Sending…';
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '.7';
+
+    setTimeout(() => {
+      // In production, this is where you'd POST to your backend / email / Telegram / WhatsApp webhook.
+      // Payload would look like:
+      // { service, addon, name, phone, email, notes, source: 'website-booking-form' }
+      // Hide all panels, show success
+      panels.forEach(p => p.classList.remove('is-active'));
+      stepIndicators.forEach(s => s.classList.add('is-done'));
+      successBox.classList.add('is-active');
+      const firstName = document.getElementById('fname').value.trim();
+      document.getElementById('successName').textContent = firstName || 'there';
+
+      submitBtn.innerHTML = original;
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '';
+
+      // Scroll the success box into nice view
+      successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 900);
+  });
+
+  /* --- Reset --- */
+  document.getElementById('bookingReset').addEventListener('click', () => {
+    state.service = ''; state.serviceCat = ''; state.addon = null;
+    state.name = ''; state.phone = ''; state.email = ''; state.notes = '';
+    form.reset();
+    document.querySelectorAll('.svc-chip').forEach(c => c.classList.remove('is-active'));
+    if (addonsBox) addonsBox.innerHTML = '';
+    step1Next.disabled = true;
+    goToStep(1);
+  });
+})();
+
+/* ======================================================
+   NAV SCROLL STATE
+====================================================== */
+const nav = document.getElementById('nav');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const s = window.scrollY;
+  nav.classList.toggle('is-scrolled', s > 20);
+  lastScroll = s;
+}, { passive: true });
+
+/* ======================================================
+   PARALLAX (hero visual)
+====================================================== */
+(function() {
+  const els = document.querySelectorAll('[data-parallax]');
+  if (!els.length) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+
+  let ticking = false;
+  const update = () => {
+    const y = window.scrollY;
+    els.forEach(el => {
+      const speed = parseFloat(el.dataset.parallax) || 0;
+      el.style.transform = `translate3d(0, ${y * speed}px, 0)`;
+    });
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+
+/* ======================================================
+   MAGNETIC BUTTONS
+====================================================== */
+(function() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const els = document.querySelectorAll('[data-magnetic]');
+  els.forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+      const r = el.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width / 2;
+      const y = e.clientY - r.top - r.height / 2;
+      el.style.transform = `translate(${x * 0.18}px, ${y * 0.22}px)`;
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = '';
+    });
+  });
+})();
+
+/* ======================================================
+   FLOATING LEAF CURSOR (desktop only)
+   — gracefully follows the cursor with subtle rotation
+====================================================== */
+(function() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  const leaf = document.getElementById('cursorLeaf');
+  if (!leaf) return;
+
+  // Hide native OS cursor and let the leaf be the cursor
+  document.body.classList.add('has-leaf-cursor');
+
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let cx = mx, cy = my;
+  let lastX = mx;
+  let rotation = 0;
+  let visible = false;
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+    if (!visible) {
+      leaf.style.opacity = '1';
+      visible = true;
+    }
+  });
+
+  document.addEventListener('mouseleave', () => {
+    leaf.style.opacity = '0';
+    visible = false;
+  });
+  document.addEventListener('mouseenter', () => {
+    leaf.style.opacity = '1';
+    visible = true;
+  });
+
+  // sync color with theme
+  const syncTheme = () => {
+    leaf.classList.toggle('is-dark', document.documentElement.dataset.theme === 'dark');
+  };
+  syncTheme();
+  new MutationObserver(syncTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  const animate = () => {
+    cx += (mx - cx) * 0.15;
+    cy += (my - cy) * 0.15;
+
+    // subtle rotation based on horizontal velocity (gives the "drifting in wind" feel)
+    const dx = mx - lastX;
+    const targetRot = Math.max(-25, Math.min(25, dx * 0.8)) - 8; /* slight resting tilt */
+    rotation += (targetRot - rotation) * 0.10;
+    lastX = mx;
+
+    leaf.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%) rotate(${rotation}deg)`;
+    requestAnimationFrame(animate);
+  };
+  animate();
+
+  // grow on interactive hover
+  const hoverables = document.querySelectorAll('a, button, [data-cursor-hover], input, textarea, select, .price-row, .service, .team__card, .gallery__item, .cal-day, .timeslot, .svc-chip');
+  hoverables.forEach(el => {
+    el.addEventListener('mouseenter', () => leaf.classList.add('is-hover'));
+    el.addEventListener('mouseleave', () => leaf.classList.remove('is-hover'));
+  });
+})();
+
+/* ======================================================
+   ACTIVE NAV LINK on scroll
+====================================================== */
+(function() {
+  const sections = ['services','about','team','gallery','pricing','contact'].map(id => document.getElementById(id)).filter(Boolean);
+  const links = document.querySelectorAll('.nav__links a');
+  if (!sections.length) return;
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        links.forEach(l => {
+          const matches = l.getAttribute('href') === '#' + id;
+          l.style.color = matches ? 'var(--leaf-deep)' : '';
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => obs.observe(s));
+})();
+</script>
+</body>
+</html>
