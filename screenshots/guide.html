@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>La Vie Beauty — Concept Walkthrough · We2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     PLATINUM NYC — CLIENT WALKTHROUGH BY WE2 (FAMILY STUDIO)
+  ========================================================== */
+
+  :root {
+    --live-url: './';
+  }
+
+  [data-theme="dark"] {
+    --bg: #0B0C0F;
+    --bg-2: #14161B;
+    --bg-3: #1B1E25;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.18);
+    --text: #F4F5F7;
+    --text-2: #A8ABB4;
+    --text-3: #6B6E76;
+    --accent: #E8E9EC;
+    --accent-2: #BFC8D6;
+    --shadow: 0 30px 80px -20px rgba(0,0,0,0.6);
+    --frame: #2A2D34;
+    --frame-edge: #3A3D44;
+    --frame-rim: rgba(255, 255, 255, 0.12);
+  }
+  [data-theme="light"] {
+    --bg: #F7F7F9;
+    --bg-2: #FFFFFF;
+    --bg-3: #EEEFF2;
+    --border: rgba(0, 0, 0, 0.08);
+    --border-strong: rgba(0, 0, 0, 0.16);
+    --text: #0A0B0D;
+    --text-2: #525560;
+    --text-3: #8A8E96;
+    --accent: #0A0B0D;
+    --accent-2: #525560;
+    --shadow: 0 30px 80px -20px rgba(0,0,0,0.16);
+    --frame: #C0C2C8;
+    --frame-edge: #A4A7AE;
+    --frame-rim: rgba(0, 0, 0, 0.1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.4s ease, color 0.4s ease;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(circle 700px at 5% 0%, rgba(232, 233, 236, 0.05), transparent 60%),
+      radial-gradient(circle 900px at 100% 80%, rgba(191, 200, 214, 0.04), transparent 60%);
+    transition: opacity 0.4s;
+  }
+  [data-theme="light"] body::before { opacity: 0.4; }
+
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; }
+
+  /* ============ STICKY TOP BAR ============ */
+  .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(11, 12, 15, 0.72);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.4s;
+  }
+  [data-theme="light"] .top-bar { background: rgba(247, 247, 249, 0.78); }
+  .top-bar-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .brand { display: flex; align-items: center; gap: 0.7rem; min-width: 0; }
+  .brand-mark {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background:
+      conic-gradient(from 45deg, transparent, rgba(255,255,255,0.22), transparent 80deg, transparent 220deg, rgba(255,255,255,0.15), transparent 320deg),
+      repeating-radial-gradient(circle, #08090C 0 1px, #1F2228 1px 2px),
+      #08090C;
+    box-shadow: inset 0 0 4px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
+    position: relative;
+    animation: spin 3s linear infinite;
+    flex-shrink: 0;
+  }
+  .brand-mark::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 32%; height: 32%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #F4F5F7, #BFC8D6 60%, #8A8E96);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.5);
+  }
+  .brand-mark::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 3px; height: 3px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #08090C;
+    z-index: 2;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .brand-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .brand-name {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .brand-tag {
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .controls { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+  .toggle-group {
+    display: flex;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 3px;
+    position: relative;
+  }
+  .toggle-group button {
+    background: transparent;
+    border: none;
+    padding: 0.4rem 0.85rem;
+    font-family: inherit;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    cursor: pointer;
+    border-radius: 100px;
+    transition: color 0.3s;
+    z-index: 1;
+    position: relative;
+    min-width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .toggle-group button.active { color: var(--bg); }
+  .toggle-group::before {
+    content: '';
+    position: absolute;
+    top: 3px; bottom: 3px;
+    background: var(--text);
+    border-radius: 100px;
+    transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+  }
+  .toggle-group[data-active="0"]::before { left: 3px; width: calc(50% - 3px); }
+  .toggle-group[data-active="1"]::before { left: 50%; width: calc(50% - 3px); }
+
+  /* ============ HERO ============ */
+  .hero { padding: 5rem 0 3rem; text-align: center; }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    margin-bottom: 1.6rem;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #25D85A;
+    box-shadow: 0 0 8px rgba(37, 216, 90, 0.6);
+  }
+  .hero h1 {
+    font-size: clamp(1.6rem, 4vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.2rem;
+    max-width: 920px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 0.96rem;
+    color: var(--text-2);
+    max-width: 580px;
+    margin: 0 auto 1.8rem;
+    line-height: 1.6;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.95rem 1.7rem;
+    background: var(--text);
+    color: var(--bg);
+    text-decoration: none;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border-radius: 100px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 50px -10px rgba(232, 233, 236, 0.35);
+  }
+  [data-theme="light"] .hero-cta:hover { box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.25); }
+  .hero-cta svg { width: 13px; height: 13px; }
+
+  /* ============ FEATURE GRID ============ */
+  .features { padding: 3rem 0 4rem; }
+
+  .feature-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    margin-bottom: 6rem;
+    padding-bottom: 6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .feature-row:last-of-type { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+  .feature-row.reversed > .device { order: 2; }
+  .feature-row.reversed > .copy { order: 1; }
+
+  @media (max-width: 920px) {
+    .feature-row, .feature-row.reversed {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+      padding-bottom: 3.5rem;
+    }
+    .feature-row.reversed > .device,
+    .feature-row.reversed > .copy { order: initial; }
+    .feature-row > .device { order: -1; }
+  }
+
+  .copy { padding: 0.5rem 0; }
+  .feature-num {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--text-3);
+    margin-bottom: 1.1rem;
+    text-transform: uppercase;
+    flex-wrap: wrap;
+  }
+  .feature-num .badge {
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.58rem;
+    color: var(--text-2);
+    letter-spacing: 0.18em;
+  }
+  .feature-num .badge.mobile { background: rgba(37, 216, 90, 0.1); color: #25D85A; border-color: rgba(37, 216, 90, 0.3); }
+  .feature-num .badge.desktop { background: rgba(100, 150, 255, 0.1); color: #6496FF; border-color: rgba(100, 150, 255, 0.3); }
+  .feature-num .badge.both { background: rgba(232, 233, 236, 0.05); }
+  [data-theme="light"] .feature-num .badge.both { background: rgba(0,0,0,0.04); }
+
+  .feature-title {
+    font-size: clamp(1.35rem, 3vw, 2.1rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    line-height: 1.18;
+  }
+  .feature-text {
+    color: var(--text-2);
+    font-size: 0.94rem;
+    line-height: 1.65;
+    margin-bottom: 1.2rem;
+  }
+  .feature-bullets { list-style: none; margin-top: 1rem; }
+  .feature-bullets li {
+    padding: 0.55rem 0 0.55rem 1.6rem;
+    color: var(--text-2);
+    font-size: 0.88rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .feature-bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 1rem;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--text);
+    opacity: 0.7;
+  }
+  .feature-bullets li strong { color: var(--text); font-weight: 700; }
+  .feature-bullets li code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.82em;
+    background: var(--bg-3);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  /* ============ DEVICE FRAMES — THIN ============ */
+  .device { display: flex; align-items: center; justify-content: center; }
+
+  /* iPhone — thin minimal frame */
+  .iphone {
+    position: relative;
+    width: 270px;
+    aspect-ratio: 9 / 19.5;
+    background: var(--frame);
+    border-radius: 38px;
+    padding: 5px; /* thin bezel */
+    box-shadow: var(--shadow);
+    flex-shrink: 0;
+  }
+  .iphone::before {
+    /* subtle outer rim highlight */
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 38px;
+    padding: 1px;
+    background: linear-gradient(160deg, var(--frame-rim), transparent 30%, transparent 70%, var(--frame-rim));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .iphone-screen {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border-radius: 33px;
+    overflow: hidden;
+    position: relative;
+  }
+  .iphone-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+  .iphone-notch {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 22px;
+    background: #000;
+    border-radius: 14px;
+    z-index: 10;
+  }
+  /* Side buttons — thin ticks */
+  .iphone-side-btn {
+    position: absolute;
+    background: var(--frame-edge);
+    border-radius: 1px;
+  }
+  .iphone-side-btn.power { right: -1.5px; top: 110px; width: 2px; height: 60px; }
+  .iphone-side-btn.vol-up { left: -1.5px; top: 95px; width: 2px; height: 42px; }
+  .iphone-side-btn.vol-down { left: -1.5px; top: 150px; width: 2px; height: 42px; }
+  .iphone-side-btn.silence { left: -1.5px; top: 65px; width: 2px; height: 22px; }
+
+  /* MacBook — thin frame */
+  .macbook {
+    width: 100%;
+    max-width: 580px;
+    flex-shrink: 0;
+  }
+  .macbook-screen {
+    background: var(--frame);
+    border-radius: 10px 10px 3px 3px;
+    padding: 8px 8px 6px;
+    box-shadow: var(--shadow);
+    position: relative;
+    border: 1px solid var(--frame-rim);
+    border-bottom: none;
+  }
+  .macbook-camera {
+    position: absolute;
+    top: 3.5px; left: 50%;
+    transform: translateX(-50%);
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: #050505;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+    z-index: 2;
+  }
+  .macbook-bezel {
+    background: #000;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 16 / 10;
+  }
+  .macbook-bezel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+  .macbook-base {
+    height: 9px;
+    background: linear-gradient(180deg, var(--frame-edge), var(--frame));
+    border-radius: 0 0 8px 8px;
+    margin: 0 -10px;
+    position: relative;
+    box-shadow: 0 6px 12px -4px rgba(0,0,0,0.25);
+  }
+  .macbook-base::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 18%;
+    height: 3px;
+    background: var(--frame-edge);
+    border-radius: 0 0 5px 5px;
+  }
+
+  /* ============ FINDINGS BLOCK (Scenario B) ============ */
+  .findings {
+    padding: 2rem 0 5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4rem;
+  }
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+  .section-divider .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 59, 48, 0.12);
+    color: #FF3B30;
+    border: 1px solid rgba(255, 59, 48, 0.3);
+    font-weight: 800;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  [data-theme="light"] .section-divider .num {
+    background: rgba(255, 59, 48, 0.1);
+  }
+  .section-divider h3 {
+    font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+    font-weight: 800;
+    letter-spacing: -0.015em;
+  }
+  .section-divider .line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section-intro {
+    color: var(--text-2);
+    font-size: 0.94rem;
+    line-height: 1.6;
+    max-width: 640px;
+    margin: 0 0 2.4rem 0;
+  }
+
+  .finding-row {
+    display: grid;
+    grid-template-columns: minmax(220px, 280px) 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px dashed var(--border);
+  }
+  .finding-row:last-of-type { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+  @media (max-width: 760px) {
+    .finding-row {
+      grid-template-columns: 1fr;
+      gap: 1.6rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+    }
+  }
+
+  .finding-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  .finding-list li {
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+    color: var(--text-2);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+  .finding-list li strong { color: var(--text); font-weight: 700; }
+  .bullet-num {
+    flex-shrink: 0;
+    width: 24px; height: 24px;
+    background: #FF3B30;
+    color: white;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.72rem;
+    margin-top: 1px;
+    box-shadow: 0 4px 12px rgba(255, 59, 48, 0.3);
+  }
+
+  /* Findings without screenshot — text-only cards */
+  .finding-text-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .finding-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.4rem 1.3rem;
+    position: relative;
+  }
+  .finding-card .card-num {
+    position: absolute;
+    top: -10px;
+    left: 16px;
+    width: 24px; height: 24px;
+    background: #FF3B30;
+    color: white;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.72rem;
+    box-shadow: 0 4px 12px rgba(255, 59, 48, 0.3);
+  }
+  .finding-card h4 {
+    font-size: 0.96rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-top: 0.2rem;
+    margin-bottom: 0.5rem;
+  }
+  .finding-card p {
+    color: var(--text-2);
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+  .finding-card p code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.82em;
+    background: var(--bg-3);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  /* Annotations on the finding screenshot */
+  .annotation {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    z-index: 5;
+    pointer-events: none;
+    animation: pulseMark 2.5s ease-in-out infinite;
+    transform: translate(-50%, -50%);
+  }
+  .ann-num {
+    width: 22px; height: 22px;
+    background: #FF3B30;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.7rem;
+    border: 2px solid white;
+    box-shadow: 0 4px 14px rgba(255, 59, 48, 0.5);
+    flex-shrink: 0;
+  }
+  .ann-label {
+    background: #FF3B30;
+    color: white;
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+  @keyframes pulseMark {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.06); }
+  }
+
+  /* Macbook frame for findings — slightly different (lets us put annotations on top) */
+  .finding-macbook {
+    position: relative;
+    max-width: 100%;
+  }
+  .finding-macbook .macbook-bezel { aspect-ratio: 16 / 10; }
+
+  /* Container for screenshot with annotations laid over */
+  .ann-host {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    color: var(--text-3);
+    font-size: 0.74rem;
+  }
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+  }
+  .footer-mark {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background:
+      conic-gradient(from 45deg, transparent, rgba(255,255,255,0.2), transparent 80deg),
+      repeating-radial-gradient(circle, #08090C 0 0.8px, #1F2228 0.8px 1.6px),
+      #08090C;
+    position: relative;
+    animation: spin 4s linear infinite;
+  }
+  .footer-mark::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 36%; height: 36%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, #F4F5F7, #8A8E96);
+  }
+
+  /* ============ LANG SWAP ============ */
+  [data-lang="en"] [lang="ru"] { display: none; }
+  [data-lang="ru"] [lang="en"] { display: none; }
+
+  /* ============ FIXED CROSS-PAGE NAV ============ */
+  .cross-nav {
+    position: fixed;
+    left: 50%;
+    bottom: 1.2rem;
+    transform: translateX(-50%);
+    z-index: 70;
+    display: flex;
+    gap: 0.7rem;
+    background: transparent;
+    opacity: 0;
+    animation: crossNavIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.9s forwards;
+  }
+  @keyframes crossNavIn { to { opacity: 1; } }
+  .cross-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.3rem;
+    background: var(--text);
+    color: var(--bg);
+    text-decoration: none;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border-radius: 100px;
+    box-shadow: 0 14px 44px -10px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04);
+    transition: background 0.25s, color 0.25s, transform 0.2s, box-shadow 0.3s;
+    white-space: nowrap;
+  }
+  [data-theme="light"] .cross-nav a {
+    box-shadow: 0 14px 44px -10px rgba(0,0,0,0.18);
+  }
+  .cross-nav a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 50px -10px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.08);
+  }
+  [data-theme="light"] .cross-nav a:hover {
+    box-shadow: 0 20px 50px -10px rgba(0,0,0,0.28);
+  }
+  .cross-nav a svg {
+    flex-shrink: 0;
+    opacity: 0.8;
+    transition: transform 0.25s, opacity 0.25s;
+  }
+  .cross-nav a:hover svg {
+    opacity: 1;
+  }
+  /* arrow micro-animation per direction */
+  .cross-nav a:first-child:hover svg { transform: translateX(-2px); }
+  .cross-nav a:last-child:hover svg { transform: translateX(2px); }
+
+  @media (max-width: 600px) {
+    .cross-nav {
+      bottom: 0.85rem;
+      gap: 0.5rem;
+    }
+    .cross-nav a {
+      padding: 0.7rem 0.9rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      gap: 0.35rem;
+    }
+  }
+  @media (max-width: 380px) {
+    .cross-nav a .lbl-long { display: none; }
+    .cross-nav a .lbl-short { display: inline !important; }
+  }
+
+  /* ============ TEAM SECTION ============ */
+  .team-section {
+    padding: 4rem 0;
+  }
+  .team-head {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .team-eyebrow {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    margin-bottom: 1.2rem;
+  }
+  .team-head h2 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+  }
+  .team-head p {
+    color: var(--text-2);
+    max-width: 520px;
+    margin: 0 auto;
+    font-size: 0.96rem;
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  @media (max-width: 700px) {
+    .team-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+  }
+  .team-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 2rem 1.8rem;
+    text-align: center;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .team-card:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-3px);
+  }
+  .team-photo {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    margin: 0 auto 1.2rem;
+    background: var(--bg-3);
+    border: 2px solid var(--border-strong);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .team-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .team-photo .placeholder {
+    font-family: 'Montserrat', serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: 0.05em;
+  }
+  .team-name {
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.3rem;
+  }
+  .team-role {
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 1rem;
+  }
+  .team-bio {
+    color: var(--text-2);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  @media (max-width: 600px) {
+    .top-bar-inner { padding: 0.6rem 0.9rem; gap: 0.5rem; }
+    .brand-mark { width: 24px; height: 24px; }
+    .brand-name { font-size: 0.66rem; letter-spacing: 0.12em; }
+    .brand-tag { font-size: 0.5rem; }
+    .toggle-group button { padding: 0.35rem 0.6rem; font-size: 0.6rem; min-width: 30px; }
+
+    .hero { padding: 2.5rem 0 1.5rem; }
+    .hero h1 { font-size: clamp(1.4rem, 6vw, 2rem); line-height: 1.15; max-width: 100%; }
+    .hero p { font-size: 0.88rem; }
+    .eyebrow { font-size: 0.58rem; padding: 0.35rem 0.85rem; }
+    .hero-cta { padding: 0.85rem 1.4rem; font-size: 0.68rem; }
+
+    .features { padding: 1rem 0 2.5rem; }
+    .feature-num { font-size: 0.6rem; gap: 0.5rem; }
+    .feature-num .badge { font-size: 0.54rem; padding: 0.25rem 0.55rem; }
+    .iphone { width: 230px; }
+    .iphone-notch { width: 70px; height: 18px; top: 12px; }
+    .iphone-screen { border-radius: 30px; }
+    .iphone { border-radius: 35px; }
+    .iphone::before { border-radius: 35px; }
+
+    .footer-inner { font-size: 0.68rem; }
+  }
+  @media (max-width: 380px) {
+    .iphone { width: 210px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ FIXED CROSS-PAGE NAV ============ -->
+<nav class="cross-nav" aria-label="Page navigation">
+  <a href="index.html?from=guide" target="_blank" rel="noopener" aria-label="Open the live site">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    <span class="lbl-long">
+      <span lang="en">Open site</span>
+      <span lang="ru">Открыть сайт</span>
+    </span>
+    <span class="lbl-short" lang="en" style="display:none;">Site</span>
+  </a>
+  <a href="pricing.html" aria-label="View pricing &amp; calculator">
+    <span class="lbl-long">
+      <span lang="en">Pricing</span>
+      <span lang="ru">Прайс</span>
+    </span>
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </a>
+</nav>
+
+<!-- ============ STICKY TOP BAR ============ -->
+<header class="top-bar">
+  <div class="top-bar-inner">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-text">
+        <span class="brand-name">We2 · Family Studio</span>
+        <span class="brand-tag">
+          <span lang="en">Concept Walkthrough</span>
+          <span lang="ru">Презентация концепта</span>
+        </span>
+      </span>
+    </div>
+    <div class="controls">
+      <div class="toggle-group" data-active="0" id="langToggle">
+        <button data-lang-set="en" class="active">EN</button>
+        <button data-lang-set="ru">RU</button>
+      </div>
+      <div class="toggle-group" data-active="0" id="themeToggle">
+        <button data-theme-set="dark" class="active" aria-label="Dark theme">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button data-theme-set="light" aria-label="Light theme">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">
+      <span lang="en">Concept Preview · For Client Review</span>
+      <span lang="ru">Концепт-превью · Для клиента</span>
+    </span>
+    <h1>
+      <span lang="en">La Vie Beauty — <span class="accent">a 20-year salon, brought into 2026 without losing what made it special.</span></span>
+      <span lang="ru">La Vie Beauty — <span class="accent">салон с историей в 20+ лет, переосмысленный для 2026 без потери того, что сделало его узнаваемым.</span></span>
+    </h1>
+    <p>
+      <span lang="en">A short walkthrough of the redesign. We start with what wasn't working on the old site, then go through the new build block by block — what changed, why it matters, and how it converts visits into bookings.</span>
+      <span lang="ru">Короткий разбор редизайна. Сначала — что не работало на старом сайте, затем — новый сайт по блокам: что поменялось, зачем, и как это превращает заходы в записи.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============ FINDINGS — WHAT WE FOUND ON THE OLD SITE (Scenario B) ============ -->
+<section class="findings">
+  <div class="container">
+    <div class="section-divider">
+      <span class="num">!</span>
+      <h3>
+        <span lang="en">What we found on the old site</span>
+        <span lang="ru">Что мы заметили на старом сайте</span>
+      </h3>
+      <span class="line"></span>
+    </div>
+    <p class="section-intro">
+      <span lang="en">Quick honest read of <code>beautysalonlavie.com</code> — so the redesign decisions on the next pages make sense. Nothing here is a criticism of the salon itself; the salon clearly works. The site just hasn't kept up.</span>
+      <span lang="ru">Короткий честный разбор <code>beautysalonlavie.com</code> — чтобы решения на следующих экранах были понятны. Это не претензия к салону: салон работает. Сайт просто отстал.</span>
+    </p>
+
+    <!-- Finding 1 — visual: team grid with placeholders -->
+    <div class="finding-row">
+      <div class="device">
+        <div class="finding-macbook">
+          <div class="macbook">
+            <div class="macbook-screen">
+              <span class="macbook-camera"></span>
+              <div class="macbook-bezel">
+                <div class="ann-host">
+                  <img src="findings/screenshots/old_team_desktop.png" alt="Old site — team grid with placeholder images" loading="lazy">
+                  <span class="annotation" style="top: 50%; left: 13%;">
+                    <span class="ann-num">1</span>
+                    <span class="ann-label">Demo image</span>
+                  </span>
+                  <span class="annotation" style="top: 50%; left: 91%;">
+                    <span class="ann-num">2</span>
+                    <span class="ann-label">Demo image</span>
+                  </span>
+                  <span class="annotation" style="top: 22%; left: 50%;">
+                    <span class="ann-num">3</span>
+                    <span class="ann-label">Stock styling</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="macbook-base"></div>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <ul class="finding-list">
+          <li>
+            <span class="bullet-num">1</span>
+            <span lang="en"><strong>Two stylists are shown as placeholders</strong> — Mustafa and Alex literally render as "Demo image 363×500". For a salon where trust in the master is the whole sell, this is the most expensive bug on the page.</span>
+            <span lang="ru"><strong>Двое мастеров показаны плейсхолдерами</strong> — у Mustafa и Alex буквально стоит «Demo image 363×500». Для салона, где доверие к мастеру — главное при выборе, это самая дорогая ошибка на странице.</span>
+          </li>
+          <li>
+            <span class="bullet-num">2</span>
+            <span lang="en"><strong>The same stylist photo is reused twice</strong> — the team feels half-real.</span>
+            <span lang="ru"><strong>Одно и то же фото мастера используется дважды</strong> — команда выглядит «недонастроенной».</span>
+          </li>
+          <li>
+            <span class="bullet-num">3</span>
+            <span lang="en"><strong>Hero slider is stock photography</strong> — generic, not connected to the salon, and the visual style feels dated. A first-time visitor sees no reason to believe the photos represent what they'll actually walk into.</span>
+            <span lang="ru"><strong>Слайдер на главной — стоковые фото</strong> — обезличенные, не связанные с салоном, и стилистика уже устарела. Гость, который видит сайт впервые, не понимает: эти фото вообще про этот салон или нет.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Findings 2-4 — text cards (no screenshots needed) -->
+    <div class="finding-text-grid">
+
+      <div class="finding-card">
+        <span class="card-num">4</span>
+        <h4>
+          <span lang="en">No way to book online</span>
+          <span lang="ru">Записаться онлайн нельзя</span>
+        </h4>
+        <p>
+          <span lang="en">Every "Learn More" and "Visit Forum" button leads to <code>#</code>. The only path to a booking is a phone call during business hours — which loses the entire Instagram-at-night audience.</span>
+          <span lang="ru">Все кнопки «Learn More» и «Visit Forum» ведут в <code>#</code>. Единственный способ записаться — звонок в рабочие часы, что отрезает весь поток из Instagram «после работы».</span>
+        </p>
+      </div>
+
+      <div class="finding-card">
+        <span class="card-num">5</span>
+        <h4>
+          <span lang="en">Mobile experience is broken</span>
+          <span lang="ru">Мобильная версия сломана</span>
+        </h4>
+        <p>
+          <span lang="en">Most beauty-salon traffic comes from phones — late evening, from Instagram. The current site doesn't render cleanly on a phone, which is exactly the channel where bookings actually happen. Mobile-first should be priority number one for a salon site.</span>
+          <span lang="ru">Большая часть трафика beauty-салонов идёт с телефонов — поздний вечер, из Instagram. Текущий сайт на телефоне отображается криво, а именно мобила — основной канал, через который салон получает записи. Удобство на телефоне здесь должно быть приоритетом номер один.</span>
+        </p>
+      </div>
+
+      <div class="finding-card">
+        <span class="card-num">6</span>
+        <h4>
+          <span lang="en">Small details that signal "not maintained"</span>
+          <span lang="ru">Мелочи, говорящие «сайт не обслуживается»</span>
+        </h4>
+        <p>
+          <span lang="en">Footer still says <code>© 2018</code>. The login modal exposes a leftover developer instruction to visitors. Buttons like <strong>Visit Forum</strong> link nowhere. Individually small — together they tell visitors the website hasn't been touched in years, even though the salon clearly has been.</span>
+          <span lang="ru">Футер показывает <code>© 2018</code>. В окне логина гостю видна забытая инструкция для разработчика. Кнопки вроде <strong>Visit Forum</strong> ведут в никуда. По отдельности — ерунда; вместе — гость думает, что сайтом давно никто не занимается, даже если сам салон работает как часы.</span>
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+<!-- ============ FEATURE BREAKDOWN ============ -->
+<section class="features">
+  <div class="container">
+
+    <div class="section-divider" style="margin-bottom: 1.2rem;">
+      <span class="num" style="background: rgba(37, 216, 90, 0.12); color: #25D85A; border-color: rgba(37, 216, 90, 0.3);">→</span>
+      <h3>
+        <span lang="en">Here's what we did about it</span>
+        <span lang="ru">Вот что мы с этим сделали</span>
+      </h3>
+      <span class="line"></span>
+    </div>
+    <p class="section-intro">
+      <span lang="en">Eight blocks covering the new build — what's on the page, why it's there, and what it's pulling weight for. Mobile differences are flagged where they matter.</span>
+      <span lang="ru">Восемь блоков по новому сайту — что на экране, зачем оно там, и что именно тянет на себе. Где мобильная версия отличается от десктопа — отмечено.</span>
+    </p>
+
+    <!-- 01 — Hero with parallax & EST 2003 badge -->
+    <div class="feature-row">
+      <div class="device">
+        <div class="macbook">
+          <div class="macbook-screen">
+            <span class="macbook-camera"></span>
+            <div class="macbook-bezel">
+              <img src="screenshots/hero_desktop.png" alt="Hero with parallax visual and EST 2003 badge" loading="lazy">
+            </div>
+          </div>
+          <div class="macbook-base"></div>
+        </div>
+      </div>
+      <div class="copy">
+        <div class="feature-num">
+          <span>01 / 08</span>
+          <span class="badge both"><span lang="en">Both versions</span><span lang="ru">Обе версии</span></span>
+        </div>
+        <h3 class="feature-title">
+          <span lang="en">Editorial hero with a 20-year stamp</span>
+          <span lang="ru">Редакционный hero с печатью «20 лет»</span>
+        </h3>
+        <p class="feature-text">
+          <span lang="en">Big serif headline — <em>"We create beauty &amp; success"</em> — paired with a parallax image of the salon and a slowly-rotating "EST. 2003 · LA VIE · BROOKLYN · BEAUTY · SALON" badge. Three social-proof tiles below: <strong>20+ years on Brighton</strong>, <strong>4.9 Google rating</strong>, <strong>40+ services</strong>. The story is told in the first screen.</span>
+          <span lang="ru">Крупный serif-заголовок — <em>«We create beauty &amp; success»</em> — рядом параллакс-фото салона и медленно вращающаяся печать «EST. 2003 · LA VIE · BROOKLYN · BEAUTY · SALON». Под этим — три плитки социального доказательства: <strong>20+ лет на Брайтоне</strong>, <strong>4.9 на Google</strong>, <strong>40+ услуг</strong>. Вся история — на первом экране.</span>
+        </p>
+        <ul class="feature-bullets">
+          <li><span lang="en"><strong>Parallax photo</strong> shifts on scroll — depth, no extra weight</span><span lang="ru"><strong>Параллакс-фото</strong> смещается при скролле — глубина без перегруза</span></li>
+          <li><span lang="en"><strong>Spinning EST 2003 badge</strong> — visible authority marker, not a logo dump</span><span lang="ru"><strong>Вращающаяся печать EST 2003</strong> — заметный знак опыта, а не логотип-нашлёпка</span></li>
+          <li><span lang="en">Two CTAs — <strong>Request a Booking</strong> (primary) and <strong>Explore Services</strong> (secondary)</span><span lang="ru">Две CTA — <strong>Request a Booking</strong> (основная) и <strong>Explore Services</strong> (вторичная)</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 02 — Light/Dark theme (day/evening) -->
+    <div class="feature-row reversed">
+      <div class="device">
+        <div class="iphone">
+          <div class="iphone-side-btn silence"></div>
+          <div class="iphone-side-btn vol-up"></div>
+          <div class="iphone-side-btn vol-down"></div>
+          <div class="iphone-side-btn power"></div>
+          <div class="iphone-notch"></div>
+          <div class="iphone-screen">
+            <img src="screenshots/theme_mobile.png" alt="Light/dark theme switch on mobile" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <div class="feature-num">
+          <span>02 / 08</span>
+          <span class="badge both"><span lang="en">Both versions</span><span lang="ru">Обе версии</span></span>
+        </div>
+        <h3 class="feature-title">
+          <span lang="en">Day &amp; evening — one tap</span>
+          <span lang="ru">День и вечер — в одно касание</span>
+        </h3>
+        <p class="feature-text">
+          <span lang="en">A floating leaf-shaped toggle in the corner switches the whole site between a warm bone-toned daytime palette and a deep botanical-green night palette. Most beauty traffic comes after work, in dim light — a dark mode isn't decoration, it's where guests actually browse.</span>
+          <span lang="ru">Маленький переключатель в углу меняет всю страницу между тёплой светлой палитрой («warm bone») и глубокой ночной зелёной. Большая часть трафика beauty-салонов — это вечер после работы, в полумраке. Тёмная тема тут — не украшение, а среда, в которой реально листают.</span>
+        </p>
+        <ul class="feature-bullets">
+          <li><span lang="en"><strong>Map syncs</strong> with the theme — light or dark Google Maps tiles, automatically</span><span lang="ru"><strong>Карта синхронизирована</strong> с темой — светлая или тёмная Google Maps подгружается сама</span></li>
+          <li><span lang="en">Photos retain warmth in both modes — no harsh inversion</span><span lang="ru">Фото сохраняют теплоту в обеих темах — без жёсткой инверсии</span></li>
+          <li><span lang="en">Choice is remembered between visits</span><span lang="ru">Выбор запоминается между визитами</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 03 — Custom leaf cursor (desktop only) -->
+    <div class="feature-row">
+      <div class="device">
+        <div class="macbook">
+          <div class="macbook-screen">
+            <span class="macbook-camera"></span>
+            <div class="macbook-bezel">
+              <img src="screenshots/cursor_desktop.png" alt="Custom leaf cursor on desktop" loading="lazy">
+            </div>
+          </div>
+          <div class="macbook-base"></div>
+        </div>
+      </div>
+      <div class="copy">
+        <div class="feature-num">
+          <span>03 / 08</span>
+          <span class="badge desktop"><span lang="en">Desktop only</span><span lang="ru">Только десктоп</span></span>
+        </div>
+        <h3 class="feature-title">
+          <span lang="en">Floating leaf cursor &amp; magnetic CTAs</span>
+          <span lang="ru">Курсор-лист и магнитные CTA</span>
+        </h3>
+        <p class="feature-text">
+          <span lang="en">On desktop the cursor becomes a small soft-green leaf that follows the pointer. Tactile, on-brand, and noticed within seconds. CTAs are <strong>magnetic</strong> — the leaf and button gently pull toward each other on hover, so clicks land intentionally. The screenshot shows the deep-green CTA strip near the bottom of the page, where the magnetic effect reads strongest.</span>
+          <span lang="ru">На десктопе курсор превращается в мягко-зелёный лист, который следует за мышью. Тактильно, в стиле бренда, замечается в первые секунды. CTA-кнопки <strong>магнитные</strong> — лист и кнопка слегка притягиваются друг к другу при наведении, клики попадают осознанно. На скриншоте — deep-green CTA-стрип внизу страницы, где магнитный эффект читается лучше всего.</span>
+        </p>
+        <ul class="feature-bullets">
+          <li><span lang="en"><strong>Pure SVG</strong> — sharp on retina, no image asset</span><span lang="ru"><strong>Чистый SVG</strong> — чёткий на retina, без файла-картинки</span></li>
+          <li><span lang="en">Auto-disabled on touch devices — phones already have native feedback</span><span lang="ru">Авто-отключается на тач-устройствах — там работает нативный отклик</span></li>
+          <li><span lang="en">Performance-light — uses <code>transform</code>, never <code>top/left</code></span><span lang="ru">Лёгкий по перформансу — использует <code>transform</code>, не <code>top/left</code></span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 04 — Services grid -->
+    <div class="feature-row reversed">
+      <div class="device">
+        <div class="macbook">
+          <div class="macbook-screen">
+            <span class="macbook-camera"></span>
+            <div class="macbook-bezel">
+              <img src="screenshots/services_desktop.png" alt="Services grid on desktop" loading="lazy">
+            </div>
+          </div>
+          <div class="macbook-base"></div>
+        </div>
+      </div>
+      <div class="copy">
+        <div class="feature-num">
+          <span>04 / 08</span>
+          <span class="badge both"><span lang="en">Both versions</span><span lang="ru">Обе версии</span></span>
+        </div>
+        <h3 class="feature-title">
+          <span lang="en">Eight services, one editorial grid</span>
+          <span lang="ru">Восемь услуг, одна редакционная сетка</span>
+        </h3>
+        <p class="feature-text">
+          <span lang="en">Hair · Skin · Nails · Makeup · Removal · Tan · Body · Bridal — each in its own card with a real photo, hover-lift, and a one-line story. Where the old site listed services as plain text links, the new grid <strong>sells</strong> each one in a glance. Every card is a tap away from booking.</span>
+          <span lang="ru">Hair · Skin · Nails · Makeup · Removal · Tan · Body · Bridal — каждая услуга на своей карточке с реальным фото, hover-эффектом и одной-двумя фразами. Старый сайт показывал услуги как ссылки текстом — новая сетка <strong>продаёт</strong> их с первого взгляда. Каждая карточка ведёт прямо в букинг.</span>
+        </p>
+        <ul class="feature-bullets">
+          <li><span lang="en"><strong>Stagger reveal on scroll</strong> — eye is led naturally down the page</span><span lang="ru"><strong>Stagger-анимация при скролле</strong> — взгляд естественно ведётся вниз по странице</span></li>
+          <li><span lang="en">Italic word-accents (<em>Couture</em>, <em>Rituals</em>, <em>Studio</em>) — editorial, not corporate</span><span lang="ru">Курсивные акценты (<em>Couture</em>, <em>Rituals</em>, <em>Studio</em>) — редакционно, а не корпоративно</span></li>
+          <li><span lang="en">Each card opens the booking form pre-filled with that service</span><span lang="ru">Каждая карточка открывает форму записи с уже выбранной услугой</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 05 — Pricing with tabs (mobile difference) -->
+    <div class="feature-row">
+      <div class="device">
+        <div class="iphone">
+          <div class="iphone-side-btn silence"></div>
+          <div class="iphone-side-btn vol-up"></div>
+          <div class="iphone-side-btn vol-down"></div>
+          <div class="iphone-side-btn power"></div>
+          <div class="iphone-notch"></div>
+          <div class="iphone-screen">
+            <img src="screenshots/pricing_mobile.png" alt="Pricing tabs on mobile" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <div class="feature-num">
+          <span>05 / 08</span>
+          <span class="badge mobile"><span lang="en">Mobile difference</span><span lang="ru">Отличие на мобиле</span></span>
+        </div>
+        <h3 class="feature-title">
+          <span lang="en">Honest pricing, comfortable on a phone</span>
+          <span lang="ru">Честные цены, удобные на телефоне</span>
+        </h3>
+        <p class="feature-text">
+          <span lang="en">Four tabs — <strong>Hair · Color · Skin &amp; Nails · Bridal</strong> — each with its own clear price list. Length-dependent rows are prefixed <em>"from"</em> to remove sticker-shock anxiety, and seasonal offers show <strong>old price → new price → −%</strong> in a tasteful leaf-tinted badge. On mobile the tabs scroll horizontally and rows reflow into two lines so the price always reads cleanly on the right.</span>
+          <span lang="ru">Четыре таба — <strong>Hair · Color · Skin &amp; Nails · Bridal</strong> — каждый со своим прайсом. Услуги, где цена зависит от длины, помечены <em>«from»</em> — чтобы не было «ценового шока» в первую секунду. У сезонных предложений показывается <strong>старая цена → новая цена → −%</strong> в аккуратном leaf-бейдже. На мобиле табы скроллятся горизонтально, а строка прайса переносится в две строки, чтобы цена справа всегда читалась чётко.</span>
+        </p>
+        <ul class="feature-bullets">
+          <li><span lang="en"><strong>"from"</strong> wording removes price-anchoring panic</span><span lang="ru"><strong>«from»</strong> снимает «прайс-якорь» в голове у гостя</span></li>
+          <li><span lang="en"><strong>Old / new / −%</strong> badges</strong> — manageable from the admin panel; mark a price as "previous" and the discount calculates automatically</span><span lang="ru"><strong>Бейджи старая / новая / −%</strong> — управляются из админки: поставили «предыдущую» цену → процент посчитается сам</span></li>
+          <li><span lang="en">Subtitle under each row clarifies what's included (e.g. "consultation, cut, blow-dry finish")</span><span lang="ru">Подпись под каждой строкой уточняет, что входит</span></li>
+          <li><span lang="en">"Book a Free Consultation" CTA right next to the prices — friction-free path to the booking</span><span lang="ru">CTA «Book a Free Consultation» прямо рядом с ценами — путь к записи без трения</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 06 — 3-step booking with upsell ("Pair It With") -->
+    <div class="feature-row reversed">
+      <div class="device">
+        <div class="iphone">
+          <div class="iphone-side-btn silence"></div>
+          <div class="iphone-side-btn vol-up"></div>
+          <div class="iphone-side-btn vol-down"></div>
+          <div class="iphone-side-btn power"></div>
+          <div class="iphone-notch"></div>
+          <div class="iphone-screen">
+            <img src="screenshots/booking_mobile.png" alt="3-step booking form on mobile" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <div class="feature-num">
+          <span>06 / 08</span>
+          <span class="badge both"><span lang="en">Both versions · Key feature</span><span lang="ru">Обе версии · Ключевая фича</span></span>
+        </div>
+        <h3 class="feature-title">
+          <span lang="en">A real booking form — with a built-in upsell</span>
+          <span lang="ru">Настоящая форма записи — со встроенным upsell</span>
+        </h3>
+        <p class="feature-text">
+          <span lang="en">Three steps: <strong>1. pick a service · 2. pair it with · 3. your details</strong>. The middle step is the quiet money-maker — when a guest taps "Color &amp; Highlights", we suggest a complementary "Spa Manicure while your color processes". Soft, never pushy, but it lifts average ticket size meaningfully across hundreds of bookings.</span>
+          <span lang="ru">Три шага: <strong>1. выбор услуги · 2. дополнительная услуга · 3. контакты</strong>. Средний шаг — тихий драйвер выручки: гость выбирает «Color &amp; Highlights», и мы мягко предлагаем «Spa Manicure, пока цвет проявляется». Без давления — но средний чек на сотнях записей растёт ощутимо.</span>
+        </p>
+        <ul class="feature-bullets">
+          <li><span lang="en"><strong>Service chips</strong> with icons — visual, not a dropdown</span><span lang="ru"><strong>Чипы услуг</strong> с иконками — визуально, а не выпадающий список</span></li>
+          <li><span lang="en"><strong>"Pair it with"</strong> step is conditional — different upsell for color vs cut vs bridal</span><span lang="ru"><strong>Шаг «Pair it with»</strong> условный — разная допродажа для color, cut, bridal</span></li>
+          <li><span lang="en">Step indicator at the top — guest always knows where they are</span><span lang="ru">Индикатор шагов сверху — гость всегда видит, где он</span></li>
+          <li><span lang="en">Submissions go to email + (optionally) Telegram or WhatsApp — see pricing</span><span lang="ru">Заявки приходят на email + (опционально) в Telegram или WhatsApp — см. прайс</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 07 — Booking confirmation state -->
+    <div class="feature-row">
+      <div class="device">
+        <div class="macbook">
+          <div class="macbook-screen">
+            <span class="macbook-camera"></span>
+            <div class="macbook-bezel">
+              <img src="screenshots/booking_success_desktop.png" alt="Booking success state with hours" loading="lazy">
+            </div>
+          </div>
+          <div class="macbook-base"></div>
+        </div>
+      </div>
+      <div class="copy">
+        <div class="feature-num">
+          <span>07 / 08</span>
+          <span class="badge both"><span lang="en">Both versions</span><span lang="ru">Обе версии</span></span>
+        </div>
+        <h3 class="feature-title">
+          <span lang="en">Confirmation that closes the loop</span>
+          <span lang="ru">Подтверждение, которое закрывает цикл</span>
+        </h3>
+        <p class="feature-text">
+          <span lang="en">After submit, the guest sees a clear screen: <strong>"Your request is in. The team will call to confirm within the hour during business hours."</strong> Right below — the actual hours (Mon–Sat 8:00–20:00) and a tappable phone link. No mystery, no "did it send?" anxiety. The most common moment people abandon a booking is uncertainty after pressing submit — this kills it.</span>
+          <span lang="ru">После отправки гость видит ясный экран: <strong>«Ваш запрос принят. Команда перезвонит для подтверждения в течение часа в рабочее время».</strong> Прямо под ним — настоящие часы работы (Mon–Sat 8:00–20:00) и тапабельный номер телефона. Никаких загадок и «дошло ли?». Чаще всего люди бросают букинг именно в момент неопределённости после кнопки — этот экран её закрывает.</span>
+        </p>
+        <ul class="feature-bullets">
+          <li><span lang="en"><strong>Real working hours</strong> displayed — guest knows exactly when to expect the callback</span><span lang="ru"><strong>Реальные часы работы</strong> на экране — гость знает, когда ждать звонок</span></li>
+          <li><span lang="en">Phone number is a <code>tel:</code> link — one tap dials</span><span lang="ru">Номер телефона — это <code>tel:</code> ссылка, тап и набор</span></li>
+          <li><span lang="en">"Send Another Request" button for repeat bookings (e.g. mom + daughter)</span><span lang="ru">Кнопка «Send Another Request» для повторных записей (например, мама + дочь)</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 08 — Brighton Beach map + contact -->
+    <div class="feature-row reversed">
+      <div class="device">
+        <div class="macbook">
+          <div class="macbook-screen">
+            <span class="macbook-camera"></span>
+            <div class="macbook-bezel">
+              <img src="screenshots/contact_desktop.png" alt="Brighton Beach map on desktop" loading="lazy">
+            </div>
+          </div>
+          <div class="macbook-base"></div>
+        </div>
+      </div>
+      <div class="copy">
+        <div class="feature-num">
+          <span>08 / 08</span>
+          <span class="badge both"><span lang="en">Both versions</span><span lang="ru">Обе версии</span></span>
+        </div>
+        <h3 class="feature-title">
+          <span lang="en">Find us on Brighton — clearly</span>
+          <span lang="ru">Найти нас на Брайтоне — чётко</span>
+        </h3>
+        <p class="feature-text">
+          <span lang="en">Embedded Google Map (1087 Brighton Beach Ave, between 12th and 13th) that <strong>switches to dark when the site is in night mode</strong>. Address, phone, email, and four social icons — Instagram, Facebook, TikTok, Pinterest — all in tap-zone reach. The "no checks, gratuities in cash only" policy is shown openly so there's no awkward conversation at the chair.</span>
+          <span lang="ru">Встроенная Google-карта (1087 Brighton Beach Ave, между 12 и 13) которая <strong>переключается на тёмную тему вместе с сайтом</strong>. Адрес, телефон, email и четыре соцсети — Instagram, Facebook, TikTok, Pinterest — в зоне большого пальца. Политика «не принимаем чеки, чаевые только наличными» показана открыто — чтобы не было неловкого разговора у кресла.</span>
+        </p>
+        <ul class="feature-bullets">
+          <li><span lang="en"><strong>Map theme</strong> follows the site theme — daylight or night</span><span lang="ru"><strong>Тема карты</strong> следует за темой сайта — день или ночь</span></li>
+          <li><span lang="en">Hours block highlights "Sunday — Free Day" instead of "Closed" — small warmth detail</span><span lang="ru">Блок часов пишет «Sunday — Free Day» вместо «Closed» — маленький тёплый штрих</span></li>
+          <li><span lang="en">Address, phone, email all <code>tel:</code> / <code>mailto:</code> / Maps-ready</span><span lang="ru">Адрес, телефон, email — все как <code>tel:</code> / <code>mailto:</code> / готовы к открытию в Maps</span></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ TEAM SECTION ============ -->
+<section class="team-section">
+  <div class="container">
+    <div class="team-head">
+      <span class="team-eyebrow">
+        <span lang="en">Behind We2</span>
+        <span lang="ru">За кадром We2</span>
+      </span>
+      <h2>
+        <span lang="en">A small team. Full ownership.</span>
+        <span lang="ru">Маленькая команда. Полная вовлечённость.</span>
+      </h2>
+      <p>
+        <span lang="en">No middlemen, no project managers. You talk directly to the people building your site.</span>
+        <span lang="ru">Без посредников и менеджеров. Вы общаетесь напрямую с теми, кто делает ваш сайт.</span>
+      </p>
+    </div>
+
+    <div class="team-grid">
+
+      <!-- Margarita -->
+      <div class="team-card">
+        <div class="team-photo">
+          <img src="team/margarita.jpg" alt="Margarita — Designer">
+        </div>
+        <div class="team-name">Margarita</div>
+        <div class="team-role">
+          <span lang="en">Designer · New York</span>
+          <span lang="ru">Дизайнер · Нью-Йорк</span>
+        </div>
+        <p class="team-bio">
+          <span lang="en">Crafts the visual language — from the first mood frame to the final polish on every screen.</span>
+          <span lang="ru">Создаёт визуальный язык — от первого мудборда до финальной полировки каждого экрана.</span>
+        </p>
+      </div>
+
+      <!-- Danil -->
+      <div class="team-card">
+        <div class="team-photo">
+          <img src="team/danil.jpg" alt="Danil — Developer">
+        </div>
+        <div class="team-name">Danil</div>
+        <div class="team-role">
+          <span lang="en">Developer · Ukraine</span>
+          <span lang="ru">Разработчик · Украина</span>
+        </div>
+        <p class="team-bio">
+          <span lang="en">Builds it, ships it, makes it fast. Hands-on with every line of code that goes live.</span>
+          <span lang="ru">Собирает, запускает, делает быстрым. Лично участвует в каждой строчке кода.</span>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section style="padding: 4rem 0 1rem; text-align: center;">
+  <div class="container">
+    <h2 style="font-size: clamp(1.5rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem;">
+      <span lang="en">Ready to look around?</span>
+      <span lang="ru">Хотите посмотреть в живую?</span>
+    </h2>
+    <p style="color: var(--text-2); margin-bottom: 0; max-width: 540px; margin-left: auto; margin-right: auto; font-size: 0.95rem;">
+      <span lang="en">Open the live site, scroll on a phone, try the booking. When you're ready — pricing is one tap below.</span>
+      <span lang="ru">Откройте сайт, полистайте на телефоне, попробуйте записаться. Когда будете готовы — прайс на расстоянии одного нажатия внизу.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-mark"></span>
+        <span>We2 · Family Studio</span>
+      </div>
+      <div>
+        <span lang="en">Concept v2 · Pricing &amp; revisions on request.</span>
+        <span lang="ru">Концепт v2 · Прайс и доработки — по запросу.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const langToggle = document.getElementById('langToggle');
+  langToggle.querySelectorAll('button').forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.langSet;
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+      langToggle.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      langToggle.dataset.active = i;
+    });
+  });
+
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle.querySelectorAll('button').forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      const theme = btn.dataset.themeSet;
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      themeToggle.dataset.active = i;
+    });
+  });
+</script>
+</body>
+</html>
