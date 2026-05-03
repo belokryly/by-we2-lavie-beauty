@@ -1515,8 +1515,64 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   font-weight: 500;
   letter-spacing: -.01em;
   font-feature-settings: "tnum";
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 :root[data-theme="dark"] .price-row__price { color: var(--leaf); }
+
+/* "from" prefix — small italic */
+.price-row__price .from {
+  font-family: var(--serif-italic);
+  font-style: italic;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0;
+  text-transform: lowercase;
+  margin-right: -2px;
+}
+
+/* Old price — strikethrough, small, muted */
+.price-row__price .was {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-color: rgba(140, 143, 133, .55);
+  text-decoration-thickness: 1.5px;
+  letter-spacing: 0;
+}
+
+/* New price — kept normal styling */
+.price-row__price .now {
+  /* inherits parent */
+}
+
+/* Discount badge — small leaf-tinted pill */
+.price-row__discount {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 100px;
+  background: var(--leaf-mist);
+  color: var(--leaf-dark);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid rgba(124, 193, 66, .35);
+  white-space: nowrap;
+}
+:root[data-theme="dark"] .price-row__discount {
+  background: rgba(124, 193, 66, .15);
+  color: var(--leaf);
+  border-color: rgba(124, 193, 66, .3);
+}
 
 .price-pane { display: none; }
 .price-pane.active { display: block; animation: fade .4s var(--ease); }
@@ -1911,6 +1967,15 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   letter-spacing: -.005em;
   white-space: nowrap;
   font-feature-settings: "tnum";
+}
+.addon__from {
+  font-family: var(--serif-italic);
+  font-style: italic;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0;
+  margin-right: 2px;
 }
 :root[data-theme="dark"] .addon__price { color: var(--leaf); }
 
@@ -2704,6 +2769,8 @@ footer::before {
   }
   .we2-cross-nav.show { display: flex; }
   body.we2-cross-active { padding-top: 44px; }
+  /* When We2 cross-nav is showing, push the site's sticky nav down so it's not covered */
+  body.we2-cross-active .nav { top: 44px; }
   .we2-cross-nav .label-tiny {
     font-size: 0.6rem;
     font-weight: 700;
@@ -2901,8 +2968,8 @@ footer::before {
           <defs>
             <path id="circ" d="M 100, 100 m -78, 0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0"/>
           </defs>
-          <text fill="currentColor" font-size="11" letter-spacing="2.6" font-family="Manrope, sans-serif" font-weight="600">
-            <textPath href="#circ">LA VIE · BROOKLYN · BEAUTY · SALON · SPA · </textPath>
+          <text fill="currentColor" font-size="11" font-family="Manrope, sans-serif" font-weight="600">
+            <textPath href="#circ" textLength="490" lengthAdjust="spacing" startOffset="0">LA VIE BEAUTY · BRIGHTON BEACH · BROOKLYN · EST 2003 ·</textPath>
           </text>
         </svg>
         <div class="badge-label">EST<strong>2003</strong></div>
@@ -3287,27 +3354,27 @@ footer::before {
 
       <div class="price-pane active" data-pane="hair">
         <div class="price-list">
-          <div class="price-row"><div class="price-row__name">Signature Cut &amp; Style<small>Consultation, cut, blow-dry finish</small></div><div class="price-row__price">$85+</div></div>
-          <div class="price-row"><div class="price-row__name">Men's Cut<small>Includes scalp massage</small></div><div class="price-row__price">$55+</div></div>
-          <div class="price-row"><div class="price-row__name">Brazilian Blowout<small>Smoothing treatment, 2–3 hr</small></div><div class="price-row__price">$295+</div></div>
-          <div class="price-row"><div class="price-row__name">Keratin Treatment<small>Frizz control for 12–16 weeks</small></div><div class="price-row__price">$245+</div></div>
-          <div class="price-row"><div class="price-row__name">Tape-In Extensions<small>Full installation</small></div><div class="price-row__price">$650+</div></div>
+          <div class="price-row"><div class="price-row__name">Signature Cut &amp; Style<small>Consultation, cut, blow-dry finish</small></div><div class="price-row__price"><span class="from">from</span> $85</div></div>
+          <div class="price-row"><div class="price-row__name">Men's Cut<small>Includes scalp massage</small></div><div class="price-row__price"><span class="from">from</span> $55</div></div>
+          <div class="price-row"><div class="price-row__name">Brazilian Blowout<small>Smoothing treatment, 2–3 hr</small></div><div class="price-row__price"><span class="was">$295</span><span class="now">$245</span><span class="price-row__discount">−17%</span></div></div>
+          <div class="price-row"><div class="price-row__name">Keratin Treatment<small>Frizz control for 12–16 weeks</small></div><div class="price-row__price"><span class="from">from</span> $245</div></div>
+          <div class="price-row"><div class="price-row__name">Tape-In Extensions<small>Full installation</small></div><div class="price-row__price"><span class="from">from</span> $650</div></div>
         </div>
       </div>
 
       <div class="price-pane" data-pane="color">
         <div class="price-list">
-          <div class="price-row"><div class="price-row__name">Single-Process Color<small>Roots or all-over</small></div><div class="price-row__price">$110+</div></div>
-          <div class="price-row"><div class="price-row__name">Partial Highlights<small>Foils, framing</small></div><div class="price-row__price">$145+</div></div>
-          <div class="price-row"><div class="price-row__name">Full Highlights<small>Foils throughout</small></div><div class="price-row__price">$195+</div></div>
-          <div class="price-row"><div class="price-row__name">Balayage<small>Hand-painted, dimensional</small></div><div class="price-row__price">$235+</div></div>
-          <div class="price-row"><div class="price-row__name">Color Correction<small>By consultation only</small></div><div class="price-row__price">$295+</div></div>
+          <div class="price-row"><div class="price-row__name">Single-Process Color<small>Roots or all-over</small></div><div class="price-row__price"><span class="from">from</span> $110</div></div>
+          <div class="price-row"><div class="price-row__name">Partial Highlights<small>Foils, framing</small></div><div class="price-row__price"><span class="from">from</span> $145</div></div>
+          <div class="price-row"><div class="price-row__name">Full Highlights<small>Foils throughout</small></div><div class="price-row__price"><span class="from">from</span> $195</div></div>
+          <div class="price-row"><div class="price-row__name">Balayage<small>Hand-painted, dimensional · spring offer</small></div><div class="price-row__price"><span class="was">$235</span><span class="now">$195</span><span class="price-row__discount">−17%</span></div></div>
+          <div class="price-row"><div class="price-row__name">Color Correction<small>By consultation only</small></div><div class="price-row__price"><span class="from">from</span> $295</div></div>
         </div>
       </div>
 
       <div class="price-pane" data-pane="skin">
         <div class="price-list">
-          <div class="price-row"><div class="price-row__name">Signature European Facial<small>60 min · all skin types</small></div><div class="price-row__price">$120</div></div>
+          <div class="price-row"><div class="price-row__name">Signature European Facial<small>60 min · all skin types · spring offer</small></div><div class="price-row__price"><span class="was">$120</span><span class="now">$95</span><span class="price-row__discount">−21%</span></div></div>
           <div class="price-row"><div class="price-row__name">Anti-Aging Lift Facial<small>75 min · Janssen Cosmetics</small></div><div class="price-row__price">$165</div></div>
           <div class="price-row"><div class="price-row__name">Spa Manicure<small>Soak, shape, polish</small></div><div class="price-row__price">$45</div></div>
           <div class="price-row"><div class="price-row__name">Gel Manicure</div><div class="price-row__price">$60</div></div>
@@ -3322,8 +3389,8 @@ footer::before {
           <div class="price-row"><div class="price-row__name">Bridal Makeup Trial</div><div class="price-row__price">$135</div></div>
           <div class="price-row"><div class="price-row__name">Day-Of Bridal Hair</div><div class="price-row__price">$235</div></div>
           <div class="price-row"><div class="price-row__name">Day-Of Bridal Makeup<small>Airbrush included</small></div><div class="price-row__price">$215</div></div>
-          <div class="price-row"><div class="price-row__name">Bridal Party (per person)</div><div class="price-row__price">$155+</div></div>
-          <div class="price-row"><div class="price-row__name">Full Bridal Suite Package<small>Trial + day-of + party of 4</small></div><div class="price-row__price">$1,495</div></div>
+          <div class="price-row"><div class="price-row__name">Bridal Party (per person)</div><div class="price-row__price"><span class="from">from</span> $155</div></div>
+          <div class="price-row"><div class="price-row__name">Full Bridal Suite Package<small>Trial + day-of + party of 4 · package saving</small></div><div class="price-row__price"><span class="was">$1,695</span><span class="now">$1,495</span><span class="price-row__discount">−12%</span></div></div>
         </div>
       </div>
     </div>
@@ -3630,8 +3697,8 @@ footer::before {
   const root = document.documentElement;
   const toggle = document.getElementById('themeToggle');
   const stored = localStorage.getItem('lavie-theme');
-  const prefDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  root.dataset.theme = stored || (prefDark ? 'dark' : 'light');
+  // Default to light. Only honor explicit stored preference; ignore system.
+  root.dataset.theme = stored === 'dark' ? 'dark' : 'light';
 
   toggle.addEventListener('click', () => {
     const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
@@ -3718,34 +3785,34 @@ document.querySelectorAll('.field select').forEach(s => {
   /* Add-on catalog by service category — chosen as natural upsells */
   const ADDONS = {
     hair: [
-      { name: 'Deep Conditioning Treatment', price: '+ $35', desc: 'Intense moisture mask, 20 min', tag: 'POPULAR', icon: 'leaf' },
-      { name: 'Olaplex Bond Repair',          price: '+ $45', desc: 'Strengthens damaged hair', tag: 'NEW', icon: 'sparkle' },
-      { name: 'Scalp Massage Ritual',         price: '+ $25', desc: 'Aromatic oil, 15 min relaxation', icon: 'spa' }
+      { name: 'Deep Conditioning Treatment', price: 'from + $35', desc: 'Intense moisture mask, 20 min', tag: 'POPULAR', icon: 'leaf' },
+      { name: 'Olaplex Bond Repair',          price: 'from + $45', desc: 'Strengthens damaged hair', tag: 'NEW', icon: 'sparkle' },
+      { name: 'Scalp Massage Ritual',         price: 'from + $25', desc: 'Aromatic oil, 15 min relaxation', icon: 'spa' }
     ],
     color: [
-      { name: 'Olaplex Bond Builder',         price: '+ $45', desc: 'Protects hair during color', tag: 'POPULAR', icon: 'sparkle' },
-      { name: 'Toning Gloss Finish',          price: '+ $40', desc: 'Adds shine and refines tone', icon: 'leaf' },
-      { name: 'Brow Tint',                    price: '+ $25', desc: 'Match your new hair color', tag: 'NEW', icon: 'eye' }
+      { name: 'Olaplex Bond Builder',         price: 'from + $45', desc: 'Protects hair during color', tag: 'POPULAR', icon: 'sparkle' },
+      { name: 'Toning Gloss Finish',          price: 'from + $40', desc: 'Adds shine and refines tone', icon: 'leaf' },
+      { name: 'Brow Tint',                    price: 'from + $25', desc: 'Match your new hair color', tag: 'NEW', icon: 'eye' }
     ],
     nails: [
-      { name: 'Paraffin Hand Treatment',      price: '+ $20', desc: 'Softens skin, smooths cuticles', tag: 'POPULAR', icon: 'spa' },
-      { name: 'Nail Art (per nail)',          price: '+ $5',  desc: 'Hand-painted design', icon: 'sparkle' },
-      { name: 'Express Pedicure Add-On',      price: '+ $35', desc: 'Pair with manicure, save time', icon: 'leaf' }
+      { name: 'Paraffin Hand Treatment',      price: 'from + $20', desc: 'Softens skin, smooths cuticles', tag: 'POPULAR', icon: 'spa' },
+      { name: 'Nail Art (per nail)',          price: 'from + $5',  desc: 'Hand-painted design', icon: 'sparkle' },
+      { name: 'Express Pedicure Add-On',      price: 'from + $35', desc: 'Pair with manicure, save time', icon: 'leaf' }
     ],
     skin: [
-      { name: 'LED Light Therapy',            price: '+ $35', desc: '15 min, calms and brightens', tag: 'NEW', icon: 'sparkle' },
-      { name: 'Eye-Area Lift Treatment',      price: '+ $30', desc: 'Reduces puffiness, brightens', tag: 'POPULAR', icon: 'eye' },
-      { name: 'Lip Hydration Mask',           price: '+ $18', desc: 'Smooths and softens', icon: 'spa' }
+      { name: 'LED Light Therapy',            price: 'from + $35', desc: '15 min, calms and brightens', tag: 'NEW', icon: 'sparkle' },
+      { name: 'Eye-Area Lift Treatment',      price: 'from + $30', desc: 'Reduces puffiness, brightens', tag: 'POPULAR', icon: 'eye' },
+      { name: 'Lip Hydration Mask',           price: 'from + $18', desc: 'Smooths and softens', icon: 'spa' }
     ],
     bridal: [
-      { name: 'Pre-Wedding Trial Run',        price: '+ $135', desc: '90-min hair + makeup preview', tag: 'POPULAR', icon: 'sparkle' },
-      { name: 'Lash Extensions',              price: '+ $125', desc: 'Wedding-ready in one visit', tag: 'NEW', icon: 'eye' },
-      { name: 'Custom Airbrush Spray Tan',    price: '+ $65',  desc: 'Glow without the streak', icon: 'spa' }
+      { name: 'Pre-Wedding Trial Run',        price: 'from + $135', desc: '90-min hair + makeup preview', tag: 'POPULAR', icon: 'sparkle' },
+      { name: 'Lash Extensions',              price: 'from + $125', desc: 'Wedding-ready in one visit', tag: 'NEW', icon: 'eye' },
+      { name: 'Custom Airbrush Spray Tan',    price: 'from + $65',  desc: 'Glow without the streak', icon: 'spa' }
     ],
     any: [
-      { name: 'Custom Airbrush Spray Tan',    price: '+ $65', desc: 'Glow without the streak', tag: 'POPULAR', icon: 'spa' },
-      { name: 'Brow Shape & Tint',            price: '+ $45', desc: '20 min, frames the face', icon: 'eye' },
-      { name: 'Hand & Arm Massage',           price: '+ $25', desc: 'Add to any service', tag: 'NEW', icon: 'spa' }
+      { name: 'Custom Airbrush Spray Tan',    price: 'from + $65', desc: 'Glow without the streak', tag: 'POPULAR', icon: 'spa' },
+      { name: 'Brow Shape & Tint',            price: 'from + $45', desc: '20 min, frames the face', icon: 'eye' },
+      { name: 'Hand & Arm Massage',           price: 'from + $25', desc: 'Add to any service', tag: 'NEW', icon: 'spa' }
     ]
   };
 
@@ -3799,6 +3866,7 @@ document.querySelectorAll('.field select').forEach(s => {
   });
 
   /* --- STEP 2: Render add-ons based on service category --- */
+  const formatAddonPrice = (s) => s.replace(/^from\s*/, '<em class="addon__from">from</em> ');
   const renderAddons = () => {
     const list = ADDONS[state.serviceCat] || ADDONS.any;
     addonsBox.innerHTML = list.map((a, i) => `
@@ -3808,7 +3876,7 @@ document.querySelectorAll('.field select').forEach(s => {
           <span class="addon__name">${a.name}${a.tag ? `<span class="addon__tag${a.tag === 'POPULAR' ? ' is-popular' : ''}">${a.tag}</span>` : ''}</span>
           <span class="addon__desc">${a.desc}</span>
         </span>
-        <span class="addon__price">${a.price}</span>
+        <span class="addon__price">${formatAddonPrice(a.price)}</span>
       </button>
     `).join('');
 
