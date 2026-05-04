@@ -2341,7 +2341,12 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   font-size: 11px;
   font-family: var(--sans);
 }
-:root[data-theme="dark"] .contact__disclaimer { color: var(--ink-2); background: rgba(155,213,95,.08); }
+:root[data-theme="dark"] .contact__disclaimer {
+  color: rgba(244,242,235,.92);
+  background: rgba(155,213,95,.12);
+  border-left-color: #9bd55f;
+}
+:root[data-theme="dark"] .contact__disclaimer strong { color: #c8e89a; }
 
 .contact__info { display: grid; gap: 28px; }
 .contact__info-item h4 {
@@ -2380,14 +2385,14 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .contact__socials a {
   width: 46px; height: 46px;
   border-radius: 50%;
-  background: var(--leaf);
-  color: var(--leaf-dark);
+  background: #9bd55f;   /* fixed leaf — same in both themes */
+  color: #2f4d1a;        /* fixed deep green icon — readable on the leaf bg */
   display: grid; place-items: center;
   transition: all .35s var(--ease);
 }
 .contact__socials a:hover {
-  background: var(--ink);
-  color: var(--bg);
+  background: #2f4d1a;   /* invert: dark green bg with leaf-mint icon */
+  color: #d8efb8;
   transform: translateY(-3px);
 }
 .contact__socials svg { width: 17px; height: 17px; }
@@ -2422,6 +2427,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .hours li span:first-child { color: var(--slate); }
 .hours li span:last-child { font-weight: 600; font-feature-settings: "tnum"; }
 .hours li.closed span:last-child { color: var(--leaf-deep); font-style: italic; font-weight: 400; font-family: var(--serif-italic); }
+:root[data-theme="dark"] .hours li { border-bottom-color: rgba(244,242,235,.16); }
 
 .map {
   margin-top: 28px;
@@ -2524,8 +2530,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
    FOOTER
    ================================================================ */
 footer {
-  background: var(--ink);
-  color: var(--bg);
+  background: #0d0f0c; /* fixed dark — brand-anchor surface, theme-independent */
+  color: #f4f2eb;
   padding: clamp(70px, 8vw, 110px) var(--gutter) 36px;
   position: relative;
   z-index: 2;
@@ -2538,7 +2544,7 @@ footer::before {
   transform: translateX(-50%);
   font-family: var(--serif-display);
   font-size: clamp(120px, 22vw, 320px);
-  color: rgba(255,255,255,.04);
+  color: rgba(244,242,235,.04);
   line-height: .8;
   letter-spacing: -.02em;
   pointer-events: none;
@@ -2553,9 +2559,10 @@ footer::before {
   margin-bottom: 60px;
   position: relative;
 }
-.foot__brand .brand__name { color: var(--bg); }
-.foot__brand .brand__name em { color: var(--leaf); }
+.foot__brand .brand__name { color: #f4f2eb; }
+.foot__brand .brand__name em { color: #9bd55f; }
 .foot__brand .brand__sub { color: rgba(244,242,235,.55); }
+.foot__brand .brand__leaf path[fill="#9bd55f"] { fill: #9bd55f; }
 .foot__brand p {
   font-size: 14px;
   color: rgba(244,242,235,.7);
@@ -2563,11 +2570,23 @@ footer::before {
   margin: 22px 0 28px;
   max-width: 340px;
 }
+/* Footer "Book Now" button — pin to light pill regardless of theme */
+.foot__brand .btn--leaf {
+  background: #9bd55f;
+  color: #2f4d1a;
+  border-color: #9bd55f;
+}
+.foot__brand .btn--leaf:hover {
+  background: #7cc142;
+  color: #1f3410;
+  border-color: #7cc142;
+  box-shadow: 0 18px 40px -16px rgba(155,213,95,.3);
+}
 .foot h5 {
   font-size: 11px;
   letter-spacing: .26em;
   text-transform: uppercase;
-  color: var(--leaf);
+  color: #9bd55f;
   margin-bottom: 22px;
   font-weight: 600;
   font-family: var(--sans);
@@ -2579,7 +2598,7 @@ footer::before {
   transition: all .3s var(--ease);
   line-height: 1.6;
 }
-.foot ul a:hover { color: var(--leaf); padding-left: 8px; }
+.foot ul a:hover { color: #9bd55f; padding-left: 8px; }
 
 .foot__bot {
   max-width: var(--max);
