@@ -750,8 +750,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
    MARQUEE
    ================================================================ */
 .marquee {
-  background: var(--leaf);
-  color: var(--leaf-dark);
+  background: #9bd55f; /* fixed leaf green — independent of theme */
+  color: #2f4d1a;       /* fixed dark green text — readable on green band in both themes */
   padding: 26px 0;
   overflow: hidden;
   position: relative;
@@ -775,7 +775,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   display: inline-block;
   width: 22px; height: 22px;
   flex-shrink: 0;
-  color: var(--leaf-dark);
+  color: #2f4d1a; /* match text color */
 }
 @keyframes marquee { to { transform: translateX(-50%); } }
 .marquee:hover .marquee__track { animation-play-state: paused; }
@@ -1585,8 +1585,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
    CTA STRIP — premium dark composition with leaf accents
    ================================================================ */
 .cta-strip {
-  background: var(--ink);
-  color: var(--bg);
+  background: #161814; /* fixed dark — brand-anchor surface, theme-independent */
+  color: #f4f2eb;
   border-radius: var(--r-lg);
   padding: clamp(60px, 8vw, 110px) clamp(30px, 5vw, 80px);
   text-align: center;
@@ -1599,8 +1599,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 18% 78%, color-mix(in srgb, var(--leaf) 35%, transparent), transparent 55%),
-    radial-gradient(circle at 82% 22%, color-mix(in srgb, var(--leaf) 28%, transparent), transparent 60%);
+    radial-gradient(circle at 18% 78%, rgba(124,193,66,.35), transparent 55%),
+    radial-gradient(circle at 82% 22%, rgba(124,193,66,.28), transparent 60%);
   pointer-events: none;
   z-index: -1;
 }
@@ -1625,11 +1625,13 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 }
 .cta-strip__leaf--1 { top: 12%; left: 8%; transform: rotate(-25deg); }
 .cta-strip__leaf--2 { bottom: 14%; right: 9%; transform: rotate(35deg); width: 64px; height: 64px; }
-.cta-strip h2 { color: var(--bg); margin-bottom: 18px; position: relative; }
-.cta-strip h2 em { color: var(--leaf); }
+.cta-strip h2 { color: #f4f2eb; margin-bottom: 18px; position: relative; }
+.cta-strip h2 em { color: #9bd55f; }
 .cta-strip > .eyebrow,
 .cta-strip > p,
 .cta-strip > .cta-buttons { position: relative; }
+.cta-strip .eyebrow { color: #9bd55f; }
+.cta-strip .eyebrow .line { background: rgba(155,213,95,.55); }
 .cta-strip p {
   max-width: 600px;
   margin: 0 auto 36px;
@@ -1642,6 +1644,26 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   gap: 14px;
   flex-wrap: wrap;
   justify-content: center;
+}
+/* Buttons inside cta-strip need fixed colors — its background is theme-independent dark */
+.cta-strip .btn--primary {
+  background: #9bd55f;
+  color: #2f4d1a;
+  border-color: #9bd55f;
+}
+.cta-strip .btn--primary:hover {
+  background: #7cc142;
+  color: #2f4d1a;
+  border-color: #7cc142;
+}
+.cta-strip .btn--ghost {
+  color: #f4f2eb;
+  border-color: rgba(244,242,235,.4);
+}
+.cta-strip .btn--ghost:hover {
+  background: #f4f2eb;
+  color: #161814;
+  border-color: #f4f2eb;
 }
 
 /* ================================================================
@@ -1843,7 +1865,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 16px;
+  padding: 12px 14px;
   border: 1.5px solid var(--line);
   border-radius: var(--r-sm);
   font-family: var(--sans);
@@ -1862,6 +1884,36 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   color: var(--leaf-dark);
 }
 :root[data-theme="dark"] .svc-chip.is-active { color: var(--leaf); }
+/* svc-chip body — name on top, "from $XX" small line under */
+.svc-chip-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.svc-chip-name {
+  line-height: 1.2;
+}
+.svc-chip-price {
+  font-family: var(--serif);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--leaf-deep);
+  letter-spacing: -.005em;
+  font-feature-settings: "tnum";
+  line-height: 1.1;
+}
+.svc-chip-price em {
+  font-family: var(--serif-italic);
+  font-style: italic;
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0;
+  margin-right: 1px;
+}
+:root[data-theme="dark"] .svc-chip-price { color: var(--leaf); }
 .svc-chip-icon {
   width: 28px; height: 28px;
   border-radius: 50%;
@@ -2966,7 +3018,8 @@ footer::before {
       <div class="hero__badge" data-parallax="0.12">
         <svg class="spin" viewBox="0 0 200 200">
           <defs>
-            <path id="circ" d="M 100, 100 m -78, 0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0"/>
+            <!-- Single full circle path: starts at top, goes all the way around, returns to start. -->
+            <path id="circ" d="M 100,22 a 78,78 0 1,1 -0.0001,0 z"/>
           </defs>
           <text fill="currentColor" font-size="11" font-family="Manrope, sans-serif" font-weight="600">
             <textPath href="#circ" textLength="490" lengthAdjust="spacing" startOffset="0">LA VIE BEAUTY · BRIGHTON BEACH · BROOKLYN · EST 2003 ·</textPath>
@@ -3436,35 +3489,59 @@ footer::before {
             <div class="svc-picker" id="svcPicker">
               <button type="button" class="svc-chip" data-svc="Hair Cut & Style" data-cat="hair">
                 <span class="svc-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg></span>
-                Hair Cut &amp; Style
+                <span class="svc-chip-body">
+                  <span class="svc-chip-name">Hair Cut &amp; Style</span>
+                  <span class="svc-chip-price"><em>from</em> $55</span>
+                </span>
               </button>
               <button type="button" class="svc-chip" data-svc="Color & Highlights" data-cat="color">
                 <span class="svc-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"/><path d="M12 12 2.5 21.5"/></svg></span>
-                Color &amp; Highlights
+                <span class="svc-chip-body">
+                  <span class="svc-chip-name">Color &amp; Highlights</span>
+                  <span class="svc-chip-price"><em>from</em> $110</span>
+                </span>
               </button>
               <button type="button" class="svc-chip" data-svc="Balayage" data-cat="color">
                 <span class="svc-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12c4-8 14-8 18 0"/><path d="M5 16c3-5 11-5 14 0"/></svg></span>
-                Balayage
+                <span class="svc-chip-body">
+                  <span class="svc-chip-name">Balayage</span>
+                  <span class="svc-chip-price"><em>from</em> $195</span>
+                </span>
               </button>
               <button type="button" class="svc-chip" data-svc="Keratin / Brazilian Blowout" data-cat="hair">
                 <span class="svc-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20"/><path d="M5 9c2 0 4 2 7 2s5-2 7-2"/><path d="M5 16c2 0 4 2 7 2s5-2 7-2"/></svg></span>
-                Keratin / Brazilian
+                <span class="svc-chip-body">
+                  <span class="svc-chip-name">Keratin / Brazilian</span>
+                  <span class="svc-chip-price"><em>from</em> $245</span>
+                </span>
               </button>
               <button type="button" class="svc-chip" data-svc="Manicure / Pedicure" data-cat="nails">
                 <span class="svc-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8l-1 14a3 3 0 0 1-3 3 3 3 0 0 1-3-3z"/></svg></span>
-                Manicure / Pedicure
+                <span class="svc-chip-body">
+                  <span class="svc-chip-name">Manicure / Pedicure</span>
+                  <span class="svc-chip-price"><em>from</em> $45</span>
+                </span>
               </button>
               <button type="button" class="svc-chip" data-svc="Facial / Skin Care" data-cat="skin">
                 <span class="svc-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01M9 15c1 1 5 1 6 0"/></svg></span>
-                Facial / Skin Care
+                <span class="svc-chip-body">
+                  <span class="svc-chip-name">Facial / Skin Care</span>
+                  <span class="svc-chip-price"><em>from</em> $95</span>
+                </span>
               </button>
               <button type="button" class="svc-chip" data-svc="Makeup / Bridal" data-cat="bridal">
                 <span class="svc-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 2.5 6L21 9l-5 4 1.5 7L12 17l-5.5 3L8 13 3 9l6.5-1z"/></svg></span>
-                Makeup / Bridal
+                <span class="svc-chip-body">
+                  <span class="svc-chip-name">Makeup / Bridal</span>
+                  <span class="svc-chip-price"><em>from</em> $135</span>
+                </span>
               </button>
               <button type="button" class="svc-chip" data-svc="Not sure — please advise" data-cat="any">
                 <span class="svc-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 4M12 17h.01"/></svg></span>
-                Not sure — advise
+                <span class="svc-chip-body">
+                  <span class="svc-chip-name">Not sure — advise</span>
+                  <span class="svc-chip-price"><em>free</em> consultation</span>
+                </span>
               </button>
             </div>
             <div class="booking__actions">
